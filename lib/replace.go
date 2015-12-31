@@ -46,7 +46,7 @@ func DiffLines(filename, input, output string, w io.Writer) int {
 		}
 		count++
 		s1, s2 := corrected(inlines[i], outlines[i])
-		io.WriteString(w, fmt.Sprintf("%s:%d: misspelling corrected %q -> %q\n",
+		io.WriteString(w, fmt.Sprintf("%s:%d: corrected %q -> %q\n",
 			filename, i, s1, s2))
 	}
 	return count

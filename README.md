@@ -64,24 +64,22 @@ otherhand, it sometimes catches things others don't.
 
 Either way, please file bugs and we'll fix them!
 
-Since it operates in parallel to make corrections, it can be non
-obvious to determine exactly what word was corrected.
+Since it operates in parallel to make corrections, it can be
+non-obvious to determine exactly what word was corrected.
 
 ### It's making mistakes.  How can I debug?
 
 Run using `-debug -dry` flag on the file you want.  It should then
-print what word it is trying to correct.  Then file a bug describing
-the problem.  Thanks!
+print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
+problem.  Thanks!
 
 ### Does this work with gometalinter?
 
-[gometalinter](https://github.com/alecthomas/gometalinter) runs multiple golang linters.
+[gometalinter](https://github.com/alecthomas/gometalinter) runs
+multiple golang linters, and it works well with `misspell` too.
 
-And yes, it works with it.
-
-After `go get -u github.com/client9/misspell`
-
-You need to add it, then enable it like so:
+After `go get -u github.com/client9/misspell` you need to add it, then
+enable it, like so:
 
 ```bash
 gometalinter --disable-all \

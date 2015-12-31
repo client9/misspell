@@ -4018,7 +4018,6 @@ var dictWikipedia = []string{
 	"upto", "up to",
 	"usally", "usually",
 	"useage", "usage",
-	"usefull", "useful",
 	"usefuly", "usefully",
 	"useing", "using",
 	"usualy", "usually",

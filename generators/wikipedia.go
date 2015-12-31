@@ -84,6 +84,7 @@ func main() {
 	delete(dict, "ublisher") // publisher
 
 	// dropped last character.. need ending delimiter
+	delete(dict, "usefull")       // useful or usefully
 	delete(dict, "definit")       // definite
 	delete(dict, "ther")          //, "there",
 	delete(dict, "supress")       // supressed
