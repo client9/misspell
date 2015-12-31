@@ -76,6 +76,7 @@ func TestFalsePositives(t *testing.T) {
 		"ampersand",
 		"decomposition",
 		"requestsinserted",
+		"seeked",
 	}
 	for casenum, tt := range cases {
 		got := Replace(tt, true)

@@ -22,6 +22,11 @@ func main() {
 	// Additions... need to move these somewhere else
 	dict["simultanoues"] = "simultaneous"
 
+	// Just wrong
+	delete(dict, "seeked")    // is "sought" but "seek" is a
+				  // technical word and "seeked" is
+				  // probably ok
+
 	// these need either starting delimited or both
 	// starting and ending delimiter
 	delete(dict, "thsi")      // this, but sometimes conflicts with variable names

@@ -3416,7 +3416,6 @@ var dictWikipedia = []string{
 	"secratary", "secretary",
 	"secretery", "secretary",
 	"sedereal", "sidereal",
-	"seeked", "sought",
 	"segementation", "segmentation",
 	"seguoys", "segues",
 	"seige", "siege",
