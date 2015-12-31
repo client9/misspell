@@ -39,7 +39,7 @@ func main() {
 	delete(dict, "guage")     // (gauge) language
 	delete(dict, "puting")    // putting -> computing
 	delete(dict, "planation") //plantation (explanation)
-	delete(dict, "rela")      // real (relavtive)
+	delete(dict, "rela")      // real (relative)
 	delete(dict, "ened")      // need / happened
 	delete(dict, "erally")    // really / generally
 	delete(dict, "agina")     // again, Paginated
@@ -80,7 +80,7 @@ func main() {
 	delete(dict, "persan")    // person / ampersand
 	delete(dict, "visable")   // visible / ?
 	delete(dict, "repid")     // rapid
-
+	delete(dict, "decomposit") // decompose / decomposition
 	// dropped first character
 	delete(dict, "ublisher") // publisher
 

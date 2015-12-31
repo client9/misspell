@@ -1209,7 +1209,6 @@ var dictWikipedia = []string{
 	"decieved", "deceived",
 	"decison", "decision",
 	"decomissioned", "decommissioned",
-	"decomposit", "decompose",
 	"decomposited", "decomposed",
 	"decompositing", "decomposing",
 	"decomposits", "decomposes",
