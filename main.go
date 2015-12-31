@@ -81,7 +81,7 @@ func main() {
 		count += changed
 	}
 	if count != 0 {
-		log.Printf("Got %d", count)
+		// log.Printf("Got %d", count)
 		// error
 		os.Exit(1)
 	}
