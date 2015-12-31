@@ -23,9 +23,9 @@ func main() {
 	dict["simultanoues"] = "simultaneous"
 
 	// Just wrong
-	delete(dict, "seeked")    // is "sought" but "seek" is a
-				  // technical word and "seeked" is
-				  // probably ok
+	delete(dict, "seeked") // is "sought" but "seek" is a
+	// technical word and "seeked" is
+	// probably ok
 
 	// Corrections
 	delete(dict, "fiel")
@@ -33,63 +33,63 @@ func main() {
 
 	// these need either starting delimited or both
 	// starting and ending delimiter
-	delete(dict, "yrea")      // year, but var name of bodyreader conflicts
-	delete(dict, "thsi")      // this, but sometimes conflicts with variable names
-	delete(dict, "grat")      //, "great",
-	delete(dict, "ect")       // etc
-	delete(dict, "whic")      // which
-	delete(dict, "alse")      // else
-	delete(dict, "fiel")      // else
-	delete(dict, "noth")      // north
-	delete(dict, "dum")       // dumb
-	delete(dict, "doub")      // doubt
-	delete(dict, "nto")       // not (into)
-	delete(dict, "toke")      // took (token)
-	delete(dict, "anual")     // annual (manual)
-	delete(dict, "guage")     // (gauge) language
-	delete(dict, "puting")    // putting -> computing
-	delete(dict, "planation") //plantation (explanation)
-	delete(dict, "rela")      // real (relative)
-	delete(dict, "ened")      // need / happened
-	delete(dict, "erally")    // really / generally
-	delete(dict, "agina")     // again, Paginated
-	delete(dict, "agin")      // again, paginated
-	delete(dict, "strat")     // start / strategy
-	delete(dict, "oposition") // opposition / geoposition
-	delete(dict, "layed")     // laid, displayed
-	delete(dict, "wich")      // which / sandwich
-	delete(dict, "hten")      // then, Liechtenstein
-	delete(dict, "eles")      // eels / useless
-	delete(dict, "ackward")   // awkward / backward
-	delete(dict, "stpo")      // stop / postpone
-	delete(dict, "lieved")    // lived // believed
-	delete(dict, "thn")       // then / pathname
-	delete(dict, "thna")      // than / pathname
-	delete(dict, "spects")    // aspects / suspects
-	delete(dict, "interm")    // interim / intermediate
-	delete(dict, "sence")     // sense / presense
-	delete(dict, "erested")   // arrested / interested
-	delete(dict, "stroy")     // story / destroy
-	delete(dict, "orded")     // ordered / recorded
-	delete(dict, "opose")     // opose / propose
-	delete(dict, "earnt")     // earnt / learnt
-	delete(dict, "leran")     // learn / tolerant
-	delete(dict, "hting")     // thing / highlighting
-	delete(dict, "teh")       // the / whitehat
-	delete(dict, "onot")      // note / monotonic
-	delete(dict, "rised")     // raised / comprised
-	delete(dict, "emnity")    // emnity / indemnity
-	delete(dict, "attened")   // attended / flattened
-	delete(dict, "erupted")   // erupted / interrupted
-	delete(dict, "inot")      // into / inotify
-	delete(dict, "tatoo")     // tattoo / datatools
-	delete(dict, "theri")     // their / gathering
-	delete(dict, "errupted")  // erupted/ interrupted
-	delete(dict, "casion")    // caisson / occasional
-	delete(dict, "orgin")     // origin / forging
-	delete(dict, "persan")    // person / ampersand
-	delete(dict, "visable")   // visible / ?
-	delete(dict, "repid")     // rapid
+	delete(dict, "yrea")       // year, but var name of bodyreader conflicts
+	delete(dict, "thsi")       // this, but sometimes conflicts with variable names
+	delete(dict, "grat")       //, "great",
+	delete(dict, "ect")        // etc
+	delete(dict, "whic")       // which
+	delete(dict, "alse")       // else
+	delete(dict, "fiel")       // else
+	delete(dict, "noth")       // north
+	delete(dict, "dum")        // dumb
+	delete(dict, "doub")       // doubt
+	delete(dict, "nto")        // not (into)
+	delete(dict, "toke")       // took (token)
+	delete(dict, "anual")      // annual (manual)
+	delete(dict, "guage")      // (gauge) language
+	delete(dict, "puting")     // putting -> computing
+	delete(dict, "planation")  //plantation (explanation)
+	delete(dict, "rela")       // real (relative)
+	delete(dict, "ened")       // need / happened
+	delete(dict, "erally")     // really / generally
+	delete(dict, "agina")      // again, Paginated
+	delete(dict, "agin")       // again, paginated
+	delete(dict, "strat")      // start / strategy
+	delete(dict, "oposition")  // opposition / geoposition
+	delete(dict, "layed")      // laid, displayed
+	delete(dict, "wich")       // which / sandwich
+	delete(dict, "hten")       // then, Liechtenstein
+	delete(dict, "eles")       // eels / useless
+	delete(dict, "ackward")    // awkward / backward
+	delete(dict, "stpo")       // stop / postpone
+	delete(dict, "lieved")     // lived // believed
+	delete(dict, "thn")        // then / pathname
+	delete(dict, "thna")       // than / pathname
+	delete(dict, "spects")     // aspects / suspects
+	delete(dict, "interm")     // interim / intermediate
+	delete(dict, "sence")      // sense / presense
+	delete(dict, "erested")    // arrested / interested
+	delete(dict, "stroy")      // story / destroy
+	delete(dict, "orded")      // ordered / recorded
+	delete(dict, "opose")      // opose / propose
+	delete(dict, "earnt")      // earnt / learnt
+	delete(dict, "leran")      // learn / tolerant
+	delete(dict, "hting")      // thing / highlighting
+	delete(dict, "teh")        // the / whitehat
+	delete(dict, "onot")       // note / monotonic
+	delete(dict, "rised")      // raised / comprised
+	delete(dict, "emnity")     // emnity / indemnity
+	delete(dict, "attened")    // attended / flattened
+	delete(dict, "erupted")    // erupted / interrupted
+	delete(dict, "inot")       // into / inotify
+	delete(dict, "tatoo")      // tattoo / datatools
+	delete(dict, "theri")      // their / gathering
+	delete(dict, "errupted")   // erupted/ interrupted
+	delete(dict, "casion")     // caisson / occasional
+	delete(dict, "orgin")      // origin / forging
+	delete(dict, "persan")     // person / ampersand
+	delete(dict, "visable")    // visible / ?
+	delete(dict, "repid")      // rapid
 	delete(dict, "decomposit") // decompose / decomposition
 	// dropped first character
 	delete(dict, "ublisher") // publisher
@@ -131,7 +131,7 @@ func main() {
 
 	// wikipedia has some duplicates
 	words := make([]string, 0, len(dict))
-	for k, _ := range dict {
+	for k := range dict {
 		words = append(words, k)
 	}
 	sort.Strings(words)

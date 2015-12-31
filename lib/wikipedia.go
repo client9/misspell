@@ -1,4 +1,5 @@
 package lib
+
 var dictWikipedia = []string{
 	"Amercia", "America",
 	"Bernouilli", "Bernoulli",
