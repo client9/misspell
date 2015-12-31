@@ -52,7 +52,7 @@ This uses the mighty power of golang's
 [strings.Replacer](https://golang.org/pkg/strings/#Replacer) which is
 a implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
-This makes multiple substring matches *simultanouesly*
+This makes multiple substring matches *simultaneously*
 
 In addition this uses multiple CPU cores to works on multiple files.
 
