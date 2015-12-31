@@ -10,13 +10,13 @@ or grammar checker.
 
 ### What are other misspelling correctors and what's wrong with them?
 
-I took a look at the following:
+Some other misspelling correctors:
 
 * https://github.com/vlajos/misspell_fixer
 * https://github.com/lyda/misspell-check
 * https://github.com/lucasdemarchi
 
-They are work but had problems that prevented me from using them at scale:
+They all work but had problems that prevented me from using them at scale:
 
 * slow, all of the above check one misspelling at a time (i.e. linear) using regexps
 * not MIT/Apache2 licensed (or equivalent)
@@ -32,11 +32,11 @@ Easily 100x to 100x faster.  You should be able to check and correct
 
 ### What license is this?
 
-MIT
+[MIT](https://github.com/client9/misspell/blob/master/LICENSE)
 
 ### What are the depedencies?
 
-You need golang 1.5 to compile this, but the resulting binary has no
+You need [golang 1.5](https://golang.org/) to compile this, but the resulting binary has no
 dependencies.  If people want precompiled binaries for various
 platforms, let me know.
 

@@ -19,6 +19,9 @@ func main() {
 		dict[parts[0]] = strings.TrimSpace(spellings[0])
 	}
 
+	// Additions... need to move these somewhere else
+	dict["simultanoues"] = "simultaneous"
+
 	// these need either starting delimited or both
 	// starting and ending delimiter
 	delete(dict, "thsi")      // this, but sometimes conflicts with variable names

@@ -3488,6 +3488,7 @@ var dictWikipedia = []string{
 	"simmilar", "similar",
 	"simpley", "simply",
 	"simplier", "simpler",
+	"simultanoues", "simultaneous",
 	"simultanous", "simultaneous",
 	"simultanously", "simultaneously",
 	"sincerley", "sincerely",
