@@ -10,7 +10,7 @@ import (
 	"github.com/client9/misspell/lib"
 )
 
-func worker(dryrun bool, debug bool, files <-chan string, results chan<- int) {
+func worker(writeit bool, debug bool, files <-chan string, results chan<- int) {
 	fails := 0
 	for filename := range files {
 		//log.Printf("Scanning %q", filename)
@@ -28,7 +28,7 @@ func worker(dryrun bool, debug bool, files <-chan string, results chan<- int) {
 		}
 		fails += count
 		//log.Printf("Updating %q", filename)
-		if !dryrun {
+		if writeit {
 			ioutil.WriteFile(filename, []byte(updated), 0)
 		}
 	}
@@ -37,7 +37,7 @@ func worker(dryrun bool, debug bool, files <-chan string, results chan<- int) {
 
 func main() {
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
-	dryrun := flag.Bool("dry", false, "Dry run")
+	writeit := flag.Bool("w", false, "Write correction to file (default is just to display)")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	flag.Parse()
 
@@ -67,7 +67,7 @@ func main() {
 	results := make(chan int, *workers)
 
 	for i := 0; i < *workers; i++ {
-		go worker(*dryrun, *debug, c, results)
+		go worker(*writeit, *debug, c, results)
 	}
 
 	for _, filename := range args {

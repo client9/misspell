@@ -69,7 +69,7 @@ non-obvious to determine exactly what word was corrected.
 
 ### It's making mistakes.  How can I debug?
 
-Run using `-debug -dry` flag on the file you want.  It should then
+Run using `-debug` flag on the file you want.  It should then
 print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
 problem.  Thanks!
 
@@ -83,6 +83,6 @@ enable it, like so:
 
 ```bash
 gometalinter --disable-all \
-   --linter='misspell:misspell -dry ./*.go:PATH:LINE:MESSAGE' --enable=misspell \
+   --linter='misspell:misspell ./*.go:PATH:LINE:MESSAGE' --enable=misspell \
    ./...
 ```
