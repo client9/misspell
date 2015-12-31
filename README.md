@@ -6,7 +6,7 @@ Correct commonly misspelled English words... quickly.
 
 This attempts to correct commonly misspelled English words in source
 code and documentation.  It is not a complete spell-checking program
-or grammar checker.
+nor a grammar checker.
 
 ### What are other misspelling correctors and what's wrong with them?
 
@@ -54,13 +54,15 @@ a implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
 This makes multiple substring matches *simultanouesly*
 
-In addition this uses multiple CPU cores to works on multiple files
+In addition this uses multiple CPU cores to works on multiple files.
 
 ### What problems does it have?
 
 Unlike the other projects, this doesn't know what a "word" is.  There
-may be more false positives and false negatives due to this.  Please
-file bugs and we'll fix them!
+may be more false positives and false negatives due to this.  On the
+otherhand, it sometimes catches things others don't.
+
+Either way, please file bugs and we'll fix them!
 
 Since it operates in parallel to make corrections, it can be non
 obvious to determine exactly what word was corrected.
