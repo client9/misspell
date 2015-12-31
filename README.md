@@ -27,7 +27,7 @@ that this project!
 
 ### How much faster is this project?
 
-Easily 100x to 100x faster.  You should be able to check and correct
+Easily 100x to 1000x faster.  You should be able to check and correct
 1000 files in under 250ms.
 
 ### What license is this?
