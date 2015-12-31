@@ -1,6 +1,6 @@
 Correct commonly misspelled English words... quickly.
 
-FAQ
+## FAQ
 
 ### What problem does this solve?
 
@@ -18,7 +18,7 @@ I took a look at the following:
 
 They are work but had problems that prevented me from using them at scale:
 
-* slow, all of the above check one-misspelling at a time (i.e. linear) using regexps
+* slow, all of the above check one misspelling at a time (i.e. linear) using regexps
 * not MIT/Apache2 licensed (or equivalent)
 * have dependencies that don't work for me (python3, bash, linux sed, etc)
 
@@ -73,7 +73,7 @@ the problem.  Thanks!
 
 ### Does this work with gometalinter?
 
-(gometalinter)[https://github.com/alecthomas/gometalinter] runs multiple golang linters.
+[gometalinter](https://github.com/alecthomas/gometalinter) runs multiple golang linters.
 
 And yes, it works with it.
 
