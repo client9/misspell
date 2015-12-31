@@ -37,7 +37,7 @@ func worker(writeit bool, debug bool, files <-chan string, results chan<- int) {
 
 func main() {
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
-	writeit := flag.Bool("w", false, "Write correction to file (default is just to display)")
+	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	flag.Parse()
 
