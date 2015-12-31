@@ -1,4 +1,6 @@
 
+all: lint install test
+
 install:
 	(cd generators; go run wikipedia.go > ../lib/wikipedia.go)
 	go install .
@@ -9,7 +11,7 @@ lint:
 
 test:
 	go test ./lib/...
-	misspell -dry README.md main.go lib/replace.go
+	misspell README.md main.go lib/replace.go
 
 clean:
 	rm *~

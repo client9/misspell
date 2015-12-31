@@ -4172,7 +4172,6 @@ var dictWikipedia = []string{
 	"yotube", "youtube",
 	"youseff", "yousef",
 	"youself", "yourself",
-	"yrea", "year",
 	"ytou", "you",
 	"yuo", "you",
 	"zeebra", "zebra",

@@ -29,6 +29,7 @@ func main() {
 
 	// these need either starting delimited or both
 	// starting and ending delimiter
+	delete(dict, "yrea")      // year, but var name of bodyreader conflicts
 	delete(dict, "thsi")      // this, but sometimes conflicts with variable names
 	delete(dict, "grat")      //, "great",
 	delete(dict, "ect")       // etc
