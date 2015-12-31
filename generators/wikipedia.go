@@ -27,6 +27,10 @@ func main() {
 				  // technical word and "seeked" is
 				  // probably ok
 
+	// Corrections
+	delete(dict, "fiel")
+	dict["fiels"] = "fields"
+
 	// these need either starting delimited or both
 	// starting and ending delimiter
 	delete(dict, "yrea")      // year, but var name of bodyreader conflicts

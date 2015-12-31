@@ -1709,7 +1709,7 @@ var dictWikipedia = []string{
 	"ficticious", "fictitious",
 	"fictious", "fictitious",
 	"fidn", "find",
-	"fiels", "feels",
+	"fiels", "fields",
 	"fiercly", "fiercely",
 	"fightings", "fighting",
 	"filiament", "filament",

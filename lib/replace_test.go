@@ -12,6 +12,7 @@ func TestReplace(t *testing.T) {
 		{"I live in Amercia", "I live in America"},
 		{"There is a zeebra", "There is a zebra"},
 		{"foo other bar", "foo other bar"},
+		{"ten fiels", "ten fields"},
 	}
 	for line, tt := range cases {
 		got := Replace(tt.orig, false)
