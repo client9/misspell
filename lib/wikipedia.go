@@ -3260,7 +3260,6 @@ var dictWikipedia = []string{
 	"repentent", "repentant",
 	"repeteadly", "repeatedly",
 	"repetion", "repetition",
-	"repid", "rapid",
 	"reponse", "response",
 	"reponsible", "responsible",
 	"reportadly", "reportedly",

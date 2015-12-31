@@ -79,6 +79,7 @@ func main() {
 	delete(dict, "orgin")     // origin / forging
 	delete(dict, "persan")    // person / ampersand
 	delete(dict, "visable")   // visible / ?
+	delete(dict, "repid")     // rapid
 
 	// dropped first character
 	delete(dict, "ublisher") // publisher
