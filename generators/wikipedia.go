@@ -136,7 +136,7 @@ func main() {
 	}
 	sort.Strings(words)
 
-	fmt.Printf("package lib\n")
+	fmt.Printf("package lib\n\n")
 	fmt.Printf("var dictWikipedia = []string{\n")
 	for _, word := range words {
 		fmt.Printf("\t%q, %q,\n", word, dict[word])
