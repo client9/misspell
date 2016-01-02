@@ -6,8 +6,8 @@ install:
 	go install .
 
 lint:
-	golint *.go
-	go vet *.go
+	golint ./...
+	go vet ./...
 	gofmt -w -s *.go */*.go
 
 test:

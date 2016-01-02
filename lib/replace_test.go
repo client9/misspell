@@ -15,7 +15,7 @@ func TestReplace(t *testing.T) {
 		{"ten fiels", "ten fields"},
 	}
 	for line, tt := range cases {
-		got := Replace(tt.orig, false)
+		got := Replace(tt.orig)
 		if got != tt.want {
 			t.Errorf("%d: Replace files want %q got %q", line, tt.orig, got)
 		}
@@ -81,7 +81,7 @@ func TestFalsePositives(t *testing.T) {
 		"bodyreader", // variable name
 	}
 	for casenum, tt := range cases {
-		got := Replace(tt, true)
+		got := ReplaceDebug(tt)
 		if got != tt {
 			t.Errorf("%d: %q got converted to %q", casenum, tt, got)
 		}

@@ -18,9 +18,8 @@ func init() {
 
 // Return one word that was corrected in a line
 //
-//  NOTE: there may be
-//  multiple words corrected in a single line but this is not meant to
-//  be a complete diff
+//  NOTE: there may be multiple words corrected in a single line but
+//  this is not meant to be a complete diff
 func corrected(instr, outstr string) (orig, corrected string) {
 	inparts := strings.Fields(instr)
 	outparts := strings.Fields(outstr)
@@ -32,6 +31,8 @@ func corrected(instr, outstr string) (orig, corrected string) {
 	return "", ""
 }
 
+// DiffLines produces a grep-like diff between two strings showing
+// filename, linenum and change.  It is not meant to be a comprehensive diff.
 func DiffLines(filename, input, output string, w io.Writer) int {
 	if output == input {
 		return 0
@@ -52,25 +53,30 @@ func DiffLines(filename, input, output string, w io.Writer) int {
 	return count
 }
 
-// Replace takes input string and does spelling corrections on
-// commonly misspelled words.
-func Replace(input string, debug bool) string {
-	if debug {
-		for i := 0; i < len(dictWikipedia); i += 2 {
-			idx := strings.Index(input, dictWikipedia[i])
-			if idx != -1 {
-				left := idx - 10
-				if left < 0 {
-					left = 0
-				}
-				right := idx + len(dictWikipedia[i]) + 10
-				if right > len(input) {
-					right = len(input)
-				}
-				snippet := input[left:right]
-				log.Printf("Found %q in %q  (%q)", dictWikipedia[i], snippet, dictWikipedia[i+1])
+// ReplaceDebug logs exactly what was matched and replaced for using
+// in debugging
+func ReplaceDebug(input string) string {
+	for i := 0; i < len(dictWikipedia); i += 2 {
+		idx := strings.Index(input, dictWikipedia[i])
+		if idx != -1 {
+			left := idx - 10
+			if left < 0 {
+				left = 0
 			}
+			right := idx + len(dictWikipedia[i]) + 10
+			if right > len(input) {
+				right = len(input)
+			}
+			snippet := input[left:right]
+			log.Printf("Found %q in %q  (%q)", dictWikipedia[i], snippet, dictWikipedia[i+1])
 		}
 	}
+	return Replace(input)
+}
+
+// Replace takes input string and does spelling corrections on
+// commonly misspelled words.
+func Replace(input string) string {
+	// ok doesn't do much
 	return replacer.Replace(input)
 }

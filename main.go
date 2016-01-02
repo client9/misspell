@@ -20,8 +20,12 @@ func worker(writeit bool, debug bool, files <-chan string, results chan<- int) {
 			continue
 		}
 		orig := string(raw)
-		updated := lib.Replace(orig, debug)
-
+		var updated string
+		if debug {
+			updated = lib.ReplaceDebug(orig)
+		} else {
+			updated = lib.Replace(orig)
+		}
 		count := lib.DiffLines(filename, orig, updated, os.Stdout)
 		if count == 0 {
 			continue
