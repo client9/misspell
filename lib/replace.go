@@ -1,9 +1,9 @@
 package lib
 
 import (
+	"fmt"
 	"io"
 	"log"
-	"fmt"
 	"strings"
 )
 

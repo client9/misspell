@@ -8,6 +8,7 @@ install:
 lint:
 	golint *.go
 	go vet *.go
+	gofmt -w -s *.go */*.go
 
 test:
 	go test ./lib/...
