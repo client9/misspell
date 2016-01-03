@@ -73,6 +73,17 @@ Run using `-debug` flag on the file you want.  It should then
 print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
 problem.  Thanks!
 
+### Why is making mistakes or missing items in golang files?
+
+The matching function is *case-sensitive*, so variable names that are
+multiple worlds either in all-upper or all-lower case sometimes can
+cause false positives.  For instance a variable named `bodyreader`
+could trigger a false positive since `yrea` is in the middle that
+could be corrected to `year`.  The best way of fixing this is to use
+the [Effective Go naming conversions](https://golang.org/doc/effective_go.html#mixed-caps) and
+use camelCase for variable names.  You can check your code using
+[golint](https://github.com/golang/lint)
+
 ### Does this work with gometalinter?
 
 [gometalinter](https://github.com/alecthomas/gometalinter) runs
