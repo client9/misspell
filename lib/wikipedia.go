@@ -1,6 +1,7 @@
 package lib
 
 var dictWikipedia = []string{
+	" cant ", " can't ",
 	"Amercia", "America",
 	"Bernouilli", "Bernoulli",
 	"Blitzkreig", "Blitzkrieg",
@@ -29,6 +30,7 @@ var dictWikipedia = []string{
 	"Coca Cola", "Coca-Cola",
 	"Conneticut", "Connecticut",
 	"Dardenelles", "Dardanelles",
+	"Didnt", "Didn't",
 	"Dravadian", "Dravidian",
 	"Enlish", "English",
 	"Europian", "European",
@@ -1971,6 +1973,7 @@ var dictWikipedia = []string{
 	"hypocricy", "hypocrisy",
 	"hypocrit", "hypocrite",
 	"hypocrits", "hypocrites",
+	"i'm", "I'm",
 	"iconclastic", "iconoclastic",
 	"idaeidae", "idea",
 	"idaes", "ideas",

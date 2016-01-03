@@ -21,6 +21,11 @@ func main() {
 
 	// Additions... need to move these somewhere else
 	dict["simultanoues"] = "simultaneous"
+	dict["Didnt"] = "Didn't"
+	dict["i'm"] = "I'm"
+
+	// note some variable names are "cantFoo"
+	dict[" cant "] = " can't "
 
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a
