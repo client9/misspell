@@ -80,6 +80,7 @@ func TestFalsePositives(t *testing.T) {
 		"seeked",      // technical word
 		"bodyreader",  // variable name
 		"cantPrepare", // variable name
+		"dontPrepare", // variable name
 	}
 	for casenum, tt := range cases {
 		got := ReplaceDebug(tt)
