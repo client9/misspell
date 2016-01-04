@@ -26,6 +26,7 @@ func main() {
 
 	// note some variable names are "cantFoo"
 	dict[" cant "] = " can't "
+	dict[" dont "] = " don't "
 
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a

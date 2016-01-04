@@ -2,6 +2,7 @@ package lib
 
 var dictWikipedia = []string{
 	" cant ", " can't ",
+	" dont ", " don't ",
 	"Amercia", "America",
 	"Bernouilli", "Bernoulli",
 	"Blitzkreig", "Blitzkrieg",
