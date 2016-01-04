@@ -24,9 +24,11 @@ func main() {
 	dict["Didnt"] = "Didn't"
 	dict["i'm"] = "I'm"
 
+	// Additions
 	// note some variable names are "cantFoo"
 	dict[" cant "] = " can't "
 	dict[" dont "] = " don't "
+	dict["Dont "] = "Don't "
 
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a

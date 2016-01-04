@@ -32,6 +32,7 @@ var dictWikipedia = []string{
 	"Conneticut", "Connecticut",
 	"Dardenelles", "Dardanelles",
 	"Didnt", "Didn't",
+	"Dont ", "Don't ",
 	"Dravadian", "Dravidian",
 	"Enlish", "English",
 	"Europian", "European",
