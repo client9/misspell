@@ -21,6 +21,7 @@ func main() {
 
 	// Additions... need to move these somewhere else
 	dict["simultanoues"] = "simultaneous"
+	dict["configuraiton"] = "configuration"
 	dict["Didnt"] = "Didn't"
 	dict["i'm"] = "I'm"
 

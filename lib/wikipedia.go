@@ -1026,6 +1026,7 @@ var dictWikipedia = []string{
 	"confidental", "confidential",
 	"confidentally", "confidentially",
 	"confids", "confides",
+	"configuraiton", "configuration",
 	"configureable", "configurable",
 	"confortable", "comfortable",
 	"congradulations", "congratulations",
