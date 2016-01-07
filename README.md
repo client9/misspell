@@ -34,7 +34,7 @@ Easily 100x to 1000x faster.  You should be able to check and correct
 
 [MIT](https://github.com/client9/misspell/blob/master/LICENSE)
 
-### What are the depedencies?
+### What are the dependencies?
 
 You need [golang 1.5](https://golang.org/) to compile this, but the resulting binary has no
 dependencies.  If people want precompiled binaries for various
@@ -60,7 +60,7 @@ In addition this uses multiple CPU cores to works on multiple files.
 
 Unlike the other projects, this doesn't know what a "word" is.  There
 may be more false positives and false negatives due to this.  On the
-otherhand, it sometimes catches things others don't.
+other hand, it sometimes catches things others don't.
 
 Either way, please file bugs and we'll fix them!
 
@@ -80,9 +80,9 @@ multiple worlds either in all-upper or all-lower case sometimes can
 cause false positives.  For instance a variable named `bodyreader`
 could trigger a false positive since `yrea` is in the middle that
 could be corrected to `year`.  Other problems happen if the variable
-name uses a English contraction that should use an approstraphe.  The
+name uses a English contraction that should use an apostrophe.  The
 best way of fixing this is to use the [Effective Go naming
-conversions](https://golang.org/doc/effective_go.html#mixed-caps) and
+conventions](https://golang.org/doc/effective_go.html#mixed-caps) and
 use camelCase for variable names.  You can check your code using
 [golint](https://github.com/golang/lint)
 

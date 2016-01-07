@@ -1,35 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-	"strings"
-)
-
-func main() {
-	lines := strings.Split(strings.TrimSpace(wikipedia), "\n")
-	dict := make(map[string]string, len(lines))
-	for _, line := range lines {
-		line = strings.TrimSpace(line)
-		parts := strings.Split(line, "->")
-		if len(parts) != 2 {
-			panic("failed")
-		}
-		spellings := strings.Split(parts[1], ",")
-		dict[parts[0]] = strings.TrimSpace(spellings[0])
-	}
-
-	// Additions... need to move these somewhere else
-	dict["simultanoues"] = "simultaneous"
-	dict["configuraiton"] = "configuration"
-	dict["Didnt"] = "Didn't"
-	dict["i'm"] = "I'm"
-
-	// Additions
-	// note some variable names are "cantFoo"
-	dict[" cant "] = " can't "
-	dict[" dont "] = " don't "
-	dict["Dont "] = "Don't "
+func dictWikipedia() map[string]string {
+	dict := parseWikipediaFormat(wikipedia)
 
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a
@@ -138,19 +110,7 @@ func main() {
 	delete(dict, "agre")          // agree
 	delete(dict, "controll")      // controlled
 
-	// wikipedia has some duplicates
-	words := make([]string, 0, len(dict))
-	for k := range dict {
-		words = append(words, k)
-	}
-	sort.Strings(words)
-
-	fmt.Printf("package lib\n\n")
-	fmt.Printf("var dictWikipedia = []string{\n")
-	for _, word := range words {
-		fmt.Printf("\t%q, %q,\n", word, dict[word])
-	}
-	fmt.Printf("}\n")
+	return dict
 }
 
 var wikipedia = `
