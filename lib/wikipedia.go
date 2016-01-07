@@ -83,8 +83,6 @@ var dictWikipedia = []string{
 	"Jospeh", "Joseph",
 	"Juadaism", "Judaism",
 	"Juadism", "Judaism",
-	"LICENCE", "LICENSE",
-	"Licence", "License",
 	"Lybia", "Libya",
 	"Malcom", "Malcolm",
 	"Massachussets", "Massachusetts",

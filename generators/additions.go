@@ -34,8 +34,6 @@ Futher->Further
 IMPOSTER->IMPOSTOR
 Implementor->Implementer
 Instalation->Installation
-LICENCE->LICENSE
-Licence->License
 Numerious->Numerous
 Perfomance->Performance
 Recieve->Receive
