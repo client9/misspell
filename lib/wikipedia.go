@@ -1912,7 +1912,6 @@ var dictWikipedia = []string{
 	"grafitti", "graffiti",
 	"gramatically", "grammatically",
 	"grammaticaly", "grammatically",
-	"grammer", "grammar",
 	"gratuitious", "gratuitous",
 	"greatful", "grateful",
 	"greatfully", "gratefully",
