@@ -58,7 +58,6 @@ avaiable->available
 cahched->cached
 calback->callback
 canadian->Canadian
-capitalised->capitalized
 careflly->carefully
 chinese->Chinese
 commmand->command
@@ -67,12 +66,10 @@ comptability->compatibility
 conatins->contains
 conditon->condition
 configuraiton->configuration
-conflic ->conflict
 consitency->consistency
 contructed->constructed
 contructor->constructor
 convertor->converter
-couldn ->couldn't
 customises->customizes
 december->December
 declareation->declaration
@@ -153,7 +150,6 @@ recognising->recognizing
 requried->required
 retrived->retrieved
 ridiculus->ridiculous
-sanitise->sanitize
 sceptical->skeptical
 seperator->separator
 similarlly->similarly
