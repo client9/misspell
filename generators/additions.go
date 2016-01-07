@@ -55,8 +55,6 @@ artefact->artifact
 asychronous->asynchronous
 australia->Australia
 avaiable->available
-behaviour->behavior
-behaviours->behaviors
 cahched->cached
 calback->callback
 canadian->Canadian

@@ -711,8 +711,6 @@ var dictWikipedia = []string{
 	"beggins", "begins",
 	"begining", "beginning",
 	"beginnig", "beginning",
-	"behaviour", "behavior",
-	"behaviours", "behaviors",
 	"behavour", "behavior",
 	"beleagured", "beleaguered",
 	"beleif", "belief",
