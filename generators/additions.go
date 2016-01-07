@@ -124,7 +124,6 @@ muliple->multiple
 mulitple->multiple
 nubmers->numbers
 officiallly->officially
-ommit->omit
 otherhand->other hand
 optimisation->optimization
 optimising->optimizing

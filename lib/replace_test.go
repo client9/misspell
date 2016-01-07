@@ -76,6 +76,7 @@ func TestFalsePositives(t *testing.T) {
 		"forging",
 		"ampersand",
 		"decomposition",
+		"commit",
 		//		"requestsinserted",
 		"seeked",      // technical word
 		"bodyreader",  // variable name

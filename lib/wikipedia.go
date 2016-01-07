@@ -2729,7 +2729,6 @@ var dictWikipedia = []string{
 	"omiting", "omitting",
 	"omlette", "omelette",
 	"ommision", "omission",
-	"ommit", "omit",
 	"ommited", "omitted",
 	"ommiting", "omitting",
 	"ommitting", "omitting",
