@@ -123,7 +123,6 @@ otherhand->other hand
 optimisation->optimization
 optimising->optimizing
 optinally->optimally
-organisation->organization
 ouput->output
 outputed->outputted
 pacakge->package

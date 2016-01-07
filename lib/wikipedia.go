@@ -2753,7 +2753,6 @@ var dictWikipedia = []string{
 	"optmizations", "optimizations",
 	"optomism", "optimism",
 	"organim", "organism",
-	"organisation", "organization",
 	"organistion", "organisation",
 	"organiztion", "organization",
 	"orginal", "original",
