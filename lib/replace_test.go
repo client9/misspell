@@ -10,6 +10,7 @@ func TestReplaceIgnore(t *testing.T) {
 		text   string
 	}{
 		{"knwo", "https://github.com/Unknwon"},
+		{"gae", "github.com/hnakamur/gaesessions"},
 	}
 
 	for line, tt := range cases {

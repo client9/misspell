@@ -73,7 +73,7 @@ Run using `-debug` flag on the file you want.  It should then
 print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
 problem.  Thanks!
 
-### Why is making mistakes or missing items in golang files?
+### Why is it making mistakes or missing items in golang files?
 
 The matching function is *case-sensitive*, so variable names that are
 multiple worlds either in all-upper or all-lower case sometimes can
