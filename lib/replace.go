@@ -86,6 +86,7 @@ func Replace(input string) string {
 	return replacer.Replace(input)
 }
 
+// Ignore removes a correction rule
 func Ignore(word string) {
 	newwords := make([]string, 0, len(dictWikipedia))
 	for i := 0; i < len(dictWikipedia); i += 2 {
