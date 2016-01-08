@@ -7,6 +7,11 @@ import (
 	"strings"
 )
 
+/**
+ * Need to redo this so its more similar to how golang Flag works
+ * there is a default global, but then you can make your own object if needed
+ */
+
 var replacer *strings.Replacer
 
 func init() {
@@ -79,4 +84,19 @@ func ReplaceDebug(input string) string {
 func Replace(input string) string {
 	// ok doesn't do much
 	return replacer.Replace(input)
+}
+
+func Ignore(word string) {
+	newwords := make([]string, 0, len(dictWikipedia))
+	for i := 0; i < len(dictWikipedia); i += 2 {
+		if dictWikipedia[i] == word {
+			continue
+		}
+		newwords = append(newwords, dictWikipedia[i])
+		newwords = append(newwords, dictWikipedia[i+1])
+	}
+	replacer = strings.NewReplacer(newwords...)
+	if replacer == nil {
+		panic("unable to create strings.Replacer")
+	}
 }

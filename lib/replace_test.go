@@ -4,6 +4,23 @@ import (
 	"testing"
 )
 
+func TestReplaceIgnore(t *testing.T) {
+	cases := []struct {
+		ignore string
+		text   string
+	}{
+		{"knwo", "https://github.com/Unknwon"},
+	}
+
+	for line, tt := range cases {
+		Ignore(tt.ignore)
+		got := ReplaceDebug(tt.text)
+		if got != tt.text {
+			t.Errorf("%d: Replace files want %q got %q", line, tt.text, got)
+		}
+	}
+}
+
 func TestReplace(t *testing.T) {
 	cases := []struct {
 		orig string
