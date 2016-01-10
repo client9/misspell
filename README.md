@@ -6,9 +6,16 @@ Correct commonly misspelled English words... quickly.
 
 ### What problem does this solve?
 
-This attempts to correct commonly misspelled English words in source
-code and documentation.  It is not a complete spell-checking program
-nor a grammar checker.
+This corrects commonly misspelled English words in computer source
+code, and other text-based formats (`.txt`, `.md`, etc).
+
+It is designed to run quickly so it can be
+used as a [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
+with minimal burden on the developer.
+
+It does not work with binary formats (e.g. Word, etc).
+
+It is not a complete spell-checking program nor a grammar checker.
 
 ### What are other misspelling correctors and what's wrong with them?
 
