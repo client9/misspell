@@ -112,3 +112,52 @@ func TestFalsePositives(t *testing.T) {
 		}
 	}
 }
+
+func TestReplaceGo(t *testing.T) {
+	cases := []struct {
+		orig string
+		want string
+	}{
+		{
+			orig: `
+// I am a zeebra
+var foo 10
+`,
+			want: `
+// I am a zebra
+var foo 10
+`,
+		},
+		{
+			orig: `
+var foo 10
+// I am a zeebra`,
+			want: `
+var foo 10
+// I am a zebra`,
+		},
+		{
+			orig: `
+// I am a zeebra
+var foo int
+/* multiline
+ * zeebra
+ */
+`,
+			want: `
+// I am a zebra
+var foo int
+/* multiline
+ * zebra
+ */
+`,
+		},
+	}
+
+	for casenum, tt := range cases {
+		got := ReplaceGo(tt.orig, true)
+		if got != tt.want {
+			t.Errorf("%d: %q got converted to %q", casenum, tt, got)
+		}
+	}
+}

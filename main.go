@@ -11,10 +11,12 @@ import (
 	"github.com/client9/misspell/lib"
 )
 
-func worker(writeit bool, debug bool, files <-chan string, results chan<- int) {
+func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
 	fails := 0
 	for filename := range files {
 		//log.Printf("Scanning %q", filename)
+		isGolang := strings.HasSuffix(filename, ".go")
+
 		raw, err := ioutil.ReadFile(filename)
 		if err != nil {
 			log.Printf("Unable to read %q: %s", filename, err)
@@ -22,11 +24,16 @@ func worker(writeit bool, debug bool, files <-chan string, results chan<- int) {
 		}
 		orig := string(raw)
 		var updated string
-		if debug {
+
+		// GROSS
+		if mode == "go" || (mode == "auto" && isGolang) {
+			updated = lib.ReplaceGo(orig, debug)
+		} else if debug {
 			updated = lib.ReplaceDebug(orig)
 		} else {
 			updated = lib.Replace(orig)
 		}
+
 		count := lib.DiffLines(filename, orig, updated, os.Stdout)
 		if count == 0 {
 			continue
@@ -44,8 +51,17 @@ func main() {
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	ignores := flag.String("i", "", "Ignore the following corrections, comma separated")
+	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	flag.Parse()
+
+	switch *mode {
+	case "auto":
+	case "go":
+	case "text":
+	default:
+		log.Fatalf("Mode must be one of auto=guess, go=golang source, text=plain or markdown-like text")
+	}
 
 	if len(*ignores) > 0 {
 		parts := strings.Split(*ignores, ",")
@@ -79,7 +95,7 @@ func main() {
 	results := make(chan int, *workers)
 
 	for i := 0; i < *workers; i++ {
-		go worker(*writeit, *debug, c, results)
+		go worker(*writeit, *debug, *mode, c, results)
 	}
 
 	for _, filename := range args {

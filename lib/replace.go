@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"strings"
+	"text/scanner"
 )
 
 /**
@@ -84,6 +85,55 @@ func ReplaceDebug(input string) string {
 func Replace(input string) string {
 	// ok doesn't do much
 	return replacer.Replace(input)
+}
+
+// ReplaceGo is a specialized routine for correcting Golang source
+// files.  Currently only checks comments, not identifiers for
+// spelling.
+//
+// Other items:
+//   - check strings, but need to ignore
+//      * import "statements" blocks
+//      * import ( "blocks" )
+//   - skip first comment (line 0) if build comment
+//
+func ReplaceGo(input string, debug bool) string {
+	var s scanner.Scanner
+	s.Init(strings.NewReader(input))
+	s.Mode = scanner.ScanIdents | scanner.ScanFloats | scanner.ScanChars | scanner.ScanStrings | scanner.ScanRawStrings | scanner.ScanComments
+	lastPos := 0
+	output := ""
+	for {
+
+		switch s.Scan() {
+		case scanner.Comment:
+			origComment := s.TokenText()
+
+			var newComment string
+			if debug {
+				newComment = ReplaceDebug(origComment)
+			} else {
+				newComment = Replace(origComment)
+			}
+
+			if origComment != newComment {
+				// s.Pos().Offset is the end of the current token
+				//  subtract len(origComment) to get the start of token
+				output = output + input[lastPos:s.Pos().Offset-len(origComment)] + newComment
+				lastPos = s.Pos().Offset
+			}
+		case scanner.EOF:
+			// no changes, no copies
+			if lastPos == 0 {
+				return input
+			}
+			if lastPos >= len(input) {
+				return output
+			}
+
+			return output + input[lastPos:]
+		}
+	}
 }
 
 // Ignore removes a correction rule
