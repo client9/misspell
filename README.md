@@ -82,6 +82,15 @@ Run using `-debug` flag on the file you want.  It should then
 print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
 problem.  Thanks!
 
+### Are there special rules for golang source files?
+
+Yes!  If the file ends in `.go`, then misspell will only check spelling in comments.
+
+If you want to force a file to be checked as a golang source, use
+`-source=go` on the command line.  Conversely, you can check a go lang
+source as if it were pure text by using `-source=text`
+
+
 ### Why is it making mistakes or missing items in golang files?
 
 The matching function is *case-sensitive*, so variable names that are
