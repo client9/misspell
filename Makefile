@@ -15,5 +15,5 @@ test:
 	misspell README.md main.go lib/replace.go generators/main.go
 
 clean:
-	rm *~
+	rm -f *~
 	go clean ./...
