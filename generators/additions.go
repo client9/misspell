@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+credentaisl->credentials
 Accomodate->Accommodate
 COMMERICIAL->COMMERCIAL
 Constructur->Constructor

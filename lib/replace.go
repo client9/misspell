@@ -144,6 +144,7 @@ func inArray(haystack []string, needle string) bool {
 	}
 	return false
 }
+
 // Ignore removes a correction rule
 //   WARNING: multiple calls to this will unset the previous calls.
 //    thats not so good.

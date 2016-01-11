@@ -1213,6 +1213,7 @@ var dictWikipedia = []string{
 	"cpoy", "coy",
 	"creaeted", "created",
 	"creche", "crèche",
+	"credentaisl", "credentials",
 	"creedence", "credence",
 	"critereon", "criterion",
 	"criterias", "criteria",
