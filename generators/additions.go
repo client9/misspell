@@ -13,8 +13,8 @@ func dictAdditions() map[string]string {
 		// note some variable names are "cantFoo"
 		dict[" cant "] = " can't "
 		dict[" dont "] = " don't "
-		dict["Dont "] = "Don't "
 	*/
+	dict["Dont "] = "Don't "
 	return dict
 }
 
@@ -25,7 +25,6 @@ COMMERICIAL->COMMERCIAL
 Constructur->Constructor
 Depdending->Depending
 Disclamer->Disclaimer
-Dont->Don't
 Elimintates->Eliminates
 Embeded->Embedded
 Externalise->Externalize

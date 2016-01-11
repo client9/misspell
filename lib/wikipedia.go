@@ -34,7 +34,7 @@ var dictWikipedia = []string{
 	"Dardenelles", "Dardanelles",
 	"Depdending", "Depending",
 	"Disclamer", "Disclaimer",
-	"Dont", "Don't",
+	"Dont ", "Don't ",
 	"Dravadian", "Dravidian",
 	"Elimintates", "Eliminates",
 	"Embeded", "Embedded",

@@ -42,6 +42,7 @@ func TestReplace(t *testing.T) {
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"deb.VersionDontCare",
 		"authtag",
 		"intrepid",
 		"usefully",
