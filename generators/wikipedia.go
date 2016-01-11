@@ -5,8 +5,7 @@ func dictWikipedia() map[string]string {
 
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a
-	// technical word and "seeked" is
-	// probably ok
+	// technical term
 
 	// Corrections
 	delete(dict, "fiel")
@@ -16,6 +15,16 @@ func dictWikipedia() map[string]string {
 	// starting and ending delimiter
 	delete(dict, "runing")
 	dict[" runing"] = "running"
+
+	delete(dict, "republi")
+	dict["republi "] = "republic"
+
+	delete(dict, "republis")
+	dict["republis "] = "republics"
+
+	// fallthru is a common abbreviation
+	delete(dict, "thru")
+	dict[" thru "] = "through"
 
 	delete(dict, "gae")        // game, but too small
 	delete(dict, "thta")       // that / authtag

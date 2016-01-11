@@ -2,6 +2,7 @@ package lib
 
 var dictWikipedia = []string{
 	" runing", "running",
+	" thru ", "through",
 	"Accomodate", "Accommodate",
 	"Amercia", "America",
 	"Bernouilli", "Bernoulli",
@@ -3398,10 +3399,10 @@ var dictWikipedia = []string{
 	"repubican", "republican",
 	"repubicans", "republicans",
 	"repubics", "republics",
-	"republi", "republic",
+	"republi ", "republic",
 	"republian", "republican",
 	"republians", "republicans",
-	"republis", "republics",
+	"republis ", "republics",
 	"repulic", "republic",
 	"repulican", "republican",
 	"repulicans", "republicans",
@@ -3973,7 +3974,6 @@ var dictWikipedia = []string{
 	"throughly", "thoroughly",
 	"throught", "thought",
 	"througout", "throughout",
-	"thru", "through",
 	"thsoe", "those",
 	"thyat", "that",
 	"tiem", "time",
