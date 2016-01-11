@@ -3975,7 +3975,6 @@ var dictWikipedia = []string{
 	"througout", "throughout",
 	"thru", "through",
 	"thsoe", "those",
-	"thta", "that",
 	"thyat", "that",
 	"tiem", "time",
 	"tihkn", "think",
