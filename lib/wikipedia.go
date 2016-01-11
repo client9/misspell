@@ -1854,7 +1854,6 @@ var dictWikipedia = []string{
 	"futher", "further",
 	"futhermore", "furthermore",
 	"futhroc", "futhark",
-	"gae", "game",
 	"galatic", "galactic",
 	"gallaxies", "galaxies",
 	"galvinized", "galvanized",

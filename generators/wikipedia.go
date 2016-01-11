@@ -17,6 +17,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "runing")
 	dict[" runing"] = "running"
 
+	delete(dict, "gae")        // game, but too small
 	delete(dict, "thta")       // that / authtag
 	delete(dict, "grammer")    // grammar / programmer
 	delete(dict, "yrea")       // year, but var name of bodyreader conflicts
