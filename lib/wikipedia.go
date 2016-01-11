@@ -547,7 +547,6 @@ var dictWikipedia = []string{
 	"arguement", "argument",
 	"arguements", "arguments",
 	"aribtrary", "arbitrary",
-	"arised", "arose",
 	"arival", "arrival",
 	"armamant", "armament",
 	"armistace", "armistice",

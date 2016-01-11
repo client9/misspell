@@ -26,6 +26,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "thru")
 	dict[" thru "] = "through"
 
+	delete(dict, "arised")     // "arose", vs "summarised"
 	delete(dict, "vell")       // well / travelling
 	delete(dict, "autor")      // author / autorenew
 	delete(dict, "gae")        // game, but too small
