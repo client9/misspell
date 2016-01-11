@@ -14,6 +14,9 @@ func dictWikipedia() map[string]string {
 
 	// these need either starting delimited or both
 	// starting and ending delimiter
+	delete(dict, "runing")
+	dict[" runing"] = "running"
+
 	delete(dict, "thta")       // that / authtag
 	delete(dict, "grammer")    // grammar / programmer
 	delete(dict, "yrea")       // year, but var name of bodyreader conflicts

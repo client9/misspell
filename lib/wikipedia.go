@@ -1,6 +1,7 @@
 package lib
 
 var dictWikipedia = []string{
+	" runing", "running",
 	"Accomodate", "Accommodate",
 	"Amercia", "America",
 	"Bernouilli", "Bernoulli",
@@ -3485,7 +3486,6 @@ var dictWikipedia = []string{
 	"rucuperate", "recuperate",
 	"rudimentatry", "rudimentary",
 	"rulle", "rule",
-	"runing", "running",
 	"runnung", "running",
 	"russina", "Russian",
 	"rwite", "write",
