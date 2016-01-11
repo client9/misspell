@@ -64,10 +64,7 @@ func main() {
 	}
 
 	if len(*ignores) > 0 {
-		parts := strings.Split(*ignores, ",")
-		for _, word := range parts {
-			lib.Ignore(word)
-		}
+		lib.Ignore(strings.Split(*ignores, ","))
 	}
 	if *workers < 0 {
 		log.Fatalf("-j must >= 0")

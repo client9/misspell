@@ -136,11 +136,21 @@ func ReplaceGo(input string, debug bool) string {
 	}
 }
 
+func inArray(haystack []string, needle string) bool {
+	for _, word := range haystack {
+		if needle == word {
+			return true
+		}
+	}
+	return false
+}
 // Ignore removes a correction rule
-func Ignore(word string) {
+//   WARNING: multiple calls to this will unset the previous calls.
+//    thats not so good.
+func Ignore(words []string) {
 	newwords := make([]string, 0, len(dictWikipedia))
 	for i := 0; i < len(dictWikipedia); i += 2 {
-		if dictWikipedia[i] == word {
+		if inArray(words, dictWikipedia[i]) {
 			continue
 		}
 		newwords = append(newwords, dictWikipedia[i])

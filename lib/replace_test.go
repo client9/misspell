@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -9,12 +10,11 @@ func TestReplaceIgnore(t *testing.T) {
 		ignore string
 		text   string
 	}{
-		{"knwo", "https://github.com/Unknwon"},
-		{"gae", "github.com/hnakamur/gaesessions"},
+		{"knwo,gae", "https://github.com/Unknwon, github.com/hnakamur/gaesessions"},
 	}
 
 	for line, tt := range cases {
-		Ignore(tt.ignore)
+		Ignore(strings.Split(tt.ignore, ","))
 		got := ReplaceDebug(tt.text)
 		if got != tt.text {
 			t.Errorf("%d: Replace files want %q got %q", line, tt.text, got)
