@@ -2,7 +2,7 @@
 all: install lint test
 
 install:
-	go run generators/*.go > ./lib/wikipedia.go
+	go run cmd/genwords/*.go > ./words.go
 	go install .
 
 lint:

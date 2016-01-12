@@ -11,7 +11,6 @@ func addOrPanic(dict map[string]string, key, value string) {
 	if _, ok := dict[key]; ok {
 		log.Printf("Already have %q", key)
 	}
-	//log.Printf("Adding %q", key)
 	dict[key] = value
 }
 
@@ -46,7 +45,7 @@ func main() {
 	}
 	sort.Strings(words)
 
-	fmt.Printf("package lib\n\n")
+	fmt.Printf("package misspell\n\n")
 	fmt.Printf("var dictWikipedia = []string{\n")
 	for _, word := range words {
 		fmt.Printf("\t%q, %q,\n", word, dict[word])

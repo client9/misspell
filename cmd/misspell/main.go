@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/client9/misspell/lib"
+	"github.com/client9/misspell"
 )
 
 var (
@@ -54,11 +54,11 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 
 		// GROSS
 		if mode == "go" || (mode == "auto" && isGolang) {
-			updated = lib.ReplaceGo(orig, debug)
+			updated = misspell.ReplaceGo(orig, debug)
 		} else if debug {
-			updated = lib.ReplaceDebug(orig)
+			updated = misspell.ReplaceDebug(orig)
 		} else {
-			updated = lib.Replace(orig)
+			updated = misspell.Replace(orig)
 		}
 
 		updated, changes := lib.DiffLines(filename, orig, updated)
