@@ -43,7 +43,6 @@ Wheter->Whether
 acknowledgement->acknowledgment
 aforementioend->aforementioned
 aggregate->aggregate
-america->America
 annonymouse->anonymous
 apologise->apologize
 approstraphe->apostrophe
@@ -51,13 +50,10 @@ apporach->approach
 aribtrary->arbitrary
 artefact->artifact
 asychronous->asynchronous
-australia->Australia
 avaiable->available
 cahched->cached
 calback->callback
-canadian->Canadian
 careflly->carefully
-chinese->Chinese
 commmand->command
 compatibilty->compatibility
 comptability->compatibility
