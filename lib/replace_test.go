@@ -44,6 +44,7 @@ func TestReplace(t *testing.T) {
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"guises",
 		"disguise",
 		"begging",
 		"cmo",
