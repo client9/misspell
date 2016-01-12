@@ -16,6 +16,7 @@ import (
 var (
 	defaultWrite *template.Template
 	defaultRead  *template.Template
+	stdout       *log.Logger // see below in init()
 )
 
 const (
@@ -26,6 +27,11 @@ const (
 func init() {
 	defaultWrite = template.Must(template.New("defaultWrite").Parse(defaultWriteTmpl))
 	defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
+
+	// we cant't just write to os.Stdout directly since we have multiple goroutine
+	// all writing at the same time causing broken output.  Log is routine safe.
+	// we see it so it doesn't use a prefix or include a time stamp.
+	stdout = log.New(os.Stdout, "", 0)
 }
 
 func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
@@ -70,7 +76,9 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			} else {
 				defaultRead.Execute(&output, diff)
 			}
-			log.Println(output.String())
+
+			// goroutine-safe print to os.Stdout
+			stdout.Println(output.String())
 		}
 
 		if writeit {
@@ -81,8 +89,6 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 }
 
 func main() {
-	log.SetFlags(0)
-
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	format := flag.String("f", "", "Use Golang template for log message")
