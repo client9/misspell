@@ -26,6 +26,16 @@ func dictWikipedia() map[string]string {
 	delete(dict, "thru")
 	dict[" thru "] = "through"
 
+	// inside variable names
+	//  isntGood :=....
+	delete(dict, "isnt")
+	dict[" isnt"] = " isn't"
+
+	delete(dict, "adn")
+	dict[" adn "] = " and "
+
+	delete(dict, "borke")      // broke vs.  "borked"
+	delete(dict, "weas")       // was vs. weasle
 	delete(dict, "arised")     // "arose", vs "summarised"
 	delete(dict, "vell")       // well / travelling
 	delete(dict, "autor")      // author / autorenew
@@ -2314,7 +2324,7 @@ harrassments->harassments
  irreplacable->irreplaceable
  irresistable->irresistible
  irresistably->irresistibly
- isnt->isn't
+isnt->isn't
 Israelies->Israelis
 issueing->issuing
 itnroduced->introduced
