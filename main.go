@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"io/ioutil"
 	"log"
@@ -25,6 +26,11 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 	fails := 0
 	for filename := range files {
 		isGolang := strings.HasSuffix(filename, ".go")
+
+		// ignore directories
+		if f, err := os.Stat(filename); f.IsDir() && err == nil {
+			continue
+		}
 
 		raw, err := ioutil.ReadFile(filename)
 		if err != nil {
@@ -51,9 +57,11 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			if writeit {
 				defaultWrite.Execute(os.Stdout, diff)
 			} else {
-				defaultRead.Execute(os.Stdout, diff)
+				// the log package can be used simultaneously from multiple goroutines
+				var output bytes.Buffer
+				defaultRead.Execute(&output, diff)
+				log.Println(output.String())
 			}
-			os.Stdout.Write([]byte{'\n'})
 		}
 
 		if writeit {

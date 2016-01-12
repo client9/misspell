@@ -133,3 +133,11 @@ To just print probable misspellings:
 ```
 -f '{{ .Original }}'
 ```
+
+### Check an entire folder recursively
+
+You can run misspell recursively using the following notation:
+
+```
+$ misspell directory/**/*
+```
