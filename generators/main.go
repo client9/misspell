@@ -28,7 +28,7 @@ func parseWikipediaFormat(text string) map[string]string {
 		line = strings.TrimSpace(line)
 		parts := strings.Split(line, "->")
 		if len(parts) != 2 {
-			panic("failed")
+			log.Fatalf(fmt.Sprintf("failed parsing %q", line))
 		}
 		spellings := strings.Split(parts[1], ",")
 		dict[parts[0]] = strings.TrimSpace(spellings[0])
