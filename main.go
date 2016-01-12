@@ -61,7 +61,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			updated = lib.Replace(orig)
 		}
 
-		changes := lib.DiffLines(filename, orig, updated)
+		updated, changes := lib.DiffLines(filename, orig, updated)
 		if len(changes) == 0 {
 			continue
 		}

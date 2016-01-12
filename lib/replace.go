@@ -20,34 +20,86 @@ func init() {
 	}
 }
 
-// Return one word that was corrected in a line
-//
-//  NOTE: there may be multiple words corrected in a single line but
-//  this is not meant to be a complete diff
-//
-func corrected(instr, outstr string) (orig, corrected string) {
-	inparts := strings.Fields(instr)
-	outparts := strings.Fields(outstr)
-	var a, b string
-	for i := 0; i < len(inparts); i++ {
-		if i < len(outparts) && inparts[i] != outparts[i] {
-			a, b = inparts[i], outparts[i]
-			break
+// Diff is datastructure showing what changed in a single line
+type Diff struct {
+	Filename  string
+	Line      int
+	Column    int
+	Original  string
+	Corrected string
+}
+
+func min(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
+func max(x, y int) int {
+	if x > y {
+		return x
+	}
+	return y
+}
+
+func commonPrefixWordLength(a, b string) int {
+	// re-order so len(a) <= len(b) always
+	if len(a) > len(b) {
+		b, a = a, b
+	}
+	lastWhite := 0
+	for i := 0; i < len(a); i++ {
+		if a[i] == ' ' || a[i] == '\t' {
+			lastWhite = i
+		}
+		if a[i] != b[i] {
+			return min(lastWhite+1, len(a))
 		}
 	}
+	return len(a)
+}
+
+// commonSuffixWordLength
+func commonSuffixWordLength(a, b string) int {
+	n := min(len(a), len(b))
+	alen := len(a)
+	blen := len(b)
+	lastWhite := 0
+	for i := 0; i < n; i++ {
+		if a[alen-i-1] == ' ' || a[alen-i-1] == '\t' {
+			lastWhite = i
+		}
+		if a[alen-i-1] != b[blen-i-1] {
+			return min(lastWhite+1, n)
+		}
+	}
+	return n
+}
+
+// Return one words that are corrected in a single line
+//
+//
+func corrected(instr, outstr string) (orig, corrected string, column int) {
+	prefixLen := commonPrefixWordLength(instr, outstr)
+	suffixLen := commonSuffixWordLength(instr, outstr)
+
+	a := instr[prefixLen : len(instr)-suffixLen]
+	b := outstr[prefixLen : len(outstr)-suffixLen]
 
 	// Normal, we found word and its correction with a sane size
 	if len(a) < 30 && len(b) < 30 {
-		return a, b
+		return a, b, prefixLen
 	}
 
 	// some lines have no spaces and triggers a huge output
 	// trim down
+	var col int
 	for i := 0; i < len(a); i++ {
 		if i < len(b) && a[i] != b[i] {
-			min := i - 10
-			if min < 0 {
-				min = 0
+			col = i - 10
+			if col < 0 {
+				col = 0
 			}
 			amax := i + 10
 			if amax > len(a) {
@@ -57,26 +109,18 @@ func corrected(instr, outstr string) (orig, corrected string) {
 			if bmax > len(b) {
 				bmax = len(b)
 			}
-			return a[min:amax], b[min:bmax]
+			return a[col:amax], b[col:bmax], col
 		}
 	}
-	return a, b
-}
-
-// Diff is datastructure showing what changed in a single line
-type Diff struct {
-	Filename  string
-	Line      int
-	Original  string
-	Corrected string
+	return a, b, col
 }
 
 // DiffLines produces a grep-like diff between two strings showing
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
-func DiffLines(filename, input, output string) []Diff {
+func DiffLines(filename, input, output string) (string, []Diff) {
 	var changes []Diff
 	if output == input {
-		return changes
+		return output, changes
 	}
 	count := 0
 	// line by line to make nice output
@@ -87,15 +131,16 @@ func DiffLines(filename, input, output string) []Diff {
 			continue
 		}
 		count++
-		s1, s2 := corrected(inlines[i], outlines[i])
+		s1, s2, col := corrected(inlines[i], outlines[i])
 		changes = append(changes, Diff{
 			Filename:  filename,
-			Line:      i + 1,
+			Line:      i + 1, // lines start at 1
+			Column:    col,
 			Original:  s1,
 			Corrected: s2,
 		})
 	}
-	return changes
+	return output, changes
 }
 
 // ReplaceDebug logs exactly what was matched and replaced for using
@@ -158,8 +203,9 @@ func ReplaceGo(input string, debug bool) string {
 			if origComment != newComment {
 				// s.Pos().Offset is the end of the current token
 				//  subtract len(origComment) to get the start of token
-				output = output + input[lastPos:s.Pos().Offset-len(origComment)] + newComment
-				lastPos = s.Pos().Offset
+				offset := s.Pos().Offset
+				output = output + input[lastPos:offset-len(origComment)] + newComment
+				lastPos = offset
 			}
 		case scanner.EOF:
 			// no changes, no copies
