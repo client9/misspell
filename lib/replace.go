@@ -70,6 +70,9 @@ func commonSuffixWordLength(a, b string) int {
 			lastWhite = i
 		}
 		if a[alen-i-1] != b[blen-i-1] {
+			if lastWhite == 0 {
+				return 0
+			}
 			return min(lastWhite+1, n)
 		}
 	}
