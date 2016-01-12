@@ -24,15 +24,43 @@ func init() {
 //
 //  NOTE: there may be multiple words corrected in a single line but
 //  this is not meant to be a complete diff
+//
 func corrected(instr, outstr string) (orig, corrected string) {
 	inparts := strings.Fields(instr)
 	outparts := strings.Fields(outstr)
+	var a, b string
 	for i := 0; i < len(inparts); i++ {
 		if i < len(outparts) && inparts[i] != outparts[i] {
-			return inparts[i], outparts[i]
+			a, b = inparts[i], outparts[i]
+			break
 		}
 	}
-	return "", ""
+
+	// Normal, we found word and its correction with a sane size
+	if len(a) < 30 && len(b) < 30 {
+		return a, b
+	}
+
+	// some lines have no spaces and triggers a huge output
+	// trim down
+	for i := 0; i < len(a); i++ {
+		if i < len(b) && a[i] != b[i] {
+			min := i - 10
+			if min < 0 {
+				min = 0
+			}
+			amax := i + 10
+			if amax > len(a) {
+				amax = len(a)
+			}
+			bmax := i + 10
+			if bmax > len(b) {
+				bmax = len(b)
+			}
+			return a[min:amax], b[min:bmax]
+		}
+	}
+	return a, b
 }
 
 // Diff is datastructure showing what changed in a single line
