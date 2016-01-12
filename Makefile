@@ -1,5 +1,5 @@
 
-all: lint install test
+all: install lint test
 
 install:
 	go run generators/*.go > ./lib/wikipedia.go
