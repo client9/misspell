@@ -62,9 +62,8 @@ func commonPrefixWordLength(a, b string) int {
 
 // commonSuffixWordLength
 func commonSuffixWordLength(a, b string) int {
-	n := min(len(a), len(b))
-	alen := len(a)
-	blen := len(b)
+	alen, blen := len(a), len(b)
+	n := min(alen, blen)
 	lastWhite := 0
 	for i := 0; i < n; i++ {
 		if a[alen-i-1] == ' ' || a[alen-i-1] == '\t' {
@@ -87,7 +86,7 @@ func corrected(instr, outstr string) (orig, corrected string, column int) {
 	a := instr[prefixLen : len(instr)-suffixLen]
 	b := outstr[prefixLen : len(outstr)-suffixLen]
 
-	// Normal, we found word and its correction with a sane size
+	// Normal, we found the right snippet and it seems sane
 	if len(a) < 30 && len(b) < 30 {
 		return a, b, prefixLen
 	}
