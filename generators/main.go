@@ -39,7 +39,6 @@ func parseWikipediaFormat(text string) map[string]string {
 func main() {
 	dict := make(map[string]string)
 	mergeDict(dict, dictWikipedia())
-	log.Printf("Adding additions....")
 	mergeDict(dict, dictAdditions())
 	words := make([]string, 0, len(dict))
 	for k := range dict {
