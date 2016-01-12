@@ -61,7 +61,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			updated = misspell.Replace(orig)
 		}
 
-		updated, changes := lib.DiffLines(filename, orig, updated)
+		updated, changes := misspell.DiffLines(filename, orig, updated)
 		if len(changes) == 0 {
 			continue
 		}
@@ -113,7 +113,7 @@ func main() {
 		defaultRead = t
 	}
 	if len(*ignores) > 0 {
-		lib.Ignore(strings.Split(*ignores, ","))
+		misspell.Ignore(strings.Split(*ignores, ","))
 	}
 	if *workers < 0 {
 		log.Fatalf("-j must >= 0")

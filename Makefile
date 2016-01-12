@@ -8,11 +8,11 @@ install:
 lint:
 	golint ./...
 	go vet ./...
-	gofmt -w -s *.go */*.go
+	find . -name '*.go' | xargs gofmt -w -s
 
 test:
-	go test ./lib/...
-	misspell README.md main.go lib/replace.go generators/main.go
+	go test ./...
+	misspell *.md replace.go cmd/misspell/*.go
 
 clean:
 	rm -f *~
