@@ -36,6 +36,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "isnt")
 	dict[" isnt"] = " isn't"
 
+	delete(dict, "uise")
 	delete(dict, "adn")
 	dict[" adn "] = " and "
 

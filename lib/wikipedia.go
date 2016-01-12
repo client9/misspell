@@ -4052,7 +4052,6 @@ var dictWikipedia = []string{
 	"tyrranies", "tyrannies",
 	"tyrrany", "tyranny",
 	"ubiquitious", "ubiquitous",
-	"uise", "use",
 	"ultimely", "ultimately",
 	"unacompanied", "unaccompanied",
 	"unahppy", "unhappy",
