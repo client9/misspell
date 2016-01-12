@@ -90,7 +90,6 @@ If you want to force a file to be checked as a golang source, use
 `-source=go` on the command line.  Conversely, you can check a go lang
 source as if it were pure text by using `-source=text`
 
-
 ### Why is it making mistakes or missing items in golang files?
 
 The matching function is *case-sensitive*, so variable names that are
@@ -116,4 +115,21 @@ enable it, like so:
 gometalinter --disable-all \
    --linter='misspell:misspell ./*.go:PATH:LINE:MESSAGE' --enable=misspell \
    ./...
+```
+
+### How can I change the output format?
+
+Using the `-f template` flag you can pass in a
+[golang text template](https://golang.org/pkg/text/template/) to format the output.
+
+The built-in template uses everything, including the `js` function to escape the original text.
+
+```
+{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"
+```
+
+To just print probable misspellings:
+
+```
+-f '{{ .Original }}'
 ```
