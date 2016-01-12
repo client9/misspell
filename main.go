@@ -13,13 +13,19 @@ import (
 	"github.com/client9/misspell/lib"
 )
 
-var defaultWrite *template.Template
-var defaultRead *template.Template
+var (
+	defaultWrite *template.Template
+	defaultRead  *template.Template
+)
+
+const (
+	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
+	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }} found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`
+)
 
 func init() {
-	defaultWrite = template.Must(template.New("defaultWrite").Parse(`{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"`))
-	defaultRead = template.Must(template.New("defaultRead").Parse(`{{ .Filename }}:{{ .Line }} found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`))
-
+	defaultWrite = template.Must(template.New("defaultWrite").Parse(defaultWriteTmpl))
+	defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
 }
 
 func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
@@ -54,14 +60,17 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			continue
 		}
 		for _, diff := range changes {
+			// output can be done by doing multiple goroutines
+			// and can clobber os.Stdout.
+			//
+			// the log package can be used simultaneously from multiple goroutines
+			var output bytes.Buffer
 			if writeit {
-				defaultWrite.Execute(os.Stdout, diff)
+				defaultWrite.Execute(&output, diff)
 			} else {
-				// the log package can be used simultaneously from multiple goroutines
-				var output bytes.Buffer
 				defaultRead.Execute(&output, diff)
-				log.Println(output.String())
 			}
+			log.Println(output.String())
 		}
 
 		if writeit {
@@ -72,6 +81,8 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 }
 
 func main() {
+	log.SetFlags(0)
+
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	format := flag.String("f", "", "Use Golang template for log message")
