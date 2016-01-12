@@ -138,6 +138,12 @@ To just print probable misspellings:
 
 You can run misspell recursively using the following notation:
 
+```bash
+misspell directory/**/*
 ```
-$ misspell directory/**/*
+
+or
+
+```bash
+find . -name '*' | xargs misspell
 ```
