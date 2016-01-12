@@ -1,8 +1,6 @@
 package lib
 
 import (
-	"fmt"
-	"io"
 	"log"
 	"strings"
 	"text/scanner"
@@ -37,11 +35,20 @@ func corrected(instr, outstr string) (orig, corrected string) {
 	return "", ""
 }
 
+// Diff is datastructure showing what changed in a single line
+type Diff struct {
+	Filename  string
+	Line      int
+	Original  string
+	Corrected string
+}
+
 // DiffLines produces a grep-like diff between two strings showing
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
-func DiffLines(filename, input, output string, w io.Writer) int {
+func DiffLines(filename, input, output string) []Diff {
+	var changes []Diff
 	if output == input {
-		return 0
+		return changes
 	}
 	count := 0
 	// line by line to make nice output
@@ -53,10 +60,14 @@ func DiffLines(filename, input, output string, w io.Writer) int {
 		}
 		count++
 		s1, s2 := corrected(inlines[i], outlines[i])
-		io.WriteString(w, fmt.Sprintf("%s:%d: corrected %q -> %q\n",
-			filename, i+1, s1, s2))
+		changes = append(changes, Diff{
+			Filename:  filename,
+			Line:      i + 1,
+			Original:  s1,
+			Corrected: s2,
+		})
 	}
-	return count
+	return changes
 }
 
 // ReplaceDebug logs exactly what was matched and replaced for using

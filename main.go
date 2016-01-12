@@ -7,14 +7,23 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"text/template"
 
 	"github.com/client9/misspell/lib"
 )
 
+var defaultWrite *template.Template
+var defaultRead *template.Template
+
+func init() {
+	defaultWrite = template.Must(template.New("defaultWrite").Parse(`{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"`))
+	defaultRead = template.Must(template.New("defaultRead").Parse(`{{ .Filename }}:{{ .Line }} found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`))
+
+}
+
 func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
 	fails := 0
 	for filename := range files {
-		//log.Printf("Scanning %q", filename)
 		isGolang := strings.HasSuffix(filename, ".go")
 
 		raw, err := ioutil.ReadFile(filename)
@@ -34,12 +43,19 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			updated = lib.Replace(orig)
 		}
 
-		count := lib.DiffLines(filename, orig, updated, os.Stdout)
-		if count == 0 {
+		changes := lib.DiffLines(filename, orig, updated)
+		if len(changes) == 0 {
 			continue
 		}
-		fails += count
-		//log.Printf("Updating %q", filename)
+		for _, diff := range changes {
+			if writeit {
+				defaultWrite.Execute(os.Stdout, diff)
+			} else {
+				defaultRead.Execute(os.Stdout, diff)
+			}
+			os.Stdout.Write([]byte{'\n'})
+		}
+
 		if writeit {
 			ioutil.WriteFile(filename, []byte(updated), 0)
 		}
@@ -50,6 +66,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 func main() {
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
+	format := flag.String("f", "", "Use Golang template for log message")
 	ignores := flag.String("i", "", "Ignore the following corrections, comma separated")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
@@ -62,7 +79,14 @@ func main() {
 	default:
 		log.Fatalf("Mode must be one of auto=guess, go=golang source, text=plain or markdown-like text")
 	}
-
+	if len(*format) > 0 {
+		t, err := template.New("custom").Parse(*format)
+		if err != nil {
+			log.Fatalf("Unable to compile log format: %s", err)
+		}
+		defaultWrite = t
+		defaultRead = t
+	}
 	if len(*ignores) > 0 {
 		lib.Ignore(strings.Split(*ignores, ","))
 	}
