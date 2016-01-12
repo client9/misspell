@@ -5,6 +5,7 @@ func dictWikipedia() map[string]string {
 
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a
+	delete(dict, "cmo")    // wrong
 	// technical term
 
 	// Corrections
@@ -34,6 +35,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "adn")
 	dict[" adn "] = " and "
 
+	delete(dict, "seing")      // Seeing .. really?
 	delete(dict, "borke")      // broke vs.  "borked"
 	delete(dict, "weas")       // was vs. weasle
 	delete(dict, "arised")     // "arose", vs "summarised"

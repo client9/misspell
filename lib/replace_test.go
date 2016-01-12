@@ -31,6 +31,8 @@ func TestReplace(t *testing.T) {
 		{"There is a zeebra", "There is a zebra"},
 		{"foo other bar", "foo other bar"},
 		{"ten fiels", "ten fields"},
+		{"Closeing Time", "Closing Time"},
+		{"closeing Time", "closing Time"},
 	}
 	for line, tt := range cases {
 		got := Replace(tt.orig)
@@ -42,6 +44,8 @@ func TestReplace(t *testing.T) {
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"cmo",
+		"cmos",
 		"borked",
 		"hadn't",
 		"Iceweasel",
