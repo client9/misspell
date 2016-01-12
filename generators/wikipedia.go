@@ -27,6 +27,10 @@ func dictWikipedia() map[string]string {
 	delete(dict, "thru")
 	dict[" thru "] = "through"
 
+	// begging
+	delete(dict, "beggin")
+	dict["beggin "] = "begin "
+
 	// inside variable names
 	//  isntGood :=....
 	delete(dict, "isnt")

@@ -702,7 +702,7 @@ var dictWikipedia = []string{
 	"bedore", "before",
 	"beeing", "being",
 	"befoer", "before",
-	"beggin", "begin",
+	"beggin ", "begin ",
 	"begginer", "beginner",
 	"begginers", "beginners",
 	"beggining", "beginning",
