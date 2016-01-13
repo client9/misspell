@@ -97,31 +97,9 @@ func corrected(instr, outstr string) (string, string, int) {
 	prefixLen := commonPrefixWordLength(instr, outstr)
 	suffixLen := commonSuffixWordLength(instr, outstr)
 	orig := instr[prefixLen : len(instr)-suffixLen]
-	if prefixLen > len(outstr)-suffixLen {
-		log.Fatalf("BOO: %q %q %d %d", instr, outstr, prefixLen, len(outstr)-suffixLen)
-	}
-	if len(outstr)-suffixLen < 0 {
-		log.Fatalf("BOO2: %q %q %d %d", instr, outstr, prefixLen, len(outstr)-suffixLen)
-	}
 	corr := outstr[prefixLen : len(outstr)-suffixLen]
 	return orig, corr, prefixLen
 }
-
-/*
-	// some lines have no spaces and triggers a huge output
-	// trim down
-	for i := 0; i < len(a); i++ {
-		if i < len(b) && a[i] != b[i] {
-			col := max(0, i-offset)
-			amax := min(i+offset, len(a))
-			bmax := min(i+offset, len(b))
-			return a[col:amax], b[col:bmax], col
-		}
-	}
-
-	return a, b, prefixLen
-
-*/
 
 // shouldUndo checks if a corrected string should be kept as original
 func shouldUndo(s string) bool {
