@@ -67,7 +67,7 @@ a implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
 This makes multiple substring matches *simultaneously*
 
-In addition this uses multiple CPU cores to works on multiple files.
+In addition this uses multiple CPU cores to work on multiple files.
 
 ### What problems does it have?
 
