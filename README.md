@@ -11,6 +11,10 @@ $ misspell all.html your.txt important.md files.go
 your.txt:42 found "initialised" a misspelling of "initialized"
 ```
 
+You'll need [golang 1.5](https://golang.org/) installed to compile it.  But after that it's a standalone binary.
+
+If people want pre-compiled binaries, [file a ticket](https://github.com/client9/misspell/issues) please.
+
 ## FAQ
 
 ### How do you check an entire folder recursively?
@@ -110,12 +114,6 @@ Easily 100x to 1000x faster.  You should be able to check and correct
 ### What license is this?
 
 [MIT](https://github.com/client9/misspell/blob/master/LICENSE)
-
-### What are the dependencies?
-
-You need [golang 1.5](https://golang.org/) to compile this, but the resulting binary has no
-dependencies.  If people want precompiled binaries for various
-platforms, let me know.
 
 ### Where do the word lists come from?
 
