@@ -32,6 +32,31 @@ or
 ```bash
 find . -name '*' | xargs misspell
 ```
+### Can I use pipes or stdin for input?
+
+Yes!
+
+Print messages to stderr only:
+
+```bash
+$ echo "zeebra" | mispell
+stdin:1:0:found "zeebra" a misspelling of "zebra"
+```
+
+Print messages to stderr, correct text to stdout:
+
+```bash
+$ echo "zeebra" | mispell -w
+stdin:1:0:corrected "zeebra" to "zebra"
+zebra
+```
+
+Only print the corrected text to stdout:
+
+```bash
+$ echo "zeebra" | mispell -w -q
+zebra
+```
 
 ### Are there special rules for golang source files?
 

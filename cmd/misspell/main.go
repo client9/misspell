@@ -20,8 +20,8 @@ var (
 )
 
 const (
-	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
-	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }} found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`
+	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
+	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`
 )
 
 func init() {
@@ -37,8 +37,6 @@ func init() {
 func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
 	fails := 0
 	for filename := range files {
-		isGolang := strings.HasSuffix(filename, ".go")
-
 		// ignore directories
 		if f, err := os.Stat(filename); err != nil || f.IsDir() {
 			continue
@@ -53,6 +51,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 		var updated string
 
 		// GROSS
+		isGolang := strings.HasSuffix(filename, ".go")
 		if mode == "go" || (mode == "auto" && isGolang) {
 			updated = misspell.ReplaceGo(orig, debug)
 		} else if debug {
@@ -92,10 +91,11 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 }
 
 func main() {
+	quiet := flag.Bool("q", false, "quiet")
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
-	format := flag.String("f", "", "Use Golang template for log message")
-	ignores := flag.String("i", "", "Ignore the following corrections, comma separated")
+	format := flag.String("f", "", "use Golang template for log message")
+	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	flag.Parse()
@@ -133,16 +133,41 @@ func main() {
 	}
 	args := flag.Args()
 
-	/*
-		if len(args) == 0 {
-			rawin, err := ioutil.ReadAll(os.Stdin)
-			if err != nil {
-				panic(err)
-			}
-			replacer.WriteString(os.Stdout, string(rawin))
-			return
+	// unix style pipes: different output module
+	// stdout: output of corrected text
+	// stderr: output of log lines
+	if len(args) == 0 {
+		raw, err := ioutil.ReadAll(os.Stdin)
+		if err != nil {
+			log.Fatalf("Unable to read stdin")
 		}
-	*/
+		orig := string(raw)
+		var updated string
+		if *mode == "go" {
+			updated = misspell.ReplaceGo(orig, *debug)
+		} else if *debug {
+			updated = misspell.ReplaceDebug(orig)
+		} else {
+			updated = misspell.Replace(orig)
+		}
+		updated, changes := misspell.DiffLines(orig, updated)
+		if !*quiet {
+			for _, diff := range changes {
+				diff.Filename = "stdin"
+				if *writeit {
+					defaultWrite.Execute(os.Stderr, diff)
+				} else {
+					defaultRead.Execute(os.Stderr, diff)
+				}
+				os.Stderr.Write([]byte("\n"))
+			}
+		}
+		if *writeit {
+			os.Stdout.Write([]byte(updated))
+		}
+		return
+	}
+
 	c := make(chan string, len(args))
 	results := make(chan int, *workers)
 
