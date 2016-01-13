@@ -6,7 +6,66 @@ Correct commonly misspelled English words... quickly.
 
 new as of 2016-01-12
 
+``bash
+$ misspell your.txt important.txt files.txt
+your.txt:42 found "initialised" a misspelling of "initialized"
+```
+
 ## FAQ
+
+### Check an entire folder recursively
+
+You can run misspell recursively using the following notation:
+
+```bash
+misspell directory/**/*
+```
+
+or
+
+```bash
+find . -name '*' | xargs misspell
+```
+
+### Are there special rules for golang source files?
+
+Yes!  If the file ends in `.go`, then misspell will only check spelling in comments.
+
+If you want to force a file to be checked as a golang source, use
+`-source=go` on the command line.  Conversely, you can check a go lang
+source as if it were pure text by using `-source=text`
+
+
+### Does this work with gometalinter?
+
+[gometalinter](https://github.com/alecthomas/gometalinter) runs
+multiple golang linters, and it works well with `misspell` too.
+
+After `go get -u github.com/client9/misspell` you need to add it, then
+enable it, like so:
+
+```bash
+gometalinter --disable-all \
+   --linter='misspell:misspell ./*.go:PATH:LINE:MESSAGE' --enable=misspell \
+   ./...
+```
+
+### How can I change the output format?
+
+Using the `-f template` flag you can pass in a
+[golang text template](https://golang.org/pkg/text/template/) to format the output.
+
+The built-in template uses everything, including the `js` function to escape the original text.
+
+```
+{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"
+```
+
+To just print probable misspellings:
+
+```
+-f '{{ .Original }}'
+```
 
 ### What problem does this solve?
 
@@ -86,14 +145,6 @@ Run using `-debug` flag on the file you want.  It should then
 print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
 problem.  Thanks!
 
-### Are there special rules for golang source files?
-
-Yes!  If the file ends in `.go`, then misspell will only check spelling in comments.
-
-If you want to force a file to be checked as a golang source, use
-`-source=go` on the command line.  Conversely, you can check a go lang
-source as if it were pure text by using `-source=text`
-
 ### Why is it making mistakes or missing items in golang files?
 
 The matching function is *case-sensitive*, so variable names that are
@@ -107,47 +158,3 @@ conventions](https://golang.org/doc/effective_go.html#mixed-caps) and
 use camelCase for variable names.  You can check your code using
 [golint](https://github.com/golang/lint)
 
-### Does this work with gometalinter?
-
-[gometalinter](https://github.com/alecthomas/gometalinter) runs
-multiple golang linters, and it works well with `misspell` too.
-
-After `go get -u github.com/client9/misspell` you need to add it, then
-enable it, like so:
-
-```bash
-gometalinter --disable-all \
-   --linter='misspell:misspell ./*.go:PATH:LINE:MESSAGE' --enable=misspell \
-   ./...
-```
-
-### How can I change the output format?
-
-Using the `-f template` flag you can pass in a
-[golang text template](https://golang.org/pkg/text/template/) to format the output.
-
-The built-in template uses everything, including the `js` function to escape the original text.
-
-```
-{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"
-```
-
-To just print probable misspellings:
-
-```
--f '{{ .Original }}'
-```
-
-### Check an entire folder recursively
-
-You can run misspell recursively using the following notation:
-
-```bash
-misspell directory/**/*
-```
-
-or
-
-```bash
-find . -name '*' | xargs misspell
-```
