@@ -70,7 +70,7 @@ Using the `-f template` flag you can pass in a
 The built-in template uses everything, including the `js` function to escape the original text.
 
 ```
-{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"
+{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ js .Original }}" to "{{ js .Corrected }}"
 ```
 
 To just print probable misspellings:
