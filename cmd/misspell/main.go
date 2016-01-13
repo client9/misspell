@@ -20,8 +20,8 @@ var (
 )
 
 const (
-	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
-	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }} found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`
+	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }} corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
+	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }} found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`
 )
 
 func init() {

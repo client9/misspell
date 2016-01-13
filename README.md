@@ -8,7 +8,9 @@ new as of 2016-01-12
 
 ```bash
 $ misspell all.html your.txt important.md files.go
-your.txt:42 found "initialised" a misspelling of "initialized"
+your.txt:42:10 found "initialised" a misspelling of "initialized"
+
+# ^ file, line, column
 ```
 
 You'll need [golang 1.5](https://golang.org/) installed to compile it.  But after that it's a standalone binary.
@@ -56,7 +58,7 @@ enable it, like so:
 
 ```bash
 gometalinter --disable-all \
-   --linter='misspell:misspell ./*.go:PATH:LINE:MESSAGE' --enable=misspell \
+   --linter='misspell:misspell ./*.go:PATH:LINE:COL MESSAGE' --enable=misspell \
    ./...
 ```
 
