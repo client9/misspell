@@ -86,6 +86,9 @@ func commonSuffixWordLength(a, b string) int {
 //
 //
 func corrected(instr, outstr string) (orig, corrected string, column int) {
+	const offset = 10
+	const maxlen = 30
+
 	prefixLen := commonPrefixWordLength(instr, outstr)
 	suffixLen := commonSuffixWordLength(instr, outstr)
 
@@ -93,22 +96,22 @@ func corrected(instr, outstr string) (orig, corrected string, column int) {
 	b := outstr[prefixLen : len(outstr)-suffixLen]
 
 	// Normal, we found the right snippet and it seems sane
-	if len(a) < 30 && len(b) < 30 {
+	if len(a) < maxlen && len(b) < maxlen {
 		return a, b, prefixLen
 	}
 
 	// some lines have no spaces and triggers a huge output
 	// trim down
-	var col int
 	for i := 0; i < len(a); i++ {
 		if i < len(b) && a[i] != b[i] {
-			col = max(0, i-10)
-			amax := min(i+10, len(a))
-			bmax := min(i+10, len(b))
+			col := max(0, i-offset)
+			amax := min(i+offset, len(a))
+			bmax := min(i+offset, len(b))
 			return a[col:amax], b[col:bmax], col
 		}
 	}
-	return a, b, col
+
+	return a, b, prefixLen
 }
 
 // DiffLines produces a grep-like diff between two strings showing
