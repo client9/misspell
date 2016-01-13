@@ -39,14 +39,14 @@ Yes!
 Print messages to stderr only:
 
 ```bash
-$ echo "zeebra" | mispell
+$ echo "zeebra" | misspell
 stdin:1:0:found "zeebra" a misspelling of "zebra"
 ```
 
 Print messages to stderr, correct text to stdout:
 
 ```bash
-$ echo "zeebra" | mispell -w
+$ echo "zeebra" | misspell -w
 stdin:1:0:corrected "zeebra" to "zebra"
 zebra
 ```
@@ -54,7 +54,7 @@ zebra
 Only print the corrected text to stdout:
 
 ```bash
-$ echo "zeebra" | mispell -w -q
+$ echo "zeebra" | misspell -w -q
 zebra
 ```
 
