@@ -121,7 +121,6 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 	if output == input {
 		return output, changes
 	}
-	count := 0
 	// line by line to make nice output
 	outlines := strings.Split(output, "\n")
 	inlines := strings.Split(input, "\n")
@@ -129,7 +128,6 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 		if inlines[i] == outlines[i] {
 			continue
 		}
-		count++
 		s1, s2, col := corrected(inlines[i], outlines[i])
 		changes = append(changes, Diff{
 			Filename:  filename,
