@@ -58,7 +58,7 @@ enable it, like so:
 
 ```bash
 gometalinter --disable-all \
-   --linter='misspell:misspell ./*.go:PATH:LINE:COL MESSAGE' --enable=misspell \
+   --linter='misspell:misspell ./*.go:PATH:LINE:COL:MESSAGE' --enable=misspell \
    ./...
 ```
 
