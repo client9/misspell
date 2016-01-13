@@ -36,14 +36,15 @@ find . -name '*' | xargs misspell
 Yes!  If the file ends in `.go`, then misspell will only check spelling in comments.
 
 If you want to force a file to be checked as a golang source, use
-`-source=go` on the command line.  Conversely, you can check a go lang
-source as if it were pure text by using `-source=text`
+`-source=go` on the command line.  Conversely, you can check a golang
+source as if it were pure text by using `-source=text`.  You might want to do this since
+many variable names have misspellings in them!
 
 ### Can I check only-comments in other other programming languages?
 
 I'm told the using `-source=go` works well for ruby, javascript, java, c and c++.
 
-It doesn't work well for python.
+It doesn't work well for python and bash.
 
 ### Does this work with gometalinter?
 
