@@ -152,3 +152,24 @@ func TestCommonSuffixWordLength(t *testing.T) {
 		}
 	}
 }
+
+func TestLineChange(t *testing.T) {
+	cases := []struct {
+		line1 string
+		line2 string
+		word1 string
+		word2 string
+		col   int
+	}{
+		{"zeebra end", "zebra end", "zeebra", "zebra", 0},
+		{"start zeebra", "start zebra", "zeebra", "zebra", len("start ")},
+		{"start zeebra end", "start zebra end", "zeebra", "zebra", len("start ")},
+	}
+
+	for casenum, tt := range cases {
+		word1, word2, col := corrected(tt.line1, tt.line2)
+		if word1 != tt.word1 || word2 != tt.word2 || col != tt.col {
+			t.Errorf("%d (%q,%q,%d) != (%q,%q,%d)", casenum, tt.word1, tt.word2, tt.col, word1, word2, col)
+		}
+	}
+}
