@@ -102,18 +102,9 @@ func corrected(instr, outstr string) (orig, corrected string, column int) {
 	var col int
 	for i := 0; i < len(a); i++ {
 		if i < len(b) && a[i] != b[i] {
-			col = i - 10
-			if col < 0 {
-				col = 0
-			}
-			amax := i + 10
-			if amax > len(a) {
-				amax = len(a)
-			}
-			bmax := i + 10
-			if bmax > len(b) {
-				bmax = len(b)
-			}
+			col = max(0, i-10)
+			amax := min(i+10, len(a))
+			bmax := min(i+10, len(b))
 			return a[col:amax], b[col:bmax], col
 		}
 	}
@@ -140,7 +131,7 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 		changes = append(changes, Diff{
 			Filename:  filename,
 			Line:      i + 1, // lines start at 1
-			Column:    col,
+			Column:    col,   // columns start at 0
 			Original:  s1,
 			Corrected: s2,
 		})
@@ -154,14 +145,8 @@ func ReplaceDebug(input string) string {
 	for i := 0; i < len(dictWikipedia); i += 2 {
 		idx := strings.Index(input, dictWikipedia[i])
 		if idx != -1 {
-			left := idx - 10
-			if left < 0 {
-				left = 0
-			}
-			right := idx + len(dictWikipedia[i]) + 10
-			if right > len(input) {
-				right = len(input)
-			}
+			left := max(0, idx-10)
+			right := min(idx+len(dictWikipedia[i])+10, len(input))
 			snippet := input[left:right]
 			log.Printf("Found %q in %q  (%q)", dictWikipedia[i], snippet, dictWikipedia[i+1])
 		}
