@@ -173,3 +173,42 @@ func TestLineChange(t *testing.T) {
 		}
 	}
 }
+
+func TestDiff(t *testing.T) {
+	var out string
+	var want string
+	var diffs []Diff
+
+	// not so nice doing a table driven test here.
+	out, diffs = DiffLines("junk", "", "")
+	if out != "" || len(diffs) != 0 {
+		t.Errorf("DiffLines couldn't handle empty inputs: %q %d", out, len(diffs))
+	}
+
+	want = "nothing"
+	out, diffs = DiffLines("junk", "nothing", want)
+	if out != want || len(diffs) != 0 {
+		t.Errorf("DiffLines couldn't handle same inputs: %q %d", out, len(diffs))
+	}
+
+	want = "nothing\n"
+	out, diffs = DiffLines("junk", "nothing\n", want)
+	if out != want || len(diffs) != 0 {
+		t.Errorf("DiffLines couldn't handle same inputs with newlines")
+	}
+
+	want = "nothing\nzebra\nnothing"
+	out, diffs = DiffLines("junk", "nothing\nzeebra\nnothing", want)
+	if out != want {
+		t.Errorf("Want %q got %q", want, out)
+	}
+	if len(diffs) != 1 {
+		t.Errorf("Expected 1 diff, got %d", len(diffs))
+	}
+	if diffs[0].Line != 2 || diffs[0].Column != 0 {
+		t.Errorf("Expected correction to be on line 2, column 0 - got %d, %d", diffs[0].Line, diffs[0].Column)
+	}
+	if diffs[0].Original != "zeebra" || diffs[0].Corrected != "zebra" {
+		t.Errorf("Expected (%q,%q) got (%q,%q)", "zeebra", "zebra", diffs[0].Original, diffs[0].Corrected)
+	}
+}
