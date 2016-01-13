@@ -149,7 +149,7 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 	inlines := strings.SplitAfter(input, "\n")
 	for i := 0; i < len(inlines); i++ {
 		if inlines[i] == outlines[i] {
-			buf.WriteString(inlines[i])
+			buf.WriteString(outlines[i])
 			continue
 		}
 		s1, s2, col := corrected(inlines[i], outlines[i])
@@ -169,7 +169,7 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 		buf.WriteString(outlines[i])
 	}
 
-	return output, changes
+	return buf.String(), changes
 }
 
 // ReplaceDebug logs exactly what was matched and replaced for using

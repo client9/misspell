@@ -216,10 +216,11 @@ func TestDiff(t *testing.T) {
 
 	// Undo case correction case.. zeebra is part of a big chunk of text
 	//  don't make correction
-	want = "nothing\nxxxxxxxxxxxxxxxxxxzeebraxxxxxxxxxxxxxxxxxxxxxxx\nnothing"
-	out, diffs = DiffLines("junk", want, want)
-	if out != want {
-		t.Errorf("Want %q got %q", want, out)
+	orig := "nothing\nxxxxxxxxxxxxxxxxxxzeebraxxxxxxxxxxxxxxxxxxxxxxx\nnothing"
+	corr := "nothing\nxxxxxxxxxxxxxxxxxxzebraxxxxxxxxxxxxxxxxxxxxxxx\nnothing"
+	out, diffs = DiffLines("junk", orig, corr)
+	if out != orig {
+		t.Errorf("Want %q got %q", orig, out)
 	}
 	if len(diffs) != 0 {
 		t.Errorf("Expected 0 diff, got %d", len(diffs))
