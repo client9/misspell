@@ -49,6 +49,9 @@ func max(x, y int) int {
 	return y
 }
 
+// commonPrefixWordLength finds the common prefix then backs up until
+// it finds whitespace.  Given "foo bar" and "foo bat", this will
+// return "foo " NOT "foo ba"
 func commonPrefixWordLength(a, b string) int {
 	// re-order so len(a) <= len(b) always
 	if len(a) > len(b) {
@@ -119,7 +122,7 @@ func shouldUndo(s string) bool {
 
 // DiffLines produces a grep-like diff between two strings showing
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
-func DiffLines(filename, input, output string) (string, []Diff) {
+func DiffLines(input, output string) (string, []Diff) {
 	var changes []Diff
 
 	// fast case -- no changes!
@@ -131,6 +134,7 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 	buf.Grow(max(len(output), len(input)))
 
 	// line by line to make nice output
+	// This is horribly slow.
 	outlines := strings.SplitAfter(output, "\n")
 	inlines := strings.SplitAfter(input, "\n")
 	for i := 0; i < len(inlines); i++ {
@@ -145,7 +149,6 @@ func DiffLines(filename, input, output string) (string, []Diff) {
 		}
 
 		diff := Diff{
-			Filename:  filename,
 			Line:      i + 1, // lines start at 1
 			Column:    col,   // columns start at 0
 			Original:  s1,
