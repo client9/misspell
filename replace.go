@@ -1,6 +1,7 @@
 package misspell
 
 import (
+	"bytes"
 	"errors"
 	"log"
 	"strings"
@@ -30,6 +31,10 @@ type Diff struct {
 	Corrected string
 }
 
+func isWhite(ch byte) bool {
+	return ch == ' ' || ch == '\n' || ch == '\t'
+}
+
 func min(x, y int) int {
 	if x < y {
 		return x
@@ -51,10 +56,11 @@ func commonPrefixWordLength(a, b string) int {
 	}
 	lastWhite := 0
 	for i := 0; i < len(a); i++ {
-		if a[i] == ' ' || a[i] == '\t' {
+		ch := a[i]
+		if isWhite(ch) {
 			lastWhite = i
 		}
-		if a[i] != b[i] {
+		if ch != b[i] {
 			if lastWhite == 0 {
 				return 0
 			}
@@ -70,11 +76,12 @@ func commonSuffixWordLength(a, b string) int {
 	n := min(alen, blen)
 	lastWhite := 0
 	for i := 0; i < n; i++ {
-		if a[alen-i-1] == ' ' || a[alen-i-1] == '\t' {
+		ch := a[alen-i-1]
+		if isWhite(ch) {
 			lastWhite = i
 		}
-		if a[alen-i-1] != b[blen-i-1] {
-			if lastWhite == 0 {
+		if ch != b[blen-i-1] {
+			if lastWhite == 0 && !isWhite(a[alen-1]) {
 				return 0
 			}
 			return min(lastWhite+1, n)
@@ -87,20 +94,12 @@ func commonSuffixWordLength(a, b string) int {
 //
 //
 func corrected(instr, outstr string) (orig, corrected string, column int) {
-	const offset = 10
-	const maxlen = 30
-
 	prefixLen := commonPrefixWordLength(instr, outstr)
 	suffixLen := commonSuffixWordLength(instr, outstr)
+	return instr[prefixLen : len(instr)-suffixLen], outstr[prefixLen : len(outstr)-suffixLen], prefixLen
+}
 
-	a := instr[prefixLen : len(instr)-suffixLen]
-	b := outstr[prefixLen : len(outstr)-suffixLen]
-
-	// Normal, we found the right snippet and it seems sane
-	if len(a) < maxlen && len(b) < maxlen {
-		return a, b, prefixLen
-	}
-
+/*
 	// some lines have no spaces and triggers a huge output
 	// trim down
 	for i := 0; i < len(a); i++ {
@@ -113,31 +112,63 @@ func corrected(instr, outstr string) (orig, corrected string, column int) {
 	}
 
 	return a, b, prefixLen
+
+*/
+
+// shouldUndo checks if a corrected string should be kept as original
+func shouldUndo(s string) bool {
+	// this is some blob of text that has no spaces for 20 characters!
+	// Smells like programming or some base64 mess
+	if len(s) > 20 {
+		return true
+	}
+
+	// perhaps a URL
+	if strings.Contains(s, "/") {
+		return true
+	}
+
+	return false
 }
 
 // DiffLines produces a grep-like diff between two strings showing
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
 func DiffLines(filename, input, output string) (string, []Diff) {
 	var changes []Diff
+
+	// fast case -- no changes!
 	if output == input {
 		return output, changes
 	}
+
+	buf := bytes.Buffer{}
+	buf.Grow(max(len(output), len(input)))
+
 	// line by line to make nice output
-	outlines := strings.Split(output, "\n")
-	inlines := strings.Split(input, "\n")
+	outlines := strings.SplitAfter(output, "\n")
+	inlines := strings.SplitAfter(input, "\n")
 	for i := 0; i < len(inlines); i++ {
 		if inlines[i] == outlines[i] {
+			buf.WriteString(inlines[i])
 			continue
 		}
 		s1, s2, col := corrected(inlines[i], outlines[i])
-		changes = append(changes, Diff{
+		if shouldUndo(s1) {
+			buf.WriteString(inlines[i])
+			continue
+		}
+
+		diff := Diff{
 			Filename:  filename,
 			Line:      i + 1, // lines start at 1
 			Column:    col,   // columns start at 0
 			Original:  s1,
 			Corrected: s2,
-		})
+		}
+		changes = append(changes, diff)
+		buf.WriteString(outlines[i])
 	}
+
 	return output, changes
 }
 

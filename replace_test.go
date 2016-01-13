@@ -143,6 +143,7 @@ func TestCommonSuffixWordLength(t *testing.T) {
 		{"abc end", "start end", len(" end")},
 		{"start end", "abc end", len(" end")},
 		{"start middle end", "foo middle end", len(" middle end")},
+		{"start middle end ", "foo middle end ", len(" middle end ")},
 	}
 
 	for casenum, tt := range cases {
