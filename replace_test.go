@@ -198,6 +198,7 @@ func TestDiff(t *testing.T) {
 		t.Errorf("DiffLines couldn't handle same inputs with newlines")
 	}
 
+	// Normal correction case
 	want = "nothing\nzebra\nnothing"
 	out, diffs = DiffLines("junk", "nothing\nzeebra\nnothing", want)
 	if out != want {
@@ -211,5 +212,16 @@ func TestDiff(t *testing.T) {
 	}
 	if diffs[0].Original != "zeebra" || diffs[0].Corrected != "zebra" {
 		t.Errorf("Expected (%q,%q) got (%q,%q)", "zeebra", "zebra", diffs[0].Original, diffs[0].Corrected)
+	}
+
+	// Undo case correction case.. zeebra is part of a big chunk of text
+	//  don't make correction
+	want = "nothing\nxxxxxxxxxxxxxxxxxxzeebraxxxxxxxxxxxxxxxxxxxxxxx\nnothing"
+	out, diffs = DiffLines("junk", want, want)
+	if out != want {
+		t.Errorf("Want %q got %q", want, out)
+	}
+	if len(diffs) != 0 {
+		t.Errorf("Expected 0 diff, got %d", len(diffs))
 	}
 }
