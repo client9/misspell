@@ -105,6 +105,15 @@ func TestCommonPrefixWordLength(t *testing.T) {
 		{"22", "1", 0},
 		{"1", "11", 1},
 		{"11", "1", 1},
+
+		{"start ", "start ", 6},
+		{"start 11", "start 22", 6},
+		{"start 11", "start 123", 6},
+		{"start 123", "start 11", 6},
+
+		{"start word 123", "start word 11", 11},
+		{"start word 123", "", 0},
+		{"", "start word 123", 0},
 	}
 
 	for casenum, tt := range cases {
