@@ -195,26 +195,26 @@ func TestDiff(t *testing.T) {
 	var diffs []Diff
 
 	// not so nice doing a table driven test here.
-	out, diffs = DiffLines("junk", "", "")
+	out, diffs = DiffLines("", "")
 	if out != "" || len(diffs) != 0 {
 		t.Errorf("DiffLines couldn't handle empty inputs: %q %d", out, len(diffs))
 	}
 
 	want = "nothing"
-	out, diffs = DiffLines("junk", "nothing", want)
+	out, diffs = DiffLines("nothing", want)
 	if out != want || len(diffs) != 0 {
 		t.Errorf("DiffLines couldn't handle same inputs: %q %d", out, len(diffs))
 	}
 
 	want = "nothing\n"
-	out, diffs = DiffLines("junk", "nothing\n", want)
+	out, diffs = DiffLines("nothing\n", want)
 	if out != want || len(diffs) != 0 {
 		t.Errorf("DiffLines couldn't handle same inputs with newlines")
 	}
 
 	// Normal correction case
 	want = "nothing\nzebra\nnothing"
-	out, diffs = DiffLines("junk", "nothing\nzeebra\nnothing", want)
+	out, diffs = DiffLines("nothing\nzeebra\nnothing", want)
 	if out != want {
 		t.Errorf("Want %q got %q", want, out)
 	}
@@ -232,7 +232,7 @@ func TestDiff(t *testing.T) {
 	//  don't make correction
 	orig := "nothing\nxxxxxxxxxxxxxxxxxxzeebraxxxxxxxxxxxxxxxxxxxxxxx\nnothing"
 	corr := "nothing\nxxxxxxxxxxxxxxxxxxzebraxxxxxxxxxxxxxxxxxxxxxxx\nnothing"
-	out, diffs = DiffLines("junk", orig, corr)
+	out, diffs = DiffLines(orig, corr)
 	if out != orig {
 		t.Errorf("Want %q got %q", orig, out)
 	}
@@ -243,7 +243,7 @@ func TestDiff(t *testing.T) {
 	// URL case
 	orig = "nothing\n// This code was inspired by https://github.com/broady/gogeohash\nnothing"
 	corr = "nothing\n// This code was inspired by https://github.com/broadly/gogeohash\nnothing"
-	out, diffs = DiffLines("junk", orig, corr)
+	out, diffs = DiffLines(orig, corr)
 	if out != orig {
 		t.Errorf("Want %q got %q", orig, out)
 	}

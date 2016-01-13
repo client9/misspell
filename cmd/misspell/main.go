@@ -61,11 +61,14 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			updated = misspell.Replace(orig)
 		}
 
-		updated, changes := misspell.DiffLines(filename, orig, updated)
+		updated, changes := misspell.DiffLines(orig, updated)
 		if len(changes) == 0 {
 			continue
 		}
 		for _, diff := range changes {
+			// add in filename
+			diff.Filename = filename
+
 			// output can be done by doing multiple goroutines
 			// and can clobber os.Stdout.
 			//
