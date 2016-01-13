@@ -40,7 +40,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 		isGolang := strings.HasSuffix(filename, ".go")
 
 		// ignore directories
-		if f, err := os.Stat(filename); f.IsDir() && err == nil {
+		if f, err := os.Stat(filename); err != nil || f.IsDir() {
 			continue
 		}
 
