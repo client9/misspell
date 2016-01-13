@@ -225,4 +225,15 @@ func TestDiff(t *testing.T) {
 	if len(diffs) != 0 {
 		t.Errorf("Expected 0 diff, got %d", len(diffs))
 	}
+
+	// URL case
+	orig = "nothing\n// This code was inspired by https://github.com/broady/gogeohash\nnothing"
+	corr = "nothing\n// This code was inspired by https://github.com/broadly/gogeohash\nnothing"
+	out, diffs = DiffLines("junk", orig, corr)
+	if out != orig {
+		t.Errorf("Want %q got %q", orig, out)
+	}
+	if len(diffs) != 0 {
+		t.Errorf("Expected 0 diff, got %d", len(diffs))
+	}
 }
