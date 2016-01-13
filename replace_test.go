@@ -165,6 +165,20 @@ func TestLineChange(t *testing.T) {
 		{"zeebra end", "zebra end", "zeebra", "zebra", 0},
 		{"start zeebra", "start zebra", "zeebra", "zebra", len("start ")},
 		{"start zeebra end", "start zebra end", "zeebra", "zebra", len("start ")},
+		{
+			"rows withing the",
+			"rows within the",
+			"withing",
+			"within",
+			5,
+		},
+		{
+			"foo yz the",
+			"foo xyz the",
+			"yz",
+			"xyz",
+			4,
+		},
 	}
 
 	for casenum, tt := range cases {
@@ -236,4 +250,5 @@ func TestDiff(t *testing.T) {
 	if len(diffs) != 0 {
 		t.Errorf("Expected 0 diff, got %d", len(diffs))
 	}
+
 }

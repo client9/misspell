@@ -57,15 +57,16 @@ func commonPrefixWordLength(a, b string) int {
 	lastWhite := 0
 	for i := 0; i < len(a); i++ {
 		ch := a[i]
-		if isWhite(ch) {
-			lastWhite = i
-		}
 		if ch != b[i] {
 			if lastWhite == 0 {
 				return 0
 			}
 			return min(lastWhite+1, len(a))
 		}
+		if isWhite(ch) {
+			lastWhite = i
+		}
+
 	}
 	return len(a)
 }
@@ -77,26 +78,33 @@ func commonSuffixWordLength(a, b string) int {
 	lastWhite := 0
 	for i := 0; i < n; i++ {
 		ch := a[alen-i-1]
-		if isWhite(ch) {
-			lastWhite = i
-		}
 		if ch != b[blen-i-1] {
 			if lastWhite == 0 && !isWhite(a[alen-1]) {
 				return 0
 			}
 			return min(lastWhite+1, n)
 		}
+		if isWhite(ch) {
+			lastWhite = i
+		}
 	}
 	return n
 }
 
-// Return one words that are corrected in a single line
+// Return the misspelled word, the correction and the column position
 //
-//
-func corrected(instr, outstr string) (orig, corrected string, column int) {
+func corrected(instr, outstr string) (string, string, int) {
 	prefixLen := commonPrefixWordLength(instr, outstr)
 	suffixLen := commonSuffixWordLength(instr, outstr)
-	return instr[prefixLen : len(instr)-suffixLen], outstr[prefixLen : len(outstr)-suffixLen], prefixLen
+	orig := instr[prefixLen : len(instr)-suffixLen]
+	if prefixLen > len(outstr)-suffixLen {
+		log.Fatalf("BOO: %q %q %d %d", instr, outstr, prefixLen, len(outstr)-suffixLen)
+	}
+	if len(outstr)-suffixLen < 0 {
+		log.Fatalf("BOO2: %q %q %d %d", instr, outstr, prefixLen, len(outstr)-suffixLen)
+	}
+	corr := outstr[prefixLen : len(outstr)-suffixLen]
+	return orig, corr, prefixLen
 }
 
 /*
