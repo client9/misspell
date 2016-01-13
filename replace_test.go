@@ -90,3 +90,27 @@ var foo int
 		}
 	}
 }
+
+func TestCommonPrefixWordLength(t *testing.T) {
+	cases := []struct {
+		a   string
+		b   string
+		col int
+	}{
+		{"", "", 0},
+		{"1", "1", 1},
+		{"11", "11", 2},
+		{"11", "22", 0},
+		{"1", "22", 0},
+		{"22", "1", 0},
+		{"1", "11", 1},
+		{"11", "1", 1},
+	}
+
+	for casenum, tt := range cases {
+		col := commonPrefixWordLength(tt.a, tt.b)
+		if col != tt.col {
+			t.Errorf("%d: with %q, %q want prefix length of %d, got %d", casenum, tt.a, tt.b, tt.col, col)
+		}
+	}
+}

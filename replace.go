@@ -54,6 +54,9 @@ func commonPrefixWordLength(a, b string) int {
 			lastWhite = i
 		}
 		if a[i] != b[i] {
+			if lastWhite == 0 {
+				return 0
+			}
 			return min(lastWhite+1, len(a))
 		}
 	}
