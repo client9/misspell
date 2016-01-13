@@ -1,6 +1,7 @@
 package misspell
 
 import (
+	"errors"
 	"log"
 	"strings"
 	"text/scanner"
@@ -224,7 +225,7 @@ func inArray(haystack []string, needle string) bool {
 // Ignore removes a correction rule
 //   WARNING: multiple calls to this will unset the previous calls.
 //    thats not so good.
-func Ignore(words []string) {
+func Ignore(words []string) error {
 	newwords := make([]string, 0, len(dictWikipedia))
 	for i := 0; i < len(dictWikipedia); i += 2 {
 		if inArray(words, dictWikipedia[i]) {
@@ -235,6 +236,7 @@ func Ignore(words []string) {
 	}
 	replacer = strings.NewReplacer(newwords...)
 	if replacer == nil {
-		panic("unable to create strings.Replacer")
+		return errors.New("Unable to create strings.Replacer")
 	}
+	return nil
 }

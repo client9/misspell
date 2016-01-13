@@ -113,7 +113,10 @@ func main() {
 		defaultRead = t
 	}
 	if len(*ignores) > 0 {
-		misspell.Ignore(strings.Split(*ignores, ","))
+		err := misspell.Ignore(strings.Split(*ignores, ","))
+		if err != nil {
+			log.Fatalf("unable to process ignores: %s", err)
+		}
 	}
 	if *workers < 0 {
 		log.Fatalf("-j must >= 0")
