@@ -7,7 +7,7 @@ Correct commonly misspelled English words... quickly.
 new as of 2016-01-12
 
 ```bash
-$ misspell your.txt important.txt files.txt
+$ misspell all.html your.txt important.md files.go
 your.txt:42 found "initialised" a misspelling of "initialized"
 ```
 
