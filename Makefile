@@ -11,7 +11,7 @@ lint:
 	find . -name '*.go' | xargs gofmt -w -s
 
 test:
-	go test ./...
+	go test .
 	misspell *.md replace.go cmd/misspell/*.go
 
 clean:
