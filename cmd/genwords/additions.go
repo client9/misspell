@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+interfce->interface
 alrorythm->algorithm
 Closeing->Closing
 closeing->closing

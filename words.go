@@ -2240,6 +2240,7 @@ var dictWikipedia = []string{
 	"intercontinetal", "intercontinental",
 	"intered", "interred",
 	"interelated", "interrelated",
+	"interfce", "interface",
 	"interferance", "interference",
 	"interfereing", "interfering",
 	"intergrated", "integrated",
