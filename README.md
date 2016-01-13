@@ -6,14 +6,14 @@ Correct commonly misspelled English words... quickly.
 
 new as of 2016-01-12
 
-``bash
+```bash
 $ misspell your.txt important.txt files.txt
 your.txt:42 found "initialised" a misspelling of "initialized"
 ```
 
 ## FAQ
 
-### Check an entire folder recursively
+### How do you check an entire folder recursively?
 
 You can run misspell recursively using the following notation:
 
@@ -35,6 +35,11 @@ If you want to force a file to be checked as a golang source, use
 `-source=go` on the command line.  Conversely, you can check a go lang
 source as if it were pure text by using `-source=text`
 
+### Can I check only-comments in other other programming languages?
+
+I'm told the using `-source=go` works well for ruby, javascript, java, c and c++.
+
+It doesn't work well for python.
 
 ### Does this work with gometalinter?
 
