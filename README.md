@@ -2,7 +2,7 @@
 
 Correct commonly misspelled English words... quickly.
 
-## install with `go get -u github.com/client9/misspell/cmd/misspell`
+### install with `go get -u github.com/client9/misspell/cmd/misspell`
 
 new as of 2016-01-12
 
