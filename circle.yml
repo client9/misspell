@@ -2,6 +2,9 @@ machine:
   services:
       - docker
 
+dependencies:
+  override:
+
 test:
   override:
       - make -e docker-ci
