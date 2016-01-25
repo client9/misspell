@@ -1236,6 +1236,7 @@ var dictWikipedia = []string{
 	"cumulatative", "cumulative",
 	"curch", "church",
 	"curcuit", "circuit",
+	"currate", "curate",
 	"currenly", "currently",
 	"curriculem", "curriculum",
 	"customises", "customizes",
