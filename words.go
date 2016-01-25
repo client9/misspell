@@ -1977,6 +1977,7 @@ var dictWikipedia = []string{
 	"hertiage", "heritage",
 	"hertzs", "hertz",
 	"hesistant", "hesitant",
+	"hesistate", "hesitate",
 	"heterogenous", "heterogeneous",
 	"hieght", "height",
 	"hierachical", "hierarchical",
