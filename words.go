@@ -3458,6 +3458,7 @@ var dictWikipedia = []string{
 	"retalitation", "retaliation",
 	"retreive", "retrieve",
 	"retrived", "retrieved",
+	"retuns", "returns",
 	"returnd", "returned",
 	"revaluated", "reevaluated",
 	"reveiw", "review",
