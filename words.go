@@ -557,6 +557,7 @@ var dictWikipedia = []string{
 	"aroud", "around",
 	"arrangment", "arrangement",
 	"arrangments", "arrangements",
+	"arrary", "array",
 	"arrengement", "arrangement",
 	"arrengements", "arrangements",
 	"arround", "around",
