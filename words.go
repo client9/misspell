@@ -2023,6 +2023,7 @@ var dictWikipedia = []string{
 	"huminoid", "humanoid",
 	"humoural", "humoral",
 	"humurous", "humorous",
+	"hunman", "human",
 	"husban", "husband",
 	"hvae", "have",
 	"hvaing", "having",
