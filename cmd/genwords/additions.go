@@ -20,7 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
-affliated->affliated
+affliated->affiliated
 hesistate->hesitate
 arrary->array
 hunman->human

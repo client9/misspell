@@ -314,7 +314,7 @@ var dictWikipedia = []string{
 	"afficionados", "aficionados",
 	"affilate", "affiliate",
 	"affilliate", "affiliate",
-	"affliated", "affliated",
+	"affliated", "affiliated",
 	"affort", "afford",
 	"aforememtioned", "aforementioned",
 	"aforementioend", "aforementioned",
