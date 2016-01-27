@@ -17,6 +17,7 @@ test:
 clean:
 	rm -f *~
 	go clean ./...
+	git gc
 
 ci: install lint test
 
