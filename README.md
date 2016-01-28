@@ -32,18 +32,18 @@ or
 ```bash
 find . -name '*' | xargs misspell
 ```
-### Can I use pipes or stdin for input?
+### Can I use pipes or `stdin` for input?
 
 Yes!
 
-Print messages to stderr only:
+Print messages to `stderr` only:
 
 ```bash
 $ echo "zeebra" | misspell
 stdin:1:0:found "zeebra" a misspelling of "zebra"
 ```
 
-Print messages to stderr, correct text to stdout:
+Print messages to `stderr`, and corrected text to `stdout`:
 
 ```bash
 $ echo "zeebra" | misspell -w
@@ -51,7 +51,7 @@ stdin:1:0:corrected "zeebra" to "zebra"
 zebra
 ```
 
-Only print the corrected text to stdout:
+Only print the corrected text to `stdout`:
 
 ```bash
 $ echo "zeebra" | misspell -w -q
@@ -145,9 +145,12 @@ Easily 100x to 1000x faster.  You should be able to check and correct
 
 ### Where do the word lists come from?
 
-It's currently pulled from
+It started with a word list from
 [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines)
 and then edited to remove false positives.
+
+Then additional words were added based on actually mistakes seen in
+the wild.
 
 ### Why is this so fast?
 
