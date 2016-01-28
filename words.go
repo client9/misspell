@@ -1740,6 +1740,7 @@ var dictWikipedia = []string{
 	"exressed", "expressed",
 	"extactly", "exactly",
 	"extemely", "extremely",
+	"extenion", "extension",
 	"extention", "extension",
 	"extentions", "extensions",
 	"extered", "exerted",
