@@ -32,7 +32,7 @@ type Diff struct {
 }
 
 func isWhite(ch byte) bool {
-	return ch == ' ' || ch == '\n' || ch == '\t'
+	return ch == ' ' || ch == '\n' || ch == '\t' || ch == '\r'
 }
 
 func min(x, y int) int {
@@ -161,16 +161,18 @@ func DiffLines(input, output string) (string, []Diff) {
 	return buf.String(), changes
 }
 
-// ReplaceDebug logs exactly what was matched and replaced for using
+// ReplaceDebug logs exactly what was matched and replaced for use
 // in debugging
 func ReplaceDebug(input string) string {
-	for i := 0; i < len(dictWikipedia); i += 2 {
-		idx := strings.Index(input, dictWikipedia[i])
-		if idx != -1 {
-			left := max(0, idx-10)
-			right := min(idx+len(dictWikipedia[i])+10, len(input))
-			snippet := input[left:right]
-			log.Printf("Found %q in %q  (%q)", dictWikipedia[i], snippet, dictWikipedia[i+1])
+	for linenum, line := range strings.Split(input, "\n") {
+		for i := 0; i < len(dictWikipedia); i += 2 {
+			idx := strings.Index(line, dictWikipedia[i])
+			if idx != -1 {
+				left := max(0, idx-10)
+				right := min(idx+len(dictWikipedia[i])+10, len(line))
+				snippet := strings.TrimSpace(line[left:right])
+				log.Printf("line %d: Found %q in %q  (%q)", linenum+1, dictWikipedia[i], snippet, dictWikipedia[i+1])
+			}
 		}
 	}
 	return Replace(input)
