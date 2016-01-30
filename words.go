@@ -3,6 +3,7 @@ package misspell
 var dictWikipedia = []string{
 	" adn ", " and ",
 	" isnt", " isn't",
+	" ommitting", "omitting",
 	" runing", "running",
 	" thru ", "through",
 	"Accomodate", "Accommodate",
@@ -2727,7 +2728,6 @@ var dictWikipedia = []string{
 	"ommision", "omission",
 	"ommited", "omitted",
 	"ommiting", "omitting",
-	"ommitting", "omitting",
 	"omniverous", "omnivorous",
 	"omniverously", "omnivorously",
 	"omre", "more",

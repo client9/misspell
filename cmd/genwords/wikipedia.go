@@ -40,6 +40,11 @@ func dictWikipedia() map[string]string {
 	delete(dict, "adn")
 	dict[" adn "] = " and "
 
+	// false positive in "committing"
+	// Issue #21
+	delete(dict, "ommitting")
+	dict[" ommitting"] = "omitting"
+
 	delete(dict, "seing")      // Seeing .. really?
 	delete(dict, "borke")      // broke vs.  "borked"
 	delete(dict, "weas")       // was vs. weasle
