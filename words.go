@@ -933,6 +933,7 @@ var dictWikipedia = []string{
 	"closeing", "closing",
 	"cmoputer", "computer",
 	"co-incided", "coincided",
+	"coalese", "coalesce",
 	"coctail", "cocktail",
 	"coform", "conform",
 	"cognizent", "cognizant",
