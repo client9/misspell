@@ -241,8 +241,8 @@ func TestDiff(t *testing.T) {
 	}
 
 	// URL case
-	orig = "nothing\n// This code was inspired by https://github.com/broady/gogeohash\nnothing"
-	corr = "nothing\n// This code was inspired by https://github.com/broadly/gogeohash\nnothing"
+	orig = "http://github.com"
+	corr = "http://changed.com"
 	out, diffs = DiffLines(orig, corr)
 	if out != orig {
 		t.Errorf("Want %q got %q", orig, out)
