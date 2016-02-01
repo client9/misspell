@@ -3479,7 +3479,6 @@ var dictWikipedia = []string{
 	"revolutionar", "revolutionary",
 	"rewitten", "rewritten",
 	"rewriet", "rewrite",
-	"rference", "reference",
 	"rferences", "references",
 	"rhymme", "rhyme",
 	"rhythem", "rhythm",

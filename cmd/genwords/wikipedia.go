@@ -8,6 +8,10 @@ func dictWikipedia() map[string]string {
 	delete(dict, "cmo")    // wrong
 	// technical term
 
+	// not worthwhile
+	// https://github.com/client9/misspell/issues/25
+	delete(dict, "rference")
+
 	// Corrections
 	delete(dict, "fiel")
 	dict["fiels"] = "fields"
