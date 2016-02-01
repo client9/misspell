@@ -45,6 +45,9 @@ func dictWikipedia() map[string]string {
 	delete(dict, "ommitting")
 	dict[" ommitting"] = "omitting"
 
+	// Issue 24
+	delete(dict, "upto")
+	dict[" upto"] = " up to"
 	delete(dict, "seing")      // Seeing .. really?
 	delete(dict, "borke")      // broke vs.  "borked"
 	delete(dict, "weas")       // was vs. weasle
