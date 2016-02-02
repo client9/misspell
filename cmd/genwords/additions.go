@@ -20,6 +20,26 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+accending->ascending
+consisent->consistent
+percision->precision
+determinsitic->deterministic
+elasped->elapsed
+udpated->updated
+undescore->underscore
+represenation->representation
+registery->registry
+redundent->redundant
+puncutation->punctuation
+genrates->generates
+finallizes->finalizes
+expoch->epoch
+equivalant->equivalent
+determinsitic->deterministic
+normallized->normalized
+elasped->elapsed
+machiens->machines
+demonstates->demonstrates
 collumn->column
 verical->vertical
 refernece->reference
@@ -59,7 +79,6 @@ Specifcation->Specification
 Wheter->Whether
 acknowledgement->acknowledgment
 aforementioend->aforementioned
-aggregate->aggregate
 annonymouse->anonymous
 apologise->apologize
 approstraphe->apostrophe
