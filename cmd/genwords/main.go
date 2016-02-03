@@ -5,6 +5,8 @@ import (
 	"log"
 	"sort"
 	"strings"
+
+	"github.com/client9/gospell"
 )
 
 func addOrPanic(dict map[string]string, key, value string) {
@@ -16,7 +18,12 @@ func addOrPanic(dict map[string]string, key, value string) {
 
 func mergeDict(a, b map[string]string) {
 	for k, v := range b {
-		addOrPanic(a, k, v)
+		style := gospell.CaseStyle(k)
+		kcase := gospell.CaseVariations(k, style)
+		vcase := gospell.CaseVariations(v, style)
+		for i := 0; i < len(kcase); i++ {
+			addOrPanic(a, kcase[i], vcase[i])
+		}
 	}
 }
 
