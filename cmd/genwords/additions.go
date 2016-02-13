@@ -20,6 +20,14 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+boundry->boundary
+satifies->satisfies
+capialized->capitalized
+versoin->version
+obvioulsy->obviously
+fundemental->fundamental
+crytopgraphic->cryptographic
+appication->application
 accending->ascending
 consisent->consistent
 percision->precision
