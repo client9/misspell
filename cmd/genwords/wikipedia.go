@@ -49,6 +49,11 @@ func dictWikipedia() map[string]string {
 	delete(dict, "ommitting")
 	dict[" ommitting"] = "omitting"
 
+	// false positive in "causally"
+	// Issue #28
+	delete["usally"]
+	dict[" usally"] = "usually"
+
 	// Issue 24
 	delete(dict, "upto")
 	dict[" upto"] = " up to"
