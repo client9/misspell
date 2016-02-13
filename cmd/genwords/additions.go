@@ -20,7 +20,6 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
-boundry->boundary
 satifies->satisfies
 capialized->capitalized
 versoin->version
@@ -63,25 +62,18 @@ currate->curate
 retuns->returns
 interfce->interface
 alrorythm->algorithm
-Closeing->Closing
-closeing->closing
 credentaisl->credentials
-Accomodate->Accommodate
-COMMERICIAL->COMMERCIAL
+closeing->closing
 Constructur->Constructor
 Depdending->Depending
 Disclamer->Disclaimer
 Elimintates->Eliminates
-Embeded->Embedded
 Externalise->Externalize
 Fowrards->Forwards
-Futher->Further
 IMPOSTER->IMPOSTOR
 Implementor->Implementer
 Instalation->Installation
 Numerious->Numerous
-Perfomance->Performance
-Recieve->Receive
 Runing->Running
 Specifcation->Specification
 Wheter->Whether
