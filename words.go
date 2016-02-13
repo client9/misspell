@@ -2,7 +2,7 @@ package misspell
 
 var dictWikipedia = []string{
 	" ADN ", " AND ",
-	" EMBARRAS", " EMBARRASS",
+	" EMBARRAS ", " EMBARRASS ",
 	" ISNT", " ISN'T",
 	" OMMITTING", " OMITTING",
 	" RUNING", "RUNNING",
@@ -10,7 +10,7 @@ var dictWikipedia = []string{
 	" UPTO", " UP TO",
 	" USALLY", " USUALLY",
 	" adn ", " and ",
-	" embarras", " embarrass",
+	" embarras ", " embarrass ",
 	" isnt", " isn't",
 	" ommitting", " omitting",
 	" runing", "running",
