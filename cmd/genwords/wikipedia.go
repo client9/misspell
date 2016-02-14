@@ -57,7 +57,7 @@ func dictWikipedia() map[string]string {
 	// false positive in "embarrassing"
 	// Issue #26
 	delete(dict, "embarras")
-	dict[" embarras"] = " embarrass"
+	dict[" embarras "] = " embarrass "
 
 	// false positive in "scientists"
 	// Issue #27
