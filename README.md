@@ -189,6 +189,6 @@ could be corrected to `year`.  Other problems happen if the variable
 name uses a English contraction that should use an apostrophe.  The
 best way of fixing this is to use the [Effective Go naming
 conventions](https://golang.org/doc/effective_go.html#mixed-caps) and
-use camelCase for variable names.  You can check your code using
+use [camelCase](https://en.wikipedia.org/wiki/CamelCase) for variable names.  You can check your code using
 [golint](https://github.com/golang/lint)
 
