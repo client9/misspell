@@ -3,6 +3,7 @@ all: install lint test
 
 install:
 	go get -t ./...
+	go build ./...
 	go run cmd/genwords/*.go > ./words.go
 	go install ./cmd/misspell
 
