@@ -12,6 +12,9 @@ func dictWikipedia() map[string]string {
 	// https://github.com/client9/misspell/issues/25
 	delete(dict, "rference")
 
+	// https://github.com/client9/misspell/issues/30
+	delete(dict, "beng")
+
 	// Corrections
 	delete(dict, "fiel")
 	dict["fiels"] = "fields"
@@ -26,6 +29,11 @@ func dictWikipedia() map[string]string {
 
 	delete(dict, "republis")
 	dict["republis "] = "republics"
+
+	// https://github.com/client9/misspell/issues/30
+	delete(dict, "Portugues")
+	delete(dict, "portugues")
+	dict["portugues "] = "Portuguese "
 
 	// fallthru is a common abbreviation
 	delete(dict, "thru")

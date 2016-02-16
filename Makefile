@@ -12,7 +12,7 @@ lint:
 	go vet ./...
 	find . -name '*.go' | xargs gofmt -w -s
 
-test:
+test: install
 	go test .
 	misspell *.md replace.go cmd/misspell/*.go
 
