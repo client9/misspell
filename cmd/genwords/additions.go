@@ -20,6 +20,9 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+authenticor->authenticator
+availabale->available
+positve->positive
 satifies->satisfies
 capialized->capitalized
 versoin->version
