@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+retunred->returned
 authenticor->authenticator
 availabale->available
 positve->positive
