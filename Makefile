@@ -1,6 +1,6 @@
 CONTAINER=nickg/misspell
 
-all: install lint native-test
+all: install lint test
 
 install:
 	go get -t ./...
@@ -13,19 +13,21 @@ lint:
 	go vet ./...
 	find . -name '*.go' | xargs gofmt -w -s
 
-native-test: install
+test: install
 	go test .
 	misspell *.md replace.go cmd/misspell/*.go
-	[[ -f /scowl-wl/words.txt ]] && misspell /scowl-wl/words.txt
+
+falsepositives:
+	[[ -f /scowl-wl/words.txt ]] && misspell -debug /scowl-wl/words.txt
 
 clean:
 	rm -f *~
 	go clean ./...
 	git gc
 
-native-ci: install lint native-test
+native-ci: install lint test falsepositives
 
-test:
+ci:
 	docker run --rm \
 		-e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN \
 		-v $(PWD):/go/src/github.com/client9/misspell \
