@@ -2,9 +2,8 @@ CONTAINER=nickg/misspell
 
 all: install lint native-test
 
-#go get -t ./...
-
 install:
+	go get -t ./...
 	go build ./...
 	go run cmd/genwords/*.go > ./words.go
 	go install ./cmd/misspell
