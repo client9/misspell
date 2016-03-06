@@ -1,3 +1,4 @@
+CONTAINER=nickg/docker-misspell
 
 all: install lint test
 
@@ -30,5 +31,11 @@ docker-ci:
 		-w /go/src/github.com/client9/misspell \
 		nickg/golang-dev-docker \
 		make ci
+
+docker-build:
+	docker build -t ${CONTAINER} .
+
+console: docker-build
+	docker run --rm -it ${CONTAINER} sh
 
 .PHONY: ci docker-ci
