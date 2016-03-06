@@ -1,4 +1,4 @@
-CONTAINER=nickg/docker-misspell
+CONTAINER=nickg/misspell
 
 all: install lint native-test
 
