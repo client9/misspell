@@ -2,5 +2,5 @@ sudo: required
 dist: trusty
 language: generic
 script:
-  - make -e ci
+  - make -e ci-travis
 
