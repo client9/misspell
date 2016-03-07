@@ -11,7 +11,8 @@ MAINTAINER nickg@client9.com
 #  http://wordlist.aspell.net/dicts/
 #  --> http://app.aspell.net/create
 #
-#
+# cache buster
+RUN echo 1457339114
 
 ENV SOURCE http://app.aspell.net/create?max_size=70&spelling=US&max_variant=1&diacritic=both&special=hacker&special=roman-numerals&download=wordlist&encoding=utf-8&format=inline
 RUN true \
