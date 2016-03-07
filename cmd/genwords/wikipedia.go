@@ -24,6 +24,12 @@ func dictWikipedia() map[string]string {
 	delete(dict, "sherif")
 	delete(dict, "creche")
 	delete(dict, "curch")
+	delete(dict, "unplease")
+	delete(dict, "knive")
+	delete(dict, "knifes")
+	delete(dict, "humer")
+	delete(dict, "convertor")
+	delete(dict, "Capetown")
 	// technical term
 
 	// not worthwhile
@@ -196,6 +202,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "controll")      // controlled
 
 	needRight := []string{
+		"helpfull",
 		"husban",
 		"hypocrit",
 		"wass",
@@ -205,8 +212,22 @@ func dictWikipedia() map[string]string {
 		"arund",
 		"deside",
 		"expell",
+		"wonderfull",
+		"withh",
+		"volcanoe",
+		"varity",
+		"untill",
+		"powerfull",
 	}
 	needLeft := []string{
+		"heared",
+		"sponser",
+		"adres",
+		"refect",
+		"oponent",
+		"surveill",
+		"tiem",
+		"omited",
 		"tyhe",
 		"tothe",
 		"ahve",
