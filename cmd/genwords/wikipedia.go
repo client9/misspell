@@ -30,13 +30,18 @@ func dictWikipedia() map[string]string {
 	delete(dict, "humer")
 	delete(dict, "convertor")
 	delete(dict, "Capetown")
-	// technical term
+	delete(dict, "diaster")
+	delete(dict, "Muhammadan")
+	delete(dict, "slippy")
 
 	// not worthwhile
 	// https://github.com/client9/misspell/issues/25
 	delete(dict, "rference")
 	delete(dict, "sheat")
 	delete(dict, "beng")
+	delete(dict, "miliary")
+	delete(dict, "nickle")
+	delete(dict, "lightyear")
 
 	// Corrections
 	delete(dict, "fiel")
@@ -174,8 +179,6 @@ func dictWikipedia() map[string]string {
 	delete(dict, "earlies")       // easliest
 	delete(dict, "Japanes")       // Japanese
 	delete(dict, "internation")   // international
-	delete(dict, "excell")        // excellent
-	delete(dict, "gracefull")     // gracefully
 	delete(dict, "carefull")      // carefully
 	delete(dict, "imagin")        // imagine
 	delete(dict, "originall")     // originally
@@ -197,11 +200,33 @@ func dictWikipedia() map[string]string {
 	delete(dict, "committe")      // committee
 	delete(dict, "ommitted")      // omitted / committed
 	delete(dict, "develope")      // develop / developer
-	delete(dict, "occurr")        // occurred
-	delete(dict, "agre")          // agree
-	delete(dict, "controll")      // controlled
+
+	needDelete := []string{
+		"pary",
+		"sprech",
+		"heathy",
+		"loosing",
+		"turnk",
+		"midwifes",
+		"revolutionar",
+		"demographical",
+		"irregardless",
+		"infeasible",
+		"acknowledgement",
+		"alcoholical",
+		"algebraical",
+		"atheistical",
+		"unmistakeably",
+		"geometrician",
+	}
 
 	needRight := []string{
+		"missen",
+		"occurr",
+		"gracefull",
+		"excell",
+		"agre",
+		"controll",
 		"helpfull",
 		"husban",
 		"hypocrit",
@@ -218,8 +243,33 @@ func dictWikipedia() map[string]string {
 		"varity",
 		"untill",
 		"powerfull",
+		"forbad",
+		"flourine",
+		"adress",
+		"Hertzs",
+		"Daed",
+		"Carcas",
+		"carcas",
+		"comming",
+		"Monts",
+		"frome",
+		"tornadoe",
+		"artefact",
+		"stomache",
 	}
 	needLeft := []string{
+		"menally",
+		"relized",
+		"peronal",
+		"eratically",
+		"reminent",
+		"thast",
+		"tiome",
+		"parition",
+		"illess",
+		"intered",
+		"copywrite",
+		"docrines",
 		"heared",
 		"sponser",
 		"adres",
@@ -318,6 +368,10 @@ func dictWikipedia() map[string]string {
 		"ganes",
 		"ealier",
 		"hapen",
+	}
+
+	for _, word := range needDelete {
+		delete(dict, word)
 	}
 	for _, word := range needLeft {
 		addLeftDelimiter(dict, word)
