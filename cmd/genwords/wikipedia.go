@@ -6,6 +6,12 @@ func addLeftDelimiter(dict map[string]string, word string) {
 		dict[" "+word] = " " + val
 	}
 }
+func addRightDelimiter(dict map[string]string, word string) {
+	if val, ok := dict[word]; ok {
+		delete(dict, word)
+		dict[word+" "] = val + " "
+	}
+}
 
 func dictWikipedia() map[string]string {
 	dict := parseWikipediaFormat(wikipedia)
@@ -13,13 +19,17 @@ func dictWikipedia() map[string]string {
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a
 	delete(dict, "cmo")    // wrong
+	delete(dict, "indite")
+	delete(dict, "troup")
+	delete(dict, "sherif")
+	delete(dict, "creche")
+	delete(dict, "curch")
 	// technical term
 
 	// not worthwhile
 	// https://github.com/client9/misspell/issues/25
 	delete(dict, "rference")
-
-	// https://github.com/client9/misspell/issues/30
+	delete(dict, "sheat")
 	delete(dict, "beng")
 
 	// Corrections
@@ -185,7 +195,27 @@ func dictWikipedia() map[string]string {
 	delete(dict, "agre")          // agree
 	delete(dict, "controll")      // controlled
 
+	needRight := []string{
+		"husban",
+		"hypocrit",
+		"wass",
+		"whith",
+		"wille",
+		"momento",
+		"arund",
+		"deside",
+		"expell",
+	}
 	needLeft := []string{
+		"tyhe",
+		"tothe",
+		"ahve",
+		"thrid",
+		"nkow",
+		"ocurr",
+		"smae",
+		"trafic",
+		"censur",
 		"esle",
 		"aisian",
 		"htis",
@@ -194,6 +224,7 @@ func dictWikipedia() map[string]string {
 		"quitted",
 		"visably",
 		"avation",
+		"rulle",
 		"lible",
 		"lveo",
 		"onyl",
@@ -255,9 +286,23 @@ func dictWikipedia() map[string]string {
 		"lsat",
 		"deram",
 		"villian",
+		"shiped",
+		"shiping",
+		"eminated",
+		"tendancy",
+		"rferences",
+		"arund",
+		"rulle",
+		"ceratin",
+		"ganes",
+		"ealier",
+		"hapen",
 	}
 	for _, word := range needLeft {
 		addLeftDelimiter(dict, word)
+	}
+	for _, word := range needRight {
+		addRightDelimiter(dict, word)
 	}
 	return dict
 }
