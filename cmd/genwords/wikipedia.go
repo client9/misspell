@@ -1,5 +1,12 @@
 package main
 
+func addLeftDelimiter(dict map[string]string, word string) {
+	if val, ok := dict[word]; ok {
+		delete(dict, word)
+		dict[" "+word] = " " + val
+	}
+}
+
 func dictWikipedia() map[string]string {
 	dict := parseWikipediaFormat(wikipedia)
 
@@ -54,13 +61,11 @@ func dictWikipedia() map[string]string {
 
 	// false positive in "committing"
 	// Issue #21
-	delete(dict, "ommitting")
-	dict[" ommitting"] = " omitting"
+	addLeftDelimiter(dict, "ommitting")
 
 	// false positive in "causally"
 	// Issue #28
-	delete(dict, "usally")
-	dict[" usally"] = " usually"
+	addLeftDelimiter(dict, "usally")
 
 	// false positive in "embarrassing"
 	// Issue #26
@@ -180,6 +185,23 @@ func dictWikipedia() map[string]string {
 	delete(dict, "agre")          // agree
 	delete(dict, "controll")      // controlled
 
+	needLeft := []string{
+		"aslo",
+		"apon",
+		"thne",
+		"agian",
+		"efel",
+		"tje",
+		"endig",
+		"tust",
+		"veyr",
+		"lsat",
+		"deram",
+		"villian",
+	}
+	for _, word := range needLeft {
+		addLeftDelimiter(dict, word)
+	}
 	return dict
 }
 
