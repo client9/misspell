@@ -19,7 +19,7 @@ test: install
 	misspell *.md replace.go cmd/misspell/*.go
 
 falsepositives:
-	[[ -f /scowl-wl/words.txt ]] && misspell -debug /scowl-wl/words.txt
+	[[ -f /scowl-wl/words.txt ]] && misspell -debug -error /scowl-wl/words.txt
 
 clean:
 	rm -f *~

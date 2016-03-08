@@ -35,7 +35,7 @@ func init() {
 }
 
 func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
-	fails := 0
+	count := 0
 	for filename := range files {
 		// ignore directories
 		if f, err := os.Stat(filename); err != nil || f.IsDir() {
@@ -64,6 +64,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 		if len(changes) == 0 {
 			continue
 		}
+		count += len(changes)
 		for _, diff := range changes {
 			// add in filename
 			diff.Filename = filename
@@ -87,7 +88,7 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 			ioutil.WriteFile(filename, []byte(updated), 0)
 		}
 	}
-	results <- fails
+	results <- count
 }
 
 func main() {
@@ -98,6 +99,8 @@ func main() {
 	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
+	exitError := flag.Bool("error", false, "Exit with 2 if misspelling found")
+
 	flag.Parse()
 
 	switch *mode {
@@ -185,9 +188,9 @@ func main() {
 		changed := <-results
 		count += changed
 	}
-	if count != 0 {
+	if count != 0 && *exitError {
 		// log.Printf("Got %d", count)
 		// error
-		os.Exit(1)
+		os.Exit(2)
 	}
 }
