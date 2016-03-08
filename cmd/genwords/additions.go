@@ -136,7 +136,6 @@ mimimum->minimum
 minimised->minimized
 minimium->minimum
 misinterpretting->misinterpreting
-mississippi->Mississippi
 momment->moment
 muliple->multiple
 mulitple->multiple

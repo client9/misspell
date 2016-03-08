@@ -202,6 +202,12 @@ func dictWikipedia() map[string]string {
 	delete(dict, "develope")      // develop / developer
 
 	needDelete := []string{
+		"Tuscon",
+		"daugher",
+		"Peloponnes",
+		"Skagerak",
+		"lippizaner",
+		"leibnitz",
 		"pary",
 		"sprech",
 		"heathy",
@@ -222,9 +228,14 @@ func dictWikipedia() map[string]string {
 		"reoccurrence",
 		"rememberable",
 		"calenders",
+		"muhammadan",
+		"mohammedans",
 	}
 
 	needRight := []string{
+		"soem",
+		"daed",
+		"hertzs",
 		"geometricians",
 		"missen",
 		"occurr",
@@ -251,12 +262,9 @@ func dictWikipedia() map[string]string {
 		"forbad",
 		"flourine",
 		"adress",
-		"Hertzs",
-		"Daed",
-		"Carcas",
 		"carcas",
 		"comming",
-		"Monts",
+		"monts",
 		"frome",
 		"tornadoe",
 		"stomache",

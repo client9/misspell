@@ -13,7 +13,9 @@ func addOrPanic(dict map[string]string, key, value string) {
 	if _, ok := dict[key]; ok {
 		log.Printf("Already have %q", key)
 	}
-	dict[key] = value
+	if key != value {
+		dict[key] = value
+	}
 }
 
 func mergeDict(a, b map[string]string) {
