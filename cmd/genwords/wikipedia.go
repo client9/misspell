@@ -211,7 +211,6 @@ func dictWikipedia() map[string]string {
 		"revolutionar",
 		"demographical",
 		"irregardless",
-		"infeasible",
 		"acknowledgement",
 		"alcoholical",
 		"algebraical",
@@ -220,7 +219,9 @@ func dictWikipedia() map[string]string {
 		"geometrician",
 		"polysaccharid",
 		"discontentment",
-		"acknowledgement",
+		"reoccurrence",
+		"rememberable",
+		"calenders",
 	}
 
 	needRight := []string{
@@ -258,10 +259,11 @@ func dictWikipedia() map[string]string {
 		"Monts",
 		"frome",
 		"tornadoe",
-		"artefact",
 		"stomache",
 	}
 	needLeft := []string{
+		"florescent",
+		"reconnaisance",
 		"reknown",
 		"menally",
 		"relized",
@@ -304,9 +306,7 @@ func dictWikipedia() map[string]string {
 		"lible",
 		"lveo",
 		"onyl",
-		"parition",
 		"planed",
-		"artefact",
 		"yaching",
 		"dieing",
 		"athiest",

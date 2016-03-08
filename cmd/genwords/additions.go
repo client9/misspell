@@ -2,19 +2,9 @@ package main
 
 func dictAdditions() map[string]string {
 	dict := parseWikipediaFormat(additions)
-	/*
-		// Additions... need to move these somewhere else
-		addOrPanic(dict, "simultanoues", "simultaneous")
-		addOrPanic(dict, "configuraiton", "configuration")
-		addOrPanic(dict, "Didnt", "Didn't")
-		addOrPanic(dict, "i'm", "I'm")
-
-		// Additions
-		// note some variable names are "cantFoo"
-		dict[" cant "] = " can't "
-		dict[" dont "] = " don't "
-	*/
 	dict["Dont "] = "Don't "
+	dict[" parition"] = " partition"
+	dict["artefact "] = "artifact "
 	return dict
 }
 
@@ -84,14 +74,12 @@ Numerious->Numerous
 Runing->Running
 Specifcation->Specification
 Wheter->Whether
-acknowledgement->acknowledgment
 aforementioend->aforementioned
 annonymouse->anonymous
 apologise->apologize
 approstraphe->apostrophe
 apporach->approach
 aribtrary->arbitrary
-artefact->artifact
 asychronous->asynchronous
 avaiable->available
 cahched->cached
@@ -106,7 +94,6 @@ configuraiton->configuration
 consitency->consistency
 contructed->constructed
 contructor->constructor
-convertor->converter
 customises->customizes
 december->December
 declareation->declaration
@@ -140,7 +127,6 @@ implimenation->implementation
 incldue->include
 incorect->incorrect
 incorectly->incorrectly
-infeasible->infeasible
 inferrence->inference
 initialise->initialize
 maximise->maximize
@@ -167,7 +153,6 @@ packge->package
 paramter->parameter
 paramters->parameters
 paricular->particular
-parition->partition
 performaces->performances
 permisson->permission
 precedeed->preceded
