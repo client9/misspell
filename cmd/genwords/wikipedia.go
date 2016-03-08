@@ -218,9 +218,13 @@ func dictWikipedia() map[string]string {
 		"atheistical",
 		"unmistakeably",
 		"geometrician",
+		"polysaccharid",
+		"discontentment",
+		"acknowledgement",
 	}
 
 	needRight := []string{
+		"geometricians",
 		"missen",
 		"occurr",
 		"gracefull",
@@ -258,6 +262,7 @@ func dictWikipedia() map[string]string {
 		"stomache",
 	}
 	needLeft := []string{
+		"reknown",
 		"menally",
 		"relized",
 		"peronal",
