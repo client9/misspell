@@ -20,10 +20,19 @@ test: install
 
 # the grep in line 2 is to remove misspellings in the spelling dictionary
 # that trigger false positives!!
-falsepositives: /scowl-wl/words.txt
-	cat /scowl-wl/words.txt | \
+falsepositives: /scowl-wl
+	cat /scowl-wl/words-US-70.txt | \
 		grep -v -E "binominal|causalities|conquerer|withing" | \
 		misspell -debug -error 
+	cat /scowl-wl/words-GB-ise-60.txt | \
+		grep -v -E "withing" | \
+		misspell -debug -error
+#	cat /scowl-wl/words-GB-ize-60.txt | \
+#		grep -v -E "withing" | \
+#		misspell -debug -error
+#	cat /scowl-wl/words-CA-60.txt | \
+#		grep -v -E "withing" | \
+#		misspell -debug -error
 
 clean:
 	rm -f *~

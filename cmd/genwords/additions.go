@@ -76,7 +76,6 @@ Specifcation->Specification
 Wheter->Whether
 aforementioend->aforementioned
 annonymouse->anonymous
-apologise->apologize
 approstraphe->apostrophe
 apporach->approach
 aribtrary->arbitrary
@@ -94,7 +93,6 @@ configuraiton->configuration
 consitency->consistency
 contructed->constructed
 contructor->constructor
-customises->customizes
 december->December
 declareation->declaration
 decomposeion->decomposition
@@ -102,7 +100,6 @@ deliviered->delivered
 depedencies->dependencies
 depedency->dependency
 deperecation->deprecation
-descendent->descendant
 descriminant->discriminant
 diffucult->difficult
 documenation->documentation
@@ -117,7 +114,6 @@ exprimental->experimental
 extactly->exactly
 functionlity->functionality
 functtion->function
-homogenous->homogeneous
 idiosynchracies->idiosyncrasies
 immidiate->immediate
 implemention->implementation
@@ -128,12 +124,8 @@ incldue->include
 incorect->incorrect
 incorectly->incorrectly
 inferrence->inference
-initialise->initialize
-maximise->maximize
-maximising->maximizing
 milisecond->millisecond
 mimimum->minimum
-minimised->minimized
 minimium->minimum
 misinterpretting->misinterpreting
 momment->moment
@@ -142,8 +134,6 @@ mulitple->multiple
 nubmers->numbers
 officiallly->officially
 otherhand->other hand
-optimisation->optimization
-optimising->optimizing
 optinally->optimally
 ouput->output
 outputed->outputted
@@ -163,14 +153,10 @@ properites->properties
 propeties->properties
 protototype->prototype
 publsih->publish
-queueing->queuing
 quuery->query
-recognise->recognize
-recognising->recognizing
 requried->required
 retrived->retrieved
 ridiculus->ridiculous
-sceptical->skeptical
 seperator->separator
 similarlly->similarly
 simplfy->simplify

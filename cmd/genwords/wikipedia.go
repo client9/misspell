@@ -190,6 +190,35 @@ func dictWikipedia() map[string]string {
 	delete(dict, "specif")      // specific
 
 	needDelete := []string{
+		"intrusted",
+		"apologise",
+		"causalities",
+		"commandoes",
+		"customises",
+		"dependant",
+		"descendent",
+		"funguses",
+		"glamourous",
+		"homogenous",
+		"initialise",
+		"libell",
+		"liquify",
+		"maximise",
+		"millepede",
+		"minimised",
+		"monickers",
+		"optimisation",
+		"optimising",
+		"parrakeets",
+		"queueing",
+		"recognise",
+		"recognise",
+		"recognising",
+		"restauranteurs",
+		"sceptical",
+		"tormenters",
+		"torpedos",
+		"vermillion",
 		"Tuscon",
 		"daugher",
 		"Peloponnes",
@@ -221,6 +250,7 @@ func dictWikipedia() map[string]string {
 	}
 
 	needRight := []string{
+		"scoll",
 		"tast",
 		"includ",
 		"addres",
@@ -271,15 +301,19 @@ func dictWikipedia() map[string]string {
 		"stomache",
 	}
 	needLeft := []string{
+		"tahn",
 		"florescent",
 		"reconnaisance",
 		"reknown",
 		"menally",
 		"relized",
 		"peronal",
+		"storise",
 		"eratically",
 		"reminent",
+		"lvoe",
 		"thast",
+		"villin",
 		"tiome",
 		"parition",
 		"illess",
@@ -4180,49 +4214,49 @@ shoudln->should, shouldn't
  surprize->surprise
  surprized->surprised
  surprizing->surprising
- surprizingly->surprisingly
- surrended->surrounded, surrendered
- surrepetitious->surreptitious
- surrepetitiously->surreptitiously
- surreptious->surreptitious
- surreptiously->surreptitiously
- surronded->surrounded
- surrouded->surrounded
- surrouding->surrounding
- surrundering->surrendering
- surveilence->surveillance
- surveill->surveil
- surveyer->surveyor
- surviver->survivor
- survivers->survivors
- survivied->survived
- suseptable->susceptible
- suseptible->susceptible
- suspention->suspension
- swaer->swear
- swaers->swears
- swepth->swept
- swiming->swimming
- syas->says
- symetrical->symmetrical
- symetrically->symmetrically
- symetry->symmetry
- symettric->symmetric
- symmetral->symmetric
- symmetricaly->symmetrically
- synagouge->synagogue
- syncronization->synchronization
- synonomous->synonymous
- synonymns->synonyms
- synphony->symphony
- syphyllis->syphilis
- sypmtoms->symptoms
- syrap->syrup
- sysmatically->systematically
- sytem->system
- sytle->style
- tabacco->tobacco
- tahn->than
+surprizingly->surprisingly
+surrended->surrounded, surrendered
+surrepetitious->surreptitious
+surrepetitiously->surreptitiously
+surreptious->surreptitious
+surreptiously->surreptitiously
+surronded->surrounded
+surrouded->surrounded
+surrouding->surrounding
+surrundering->surrendering
+surveilence->surveillance
+surveill->surveil
+surveyer->surveyor
+surviver->survivor
+survivers->survivors
+survivied->survived
+suseptable->susceptible
+suseptible->susceptible
+suspention->suspension
+swaer->swear
+swaers->swears
+swepth->swept
+swiming->swimming
+syas->says
+symetrical->symmetrical
+symetrically->symmetrically
+symetry->symmetry
+symettric->symmetric
+symmetral->symmetric
+symmetricaly->symmetrically
+synagouge->synagogue
+syncronization->synchronization
+synonomous->synonymous
+synonymns->synonyms
+synphony->symphony
+syphyllis->syphilis
+sypmtoms->symptoms
+syrap->syrup
+sysmatically->systematically
+sytem->system
+sytle->style
+tabacco->tobacco
+tahn->than
  taht->that
  talekd->talked
  targetted->targeted
@@ -4544,7 +4578,7 @@ vigourous->vigorous
 villian->villain
 villification->vilification
 villify->vilify
-villin->villi, villain, villein
+villin->villain
 vincinity->vicinity
 violentce->violence
 virtualy->virtually
