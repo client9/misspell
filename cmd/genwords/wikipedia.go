@@ -172,34 +172,22 @@ func dictWikipedia() map[string]string {
 	delete(dict, "ublisher") // publisher
 
 	// dropped last character.. need ending delimiter
-	delete(dict, "usefull")       // useful or usefully
-	delete(dict, "definit")       // definite
-	delete(dict, "ther")          //, "there",
-	delete(dict, "supress")       // supressed
-	delete(dict, "earlies")       // easliest
-	delete(dict, "Japanes")       // Japanese
-	delete(dict, "internation")   // international
-	delete(dict, "carefull")      // carefully
-	delete(dict, "imagin")        // imagine
-	delete(dict, "originall")     // originally
-	delete(dict, "infinit")       // infinite
-	delete(dict, "nestin")        // nesting
-	delete(dict, "busines")       // business
-	delete(dict, "clas")          // class
-	delete(dict, "includ")        // include
-	delete(dict, "proces")        // process
-	delete(dict, "addres")        // address
-	delete(dict, "attemp")        // attempt
-	delete(dict, "larg")          // large
-	delete(dict, "altho")         // although
-	delete(dict, "specif")        // specific
-	delete(dict, "tast")          // taste
-	delete(dict, "agains")        // against
-	delete(dict, "successfull")   // successfully
-	delete(dict, "unsuccessfull") // unsuccessfully
-	delete(dict, "committe")      // committee
-	delete(dict, "ommitted")      // omitted / committed
-	delete(dict, "develope")      // develop / developer
+	delete(dict, "usefull")     // useful or usefully
+	delete(dict, "definit")     // definite
+	delete(dict, "ther")        //, "there",
+	delete(dict, "supress")     // supressed
+	delete(dict, "earlies")     // easliest
+	delete(dict, "Japanes")     // Japanese
+	delete(dict, "internation") // international
+	delete(dict, "carefull")    // carefully
+	delete(dict, "imagin")      // imagine
+	delete(dict, "originall")   // originally
+	delete(dict, "infinit")     // infinite
+	delete(dict, "nestin")      // nesting
+	delete(dict, "busines")     // business
+	delete(dict, "clas")        // class
+	delete(dict, "altho")       // although
+	delete(dict, "specif")      // specific
 
 	needDelete := []string{
 		"Tuscon",
@@ -233,6 +221,19 @@ func dictWikipedia() map[string]string {
 	}
 
 	needRight := []string{
+		"tast",
+		"includ",
+		"addres",
+		"proces",
+		"larg",
+		"attemp",
+		"develope",
+		"committe",
+		"agains",
+		"tast",
+		"unsuccessfull",
+		"successfull",
+		"ommitted",
 		"soem",
 		"daed",
 		"hertzs",
