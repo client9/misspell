@@ -18,8 +18,12 @@ test: install
 	go test .
 	misspell *.md replace.go cmd/misspell/*.go
 
-falsepositives:
-	[[ -f /scowl-wl/words.txt ]] && misspell -debug -error /scowl-wl/words.txt
+# the grep in line 2 is to remove misspellings in the spelling dictionary
+# that trigger false positives!!
+falsepositives: /scowl-wl/words.txt
+	cat /scowl-wl/words.txt | \
+		grep -v -E "binominal|causalities|conquerer|withing" | \
+		misspell -debug -error 
 
 clean:
 	rm -f *~
