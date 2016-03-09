@@ -12,10 +12,15 @@ func addRightDelimiter(dict map[string]string, word string) {
 		dict[word+" "] = val + " "
 	}
 }
+func addBothDelimiter(dict map[string]string, word string) {
+	if val, ok := dict[word]; ok {
+		delete(dict, word)
+		dict[" "+word+" "] = " " + val + " "
+	}
+}
 
 func dictWikipedia() map[string]string {
 	dict := parseWikipediaFormat(wikipedia)
-
 	// Just wrong
 	delete(dict, "seeked") // is "sought" but "seek" is a
 	delete(dict, "cmo")    // wrong
@@ -79,10 +84,6 @@ func dictWikipedia() map[string]string {
 	delete(dict, "uise")
 	delete(dict, "adn")
 	dict[" adn "] = " and "
-
-	// false positive in "committing"
-	// Issue #21
-	addLeftDelimiter(dict, "ommitting")
 
 	// false positive in "causally"
 	// Issue #28
@@ -263,7 +264,6 @@ func dictWikipedia() map[string]string {
 		"tast",
 		"unsuccessfull",
 		"successfull",
-		"ommitted",
 		"soem",
 		"daed",
 		"hertzs",
@@ -418,6 +418,11 @@ func dictWikipedia() map[string]string {
 		"hapen",
 	}
 
+	needBoth := []string{
+		"ommitting",
+		"ommitted",
+	}
+
 	for _, word := range needDelete {
 		delete(dict, word)
 	}
@@ -426,6 +431,9 @@ func dictWikipedia() map[string]string {
 	}
 	for _, word := range needRight {
 		addRightDelimiter(dict, word)
+	}
+	for _, word := range needBoth {
+		addBothDelimiter(dict, word)
 	}
 	return dict
 }
@@ -1510,166 +1518,166 @@ counries->countries
 countains->contains
 countires->countries
 countrie's->countries, countries', country's
- coururier->courier, couturier
- coverted->converted, covered, coveted
- cpoy->coy, copy
- creaeted->created
- creche->crèche
- creedence->credence
- critereon->criterion
- criterias->criteria
- criticists->critics
- critising->criticising, criticizing
- critisising->criticising
- critisism->criticism
- critisisms->criticisms
- critisize->criticise, criticize
- critisized->criticised, criticized
- critisizes->criticises, criticizes
- critisizing->criticising, criticizing
- critized->criticized
- critizing->criticizing
- crockodiles->crocodiles
- crowm->crown
- crtical->critical
- crticised->criticised
- crucifiction->crucifixion
- crusies->cruises
- crystalisation->crystallisation
- culiminating->culminating
- cumulatative->cumulative
- curch->church
- curcuit->circuit
- currenly->currently
- curriculem->curriculum
- cxan->cyan
- cyclinder->cylinder
- dacquiri->daiquiri
- daed->dead
- dael->deal, dial, dahl
- dalmation->dalmatian
- damenor->demeanor
- dammage->damage
- Dardenelles->Dardanelles
- daugher->daughter
- debateable->debatable
- decendant->descendant
- decendants->descendants
- decendent->descendant
- decendents->descendants
- decideable->decidable
- decidely->decidedly
- decieved->deceived
- decison->decision
- decomissioned->decommissioned
- decomposit->decompose
- decomposited->decomposed
- decompositing->decomposing
- decomposits->decomposes
- decress->decrees
- decribe->describe
- decribed->described
- decribes->describes
- decribing->describing
- dectect->detect
- defendent->defendant
- defendents->defendants
- deffensively->defensively
- deffine->define
- deffined->defined
- definance->defiance
- definate->definite
- definately->definitely
- definatly->definitely
- definetly->definitely
- definining->defining
- definit->definite
- definitly->definitely
- definiton->definition
- defintion->definition
- degrate->degrade
- delagates->delegates
- delapidated->dilapidated
- delerious->delirious
- delevopment->development
- deliberatly->deliberately
- delusionally->delusively
- demenor->demeanor
- demographical->demographic
- demolision->demolition
- demorcracy->democracy
- demostration->demonstration
- denegrating->denigrating
- densly->densely
- deparment->department
- deparmental->departmental
- deparments->departments
- dependance->dependence
- dependancy->dependency
- dependant->dependent
- deram->dram, dream
- deriviated->derived
- derivitive->derivative
- derogitory->derogatory
- descendands->descendants
- descibed->described
- descision->decision
- descisions->decisions
- descriibes->describes
- descripters->descriptors
- descripton->description
- desctruction->destruction
- descuss->discuss
- desgined->designed
- deside->decide
- desigining->designing
- desinations->destinations
- desintegrated->disintegrated
- desintegration->disintegration
- desireable->desirable
- desitned->destined
- desktiop->desktop
- desorder->disorder
- desoriented->disoriented
- desparate->desperate, disparate
- despict->depict
- despiration->desperation
- dessicated->desiccated
- dessigned->designed
- destablized->destabilized
- destory->destroy
- detailled->detailed
- detatched->detached
- deteoriated->deteriorated
- deteriate->deteriorate
- deterioriating->deteriorating
- determinining->determining
- detremental->detrimental
- devasted->devastated
- develope->develop
- developement->development
- developped->developed
- develpment->development
- devels->delves
- devestated->devastated
- devestating->devastating
- devide->divide
- devided->divided
- devistating->devastating
- devolopement->development
- diablical->diabolical
- diamons->diamonds
- diaster->disaster
- dichtomy->dichotomy
- diconnects->disconnects
- dicover->discover
- dicovered->discovered
- dicovering->discovering
- dicovers->discovers
- dicovery->discovery
- dictionarys->dictionaries
- dicussed->discussed
- didnt->didn't
+coururier->courier, couturier
+coverted->converted, covered, coveted
+cpoy->coy, copy
+creaeted->created
+creche->crèche
+creedence->credence
+critereon->criterion
+criterias->criteria
+criticists->critics
+critising->criticising, criticizing
+critisising->criticising
+critisism->criticism
+critisisms->criticisms
+critisize->criticise, criticize
+critisized->criticised, criticized
+critisizes->criticises, criticizes
+critisizing->criticising, criticizing
+critized->criticized
+critizing->criticizing
+crockodiles->crocodiles
+crowm->crown
+crtical->critical
+crticised->criticised
+crucifiction->crucifixion
+crusies->cruises
+crystalisation->crystallisation
+culiminating->culminating
+cumulatative->cumulative
+curch->church
+curcuit->circuit
+currenly->currently
+curriculem->curriculum
+cxan->cyan
+cyclinder->cylinder
+dacquiri->daiquiri
+daed->dead
+dael->deal, dial, dahl
+dalmation->dalmatian
+damenor->demeanor
+dammage->damage
+Dardenelles->Dardanelles
+daugher->daughter
+debateable->debatable
+decendant->descendant
+decendants->descendants
+decendent->descendant
+decendents->descendants
+decideable->decidable
+decidely->decidedly
+decieved->deceived
+decison->decision
+decomissioned->decommissioned
+decomposit->decompose
+decomposited->decomposed
+decompositing->decomposing
+decomposits->decomposes
+decress->decrees
+decribe->describe
+decribed->described
+decribes->describes
+decribing->describing
+dectect->detect
+defendent->defendant
+defendents->defendants
+deffensively->defensively
+deffine->define
+deffined->defined
+definance->defiance
+definate->definite
+definately->definitely
+definatly->definitely
+definetly->definitely
+definining->defining
+definit->definite
+definitly->definitely
+definiton->definition
+defintion->definition
+degrate->degrade
+delagates->delegates
+delapidated->dilapidated
+delerious->delirious
+delevopment->development
+deliberatly->deliberately
+delusionally->delusively
+demenor->demeanor
+demographical->demographic
+demolision->demolition
+demorcracy->democracy
+demostration->demonstration
+denegrating->denigrating
+densly->densely
+deparment->department
+deparmental->departmental
+deparments->departments
+dependance->dependence
+dependancy->dependency
+dependant->dependent
+deram->dram, dream
+deriviated->derived
+derivitive->derivative
+derogitory->derogatory
+descendands->descendants
+descibed->described
+descision->decision
+descisions->decisions
+descriibes->describes
+descripters->descriptors
+descripton->description
+desctruction->destruction
+descuss->discuss
+desgined->designed
+deside->decide
+desigining->designing
+desinations->destinations
+desintegrated->disintegrated
+desintegration->disintegration
+desireable->desirable
+desitned->destined
+desktiop->desktop
+desorder->disorder
+desoriented->disoriented
+desparate->desperate, disparate
+despict->depict
+despiration->desperation
+dessicated->desiccated
+dessigned->designed
+destablized->destabilized
+destory->destroy
+detailled->detailed
+detatched->detached
+deteoriated->deteriorated
+deteriate->deteriorate
+deterioriating->deteriorating
+determinining->determining
+detremental->detrimental
+devasted->devastated
+develope->develop
+developement->development
+developped->developed
+develpment->development
+devels->delves
+devestated->devastated
+devestating->devastating
+devide->divide
+devided->divided
+devistating->devastating
+devolopement->development
+diablical->diabolical
+diamons->diamonds
+diaster->disaster
+dichtomy->dichotomy
+diconnects->disconnects
+dicover->discover
+dicovered->discovered
+dicovering->discovering
+dicovers->discovers
+dicovery->discovery
+dictionarys->dictionaries
+dicussed->discussed
+didnt->didn't
 diea->idea, die
 dieing->dying, dyeing
 dieties->deities
@@ -1768,80 +1776,80 @@ docrines->doctrines
 doctines->doctrines
 documenatry->documentary
 doens->does
- doesnt->doesn't
- doign->doing
- dominaton->domination
- dominent->dominant
- dominiant->dominant
- donig->doing
- dosen't->doesn't
- doub->doubt, daub
- doulbe->double
- dowloads->downloads
- dramtic->dramatic
- draughtman->draughtsman
- Dravadian->Dravidian
- dreasm->dreams
- driectly->directly
- drnik->drink
- druming->drumming
- drummless->drumless
- dupicate->duplicate
- durig->during
- durring->during
- duting->during
- dyas->dryas
- eahc->each
- ealier->earlier
- earlies->earliest
- earnt->earned
- ecclectic->eclectic
- eceonomy->economy
- ecidious->deciduous
- eclispe->eclipse
- ecomonic->economic
- ect->etc
- eearly->early
- efel->evil
- effeciency->efficiency
- effecient->efficient
- effeciently->efficiently
- efficency->efficiency
- efficent->efficient
- efficently->efficiently
- efford->effort, afford
- effords->efforts, affords
- effulence->effluence
- eigth->eighth, eight
- eiter->either
- elction->election
- electic->eclectic, electric
- electon->election, electron
- electrial->electrical
- electricly->electrically
- electricty->electricity
- elementay->elementary
- eleminated->eliminated
- eleminating->eliminating
- eles->eels
- eletricity->electricity
- elicided->elicited
- eligable->eligible
- elimentary->elementary
- ellected->elected
- elphant->elephant
- embarass->embarrass
- embarassed->embarrassed
- embarassing->embarrassing
- embarassment->embarrassment
- embargos->embargoes
- embarras->embarrass
- embarrased->embarrassed
- embarrasing->embarrassing
- embarrasment->embarrassment
- embezelled->embezzled
- emblamatic->emblematic
- eminate->emanate
+doesnt->doesn't
+doign->doing
+dominaton->domination
+dominent->dominant
+dominiant->dominant
+donig->doing
+dosen't->doesn't
+doub->doubt, daub
+doulbe->double
+dowloads->downloads
+dramtic->dramatic
+draughtman->draughtsman
+Dravadian->Dravidian
+dreasm->dreams
+driectly->directly
+drnik->drink
+druming->drumming
+drummless->drumless
+dupicate->duplicate
+durig->during
+durring->during
+duting->during
+dyas->dryas
+eahc->each
+ealier->earlier
+earlies->earliest
+earnt->earned
+ecclectic->eclectic
+eceonomy->economy
+ecidious->deciduous
+eclispe->eclipse
+ecomonic->economic
+ect->etc
+eearly->early
+efel->evil
+effeciency->efficiency
+effecient->efficient
+effeciently->efficiently
+efficency->efficiency
+efficent->efficient
+efficently->efficiently
+efford->effort, afford
+effords->efforts, affords
+effulence->effluence
+eigth->eighth, eight
+eiter->either
+elction->election
+electic->eclectic, electric
+electon->election, electron
+electrial->electrical
+electricly->electrically
+electricty->electricity
+elementay->elementary
+eleminated->eliminated
+eleminating->eliminating
+eles->eels
+eletricity->electricity
+elicided->elicited
+eligable->eligible
+elimentary->elementary
+ellected->elected
+elphant->elephant
+embarass->embarrass
+embarassed->embarrassed
+embarassing->embarrassing
+embarassment->embarrassment
+embargos->embargoes
+embarras->embarrass
+embarrased->embarrassed
+embarrasing->embarrassing
+embarrasment->embarrassment
+embezelled->embezzled
+emblamatic->emblematic
+eminate->emanate
  eminated->emanated
  emision->emission
  emited->emitted
