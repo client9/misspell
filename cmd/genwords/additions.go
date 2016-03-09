@@ -10,6 +10,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+auhtenticate->authenticate
 retunred->returned
 langauge->language
 specifing->specifying
