@@ -24,7 +24,7 @@ ENV SOURCE_CA http://app.aspell.net/create?max_size=60&spelling=CA&max_variant=2
 RUN true \
   && mkdir /scowl-wl \
   && wget -O /scowl-wl/words-US-70.txt ${SOURCE_US} \
-  && wget -O /scowl-wl/words-GB-ise-60.txt ${SOURCE_GB_ISE} \
-  && wget -O /scowl-wl/words-GB-ize-60.txt ${SOURCE_GB_IZE} \
-  && wget -O /scowl-wl/words-CA-60.txt ${SOURCE_CA}
+  && wget -O /scowl-wl/words-GB-ise-60.txt ${SOURCE_GB_ISE}
+#  && wget -O /scowl-wl/words-GB-ize-60.txt ${SOURCE_GB_IZE} \
+#  && wget -O /scowl-wl/words-CA-60.txt ${SOURCE_CA}
 
