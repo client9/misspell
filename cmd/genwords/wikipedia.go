@@ -301,6 +301,7 @@ func dictWikipedia() map[string]string {
 		"stomache",
 	}
 	needLeft := []string{
+		"extint",
 		"tahn",
 		"florescent",
 		"reconnaisance",

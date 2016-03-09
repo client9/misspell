@@ -6,6 +6,7 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"textinterface",
 		" committed ",
 		"committed",
 		"Bengali",
