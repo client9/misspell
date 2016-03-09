@@ -191,6 +191,8 @@ func dictWikipedia() map[string]string {
 	delete(dict, "specif")      // specific
 
 	needDelete := []string{
+		"heterogenous",
+		"rarified",
 		"intrusted",
 		"apologise",
 		"causalities",

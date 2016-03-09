@@ -22,7 +22,7 @@ test: install
 # that trigger false positives!!
 falsepositives: /scowl-wl
 	cat /scowl-wl/words-US-70.txt | \
-		grep -v -E "binominal|causalities|conquerer|withing" | \
+		grep -v -E "dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
 		misspell -debug -error 
 	cat /scowl-wl/words-GB-ise-60.txt | \
 		grep -v -E "withing" | \

@@ -10,6 +10,8 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+adderss->address
+dashbaord->dashboard
 auhtenticate->authenticate
 retunred->returned
 langauge->language

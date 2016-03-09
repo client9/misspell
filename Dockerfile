@@ -19,7 +19,7 @@ RUN echo 1457339114
 ENV SOURCE_US_BIG http://app.aspell.net/create?max_size=70&spelling=US&max_variant=2&diacritic=both&special=hacker&special=roman-numerals&download=wordlist&encoding=utf-8&format=inline
 
 # should be able tell difference between English variations using this
-ENV SOURCE_US http://app.aspell.net/create?max_size=60&spelling=US&max_variant=2&diacritic=both&download=wordlist&encoding=utf-8&format=inline
+ENV SOURCE_US http://app.aspell.net/create?max_size=60&spelling=US&max_variant=1&diacritic=both&download=wordlist&encoding=utf-8&format=inline
 ENV SOURCE_GB_ISE http://app.aspell.net/create?max_size=60&spelling=GBs&max_variant=2&diacritic=both&download=wordlist&encoding=utf-8&format=inline
 ENV SOURCE_GB_IZE http://app.aspell.net/create?max_size=60&spelling=GBz&max_variant=2&diacritic=both&download=wordlist&encoding=utf-8&format=inline
 ENV SOURCE_CA http://app.aspell.net/create?max_size=60&spelling=CA&max_variant=2&diacritic=both&download=wordlist&encoding=utf-8&format=inline
