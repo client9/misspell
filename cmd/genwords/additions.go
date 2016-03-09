@@ -5,11 +5,15 @@ func dictAdditions() map[string]string {
 	dict["Dont "] = "Don't "
 	dict[" parition"] = " partition"
 	dict["artefact "] = "artifact "
+	dict["carefull "] = "careful "
 	return dict
 }
 
 // arent
 var additions = `
+gloabl->global
+fragement->fragment
+upsteam->upstream
 specifing->specifying
 overriden->overridden
 accesss->access
