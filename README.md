@@ -8,7 +8,7 @@ new as of 2016-01-12
 
 ```bash
 $ misspell all.html your.txt important.md files.go
-your.txt:42:10 found "initialised" a misspelling of "initialized"
+your.txt:42:10 found "langauge" a misspelling of "language"
 
 # ^ file, line, column
 ```
