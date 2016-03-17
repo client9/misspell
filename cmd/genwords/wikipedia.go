@@ -145,7 +145,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "thna")       // than / pathname
 	delete(dict, "spects")     // aspects / suspects
 	delete(dict, "interm")     // interim / intermediate
-	delete(dict, "sence")      // sense / presense
+	delete(dict, "sence")      // sense / presence
 	delete(dict, "erested")    // arrested / interested
 	delete(dict, "stroy")      // story / destroy
 	delete(dict, "orded")      // ordered / recorded
@@ -176,7 +176,7 @@ func dictWikipedia() map[string]string {
 	delete(dict, "usefull")     // useful or usefully
 	delete(dict, "definit")     // definite
 	delete(dict, "ther")        //, "there",
-	delete(dict, "supress")     // supressed
+	delete(dict, "supress")     // suppressed
 	delete(dict, "earlies")     // easliest
 	delete(dict, "Japanes")     // Japanese
 	delete(dict, "internation") // international
