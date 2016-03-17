@@ -11,6 +11,8 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+environemnt->environment
+verious->various
 respository->repository
 respositories->repositories
 gloabl->global
