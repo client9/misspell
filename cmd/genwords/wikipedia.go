@@ -253,6 +253,7 @@ func dictWikipedia() map[string]string {
 	}
 
 	needRight := []string{
+		"preceed",
 		"scoll",
 		"tast",
 		"includ",

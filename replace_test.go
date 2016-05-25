@@ -34,6 +34,8 @@ func TestReplace(t *testing.T) {
 		{"Closeing Time", "Closing Time"},
 		{"closeing Time", "closing Time"},
 		{"TOOD: foobar", "TODO: foobar"},
+		{" preceed ", " precede "},
+		{" preceeding ", " preceding "},
 	}
 	for line, tt := range cases {
 		got := Replace(tt.orig)
