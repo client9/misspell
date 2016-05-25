@@ -22,10 +22,10 @@ test: install
 # that trigger false positives!!
 falsepositives: /scowl-wl
 	cat /scowl-wl/words-US-70.txt | \
-		grep -v -E "dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
+		grep -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
 		misspell -debug -error 
 	cat /scowl-wl/words-GB-ise-60.txt | \
-		grep -v -E "withing" | \
+		grep -v -E "nonoccurence|withing" | \
 		misspell -debug -error
 #	cat /scowl-wl/words-GB-ize-60.txt | \
 #		grep -v -E "withing" | \
@@ -44,7 +44,7 @@ ci-native: install lint test falsepositives
 # when development is already in a docker contianer
 ci:
 	docker run --rm \
-		--volumes-from=godev \
+		--volumes-from=workspace \
 		-e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} \
