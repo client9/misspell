@@ -33,6 +33,7 @@ func TestReplace(t *testing.T) {
 		{"ten fiels", "ten fields"},
 		{"Closeing Time", "Closing Time"},
 		{"closeing Time", "closing Time"},
+		{"TOOD: foobar", "TODO: foobar"},
 	}
 	for line, tt := range cases {
 		got := Replace(tt.orig)
