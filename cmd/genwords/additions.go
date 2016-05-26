@@ -6,6 +6,7 @@ func dictAdditions() map[string]string {
 	dict[" parition"] = " partition"
 	dict["artefact "] = "artifact "
 	dict["carefull "] = "careful "
+	dict[" TOOD"] = " TODO"
 	return dict
 }
 
@@ -190,6 +191,5 @@ syncronously->synchronously
 tutorual->tutorial
 unintuive->unintuitive
 writting->writing
-TOOD->TODO
 Euclidian->Euclidean
 `
