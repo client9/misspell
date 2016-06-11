@@ -7,6 +7,7 @@ func dictAdditions() map[string]string {
 	dict["artefact "] = "artifact "
 	dict["carefull "] = "careful "
 	dict[" TOOD"] = " TODO"
+	dict[" Runing"] = " Running"
 	return dict
 }
 
@@ -81,13 +82,10 @@ Constructur->Constructor
 Depdending->Depending
 Disclamer->Disclaimer
 Elimintates->Eliminates
-Externalise->Externalize
 Fowrards->Forwards
-IMPOSTER->IMPOSTOR
 Implementor->Implementer
 Instalation->Installation
 Numerious->Numerous
-Runing->Running
 Specifcation->Specification
 Wheter->Whether
 aforementioend->aforementioned

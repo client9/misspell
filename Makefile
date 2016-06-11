@@ -22,10 +22,16 @@ test: install
 # that trigger false positives!!
 falsepositives: /scowl-wl
 	cat /scowl-wl/words-US-70.txt | \
-		grep -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
-		misspell -debug -error 
+		grep -i -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
+		misspell -debug -error
+	cat /scowl-wl/words-US-70.txt | tr '[:lower:]' '[:upper:]' | \
+		 grep -i -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
+		 misspell -debug -error
 	cat /scowl-wl/words-GB-ise-60.txt | \
 		grep -v -E "nonoccurence|withing" | \
+		misspell -debug -error
+	cat /scowl-wl/words-GB-ise-60.txt | tr '[:lower:]' '[:upper:]' | \
+		grep -i -v -E "nonoccurence|withing" | \
 		misspell -debug -error
 #	cat /scowl-wl/words-GB-ize-60.txt | \
 #		grep -v -E "withing" | \
@@ -62,7 +68,10 @@ ci-travis:
 docker-build:
 	docker build -t ${CONTAINER} .
 
-console: docker-build
-	docker run --rm -it ${CONTAINER} sh
+console:
+	docker run --rm -it \
+		--volumes-from=workspace \
+		-w /go/src/github.com/client9/misspell \
+		${CONTAINER} sh
 
 .PHONY: ci ci-travis ci-native

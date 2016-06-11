@@ -47,6 +47,9 @@ func dictWikipedia() map[string]string {
 	delete(dict, "miliary")
 	delete(dict, "nickle")
 	delete(dict, "lightyear")
+	delete(dict, "Sionist")
+	delete(dict, "Sionists")
+	delete(dict, "Foundland")
 
 	// Corrections
 	delete(dict, "fiel")
