@@ -13,9 +13,21 @@ func addOrPanic(dict map[string]string, key, value string) {
 	if _, ok := dict[key]; ok {
 		log.Printf("Already have %q", key)
 	}
-	if key != value {
-		dict[key] = value
+
+	// this happens for captialization rules
+	//
+	// english->English
+	//
+	// variations will generate
+	//
+	// engish->English, English->English, ENGLISH->ENGLISH
+	//
+	// so we ignore them
+	if key == value {
+		return
 	}
+
+	dict[key] = value
 }
 
 func mergeDict(a, b map[string]string) {
