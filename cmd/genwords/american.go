@@ -38,7 +38,11 @@ license->license
 offence->offense
 pretence->pretense
 analogue->analog
-catalogue->catalogue
+catalogue->catalog
+catalogues->catalogs
+catalogued->cataloged
+uncatalogued->uncataloged
+miscatalogued->miscataloged
 dialogue->dialog
 aeroplane->airplane
 aluminium->aluminum
