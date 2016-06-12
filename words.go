@@ -1,6 +1,7 @@
 package misspell
 
-var dictWikipedia = []string{
+// DictMain is the main rule set, not including and locale-specific spellings
+var DictMain = []string{
 	" ADN ", " AND ",
 	" ADRES", " ADDRESS",
 	" AGIAN", " AGAIN",
@@ -12579,7 +12580,8 @@ var dictWikipedia = []string{
 	"zeebra", "zebra",
 }
 
-var dictAmerican = []string{
+// DictAmerican corrects UK spellings to US spellings
+var DictAmerican = []string{
 	"AEROPLANE", "AIRPLANE",
 	"ALUMINIUM", "ALUMINUM",
 	"ANALOGUE", "ANALOG",

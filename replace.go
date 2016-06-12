@@ -2,25 +2,10 @@ package misspell
 
 import (
 	"bytes"
-	"errors"
 	"log"
 	"strings"
 	"text/scanner"
 )
-
-/**
- * Need to redo this so its more similar to how golang Flag works
- * there is a default global, but then you can make your own object if needed
- */
-
-var replacer *strings.Replacer
-
-func init() {
-	replacer = strings.NewReplacer(dictWikipedia...)
-	if replacer == nil {
-		panic("unable to create strings.Replacer")
-	}
-}
 
 // Diff is datastructure showing what changed in a single line
 type Diff struct {
@@ -161,28 +146,81 @@ func DiffLines(input, output string) (string, []Diff) {
 	return buf.String(), changes
 }
 
+func inArray(haystack []string, needle string) bool {
+	for _, word := range haystack {
+		if needle == word {
+			return true
+		}
+	}
+	return false
+}
+
+// Replacer is the main struct for spelling correction
+type Replacer struct {
+	Replacements []string
+	Debug        bool
+	engine       *strings.Replacer
+}
+
+// New creates a new default Replacer using the main rule list
+func New() *Replacer {
+	r := Replacer{
+		Replacements: DictMain,
+	}
+	r.Compile()
+	return &r
+}
+
+// RemoveRule deletes existings rules.
+// TODO: make inplace to save memory
+func (r *Replacer) RemoveRule(ignore []string) {
+	newwords := make([]string, 0, len(r.Replacements))
+	for i := 0; i < len(r.Replacements); i += 2 {
+		if inArray(ignore, r.Replacements[i]) {
+			continue
+		}
+		newwords = append(newwords, r.Replacements[i:i+2]...)
+	}
+	r.engine = nil
+	r.Replacements = newwords
+}
+
+// AddRuleList appends new rules.
+// Input is in the same form as Strings.Replacer: [ old1, new1, old2, new2, ....]
+// Note: does not check for duplictes
+func (r *Replacer) AddRuleList(additions []string) {
+	r.engine = nil
+	r.Replacements = append(r.Replacements, additions...)
+}
+
+// Compile compiles the rules.  Required before using the Replace functions
+func (r *Replacer) Compile() {
+	r.engine = strings.NewReplacer(r.Replacements...)
+}
+
+// Replace make spelling corrects to the input string
+func (r *Replacer) Replace(input string) string {
+	if r.Debug {
+		r.ReplaceDebug(input)
+	}
+	return r.engine.Replace(input)
+}
+
 // ReplaceDebug logs exactly what was matched and replaced for use
 // in debugging
-func ReplaceDebug(input string) string {
+func (r *Replacer) ReplaceDebug(input string) {
 	for linenum, line := range strings.Split(input, "\n") {
-		for i := 0; i < len(dictWikipedia); i += 2 {
-			idx := strings.Index(line, dictWikipedia[i])
+		for i := 0; i < len(r.Replacements); i += 2 {
+			idx := strings.Index(line, r.Replacements[i])
 			if idx != -1 {
 				left := max(0, idx-10)
-				right := min(idx+len(dictWikipedia[i])+10, len(line))
+				right := min(idx+len(r.Replacements[i])+10, len(line))
 				snippet := strings.TrimSpace(line[left:right])
-				log.Printf("line %d: Found %q in %q  (%q)", linenum+1, dictWikipedia[i], snippet, dictWikipedia[i+1])
+				log.Printf("line %d: Found %q in %q  (%q)",
+					linenum+1, r.Replacements[i], snippet, r.Replacements[i+1])
 			}
 		}
 	}
-	return Replace(input)
-}
-
-// Replace takes input string and does spelling corrections on
-// commonly misspelled words.
-func Replace(input string) string {
-	// ok doesn't do much
-	return replacer.Replace(input)
 }
 
 // ReplaceGo is a specialized routine for correcting Golang source
@@ -195,7 +233,7 @@ func Replace(input string) string {
 //      * import ( "blocks" )
 //   - skip first comment (line 0) if build comment
 //
-func ReplaceGo(input string, debug bool) string {
+func (r *Replacer) ReplaceGo(input string) string {
 	var s scanner.Scanner
 	s.Init(strings.NewReader(input))
 	s.Mode = scanner.ScanIdents | scanner.ScanFloats | scanner.ScanChars | scanner.ScanStrings | scanner.ScanRawStrings | scanner.ScanComments
@@ -206,13 +244,7 @@ func ReplaceGo(input string, debug bool) string {
 		switch s.Scan() {
 		case scanner.Comment:
 			origComment := s.TokenText()
-
-			var newComment string
-			if debug {
-				newComment = ReplaceDebug(origComment)
-			} else {
-				newComment = Replace(origComment)
-			}
+			newComment := r.Replace(origComment)
 
 			if origComment != newComment {
 				// s.Pos().Offset is the end of the current token
@@ -233,32 +265,4 @@ func ReplaceGo(input string, debug bool) string {
 			return output + input[lastPos:]
 		}
 	}
-}
-
-func inArray(haystack []string, needle string) bool {
-	for _, word := range haystack {
-		if needle == word {
-			return true
-		}
-	}
-	return false
-}
-
-// Ignore removes a correction rule
-//   WARNING: multiple calls to this will unset the previous calls.
-//    thats not so good.
-func Ignore(words []string) error {
-	newwords := make([]string, 0, len(dictWikipedia))
-	for i := 0; i < len(dictWikipedia); i += 2 {
-		if inArray(words, dictWikipedia[i]) {
-			continue
-		}
-		newwords = append(newwords, dictWikipedia[i])
-		newwords = append(newwords, dictWikipedia[i+1])
-	}
-	replacer = strings.NewReplacer(newwords...)
-	if replacer == nil {
-		return errors.New("Unable to create strings.Replacer")
-	}
-	return nil
 }

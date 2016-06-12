@@ -68,7 +68,8 @@ func main() {
 		words = append(words, k)
 	}
 	sort.Strings(words)
-	fmt.Printf("var dictWikipedia = []string{\n")
+	fmt.Printf("// DictMain is the main rule set, not including and locale-specific spellings\n")
+	fmt.Printf("var DictMain = []string{\n")
 	for _, word := range words {
 		fmt.Printf("\t%q, %q,\n", word, dict[word])
 	}
@@ -81,7 +82,8 @@ func main() {
 		words = append(words, k)
 	}
 	sort.Strings(words)
-	fmt.Printf("var dictAmerican = []string{\n")
+	fmt.Printf("// DictAmerican corrects UK spellings to US spellings\n")
+	fmt.Printf("var DictAmerican = []string{\n")
 	for _, word := range words {
 		fmt.Printf("\t%q, %q,\n", word, dict[word])
 	}

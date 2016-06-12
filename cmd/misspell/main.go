@@ -34,7 +34,7 @@ func init() {
 	stdout = log.New(os.Stdout, "", 0)
 }
 
-func worker(writeit bool, debug bool, mode string, files <-chan string, results chan<- int) {
+func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string, results chan<- int) {
 	count := 0
 	for filename := range files {
 		// ignore directories
@@ -53,11 +53,9 @@ func worker(writeit bool, debug bool, mode string, files <-chan string, results 
 		// GROSS
 		isGolang := strings.HasSuffix(filename, ".go")
 		if mode == "go" || (mode == "auto" && isGolang) {
-			updated = misspell.ReplaceGo(orig, debug)
-		} else if debug {
-			updated = misspell.ReplaceDebug(orig)
+			updated = r.ReplaceGo(orig)
 		} else {
-			updated = misspell.Replace(orig)
+			updated = r.Replace(orig)
 		}
 
 		updated, changes := misspell.DiffLines(orig, updated)
@@ -97,12 +95,17 @@ func main() {
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	format := flag.String("f", "", "use Golang template for log message")
 	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
-	locale := flag.String("locale", "", "[UK|US]e.g. US will correct the British spelling of 'colour' to 'color'")
+	locale := flag.String("locale", "", "Correct spellings using locale perferances.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	exitError := flag.Bool("error", false, "Exit with 2 if misspelling found")
 
 	flag.Parse()
+
+	r := misspell.Replacer{
+		Replacements: misspell.DictMain,
+		Debug:        *debug,
+	}
 
 	//
 	// Figure out regional variations
@@ -111,13 +114,20 @@ func main() {
 	case "":
 		// nothing
 	case "US":
-		//
+		r.AddRuleList(misspell.DictAmerican)
 	case "UK", "GB":
-		//
+		log.Fatalf("US to UK conversion coming soon")
 	case "NZ", "AU", "CA":
 		log.Fatalf("Locale not supported: consider using the UK locale")
 	default:
 		log.Fatalf("Unknow locale: %q", *locale)
+	}
+
+	//
+	// Stuff to ignore
+	//
+	if len(*ignores) > 0 {
+		r.RemoveRule(strings.Split(*ignores, ","))
 	}
 
 	//
@@ -144,24 +154,24 @@ func main() {
 	}
 
 	//
-	// Stuff to ignore
+	// Number of Workers / CPU to use
 	//
-	if len(*ignores) > 0 {
-		err := misspell.Ignore(strings.Split(*ignores, ","))
-		if err != nil {
-			log.Fatalf("unable to process ignores: %s", err)
-		}
-	}
 	if *workers < 0 {
 		log.Fatalf("-j must >= 0")
 	}
 	if *workers == 0 {
 		*workers = runtime.NumCPU()
 	}
-
 	if *debug {
 		*workers = 1
 	}
+
+	//
+	// Done with Flags.
+	//  Compile the Replacer and process files
+	//
+	r.Compile()
+
 	args := flag.Args()
 
 	// unix style pipes: different output module
@@ -174,12 +184,11 @@ func main() {
 		}
 		orig := string(raw)
 		var updated string
-		if *mode == "go" {
-			updated = misspell.ReplaceGo(orig, *debug)
-		} else if *debug {
-			updated = misspell.ReplaceDebug(orig)
-		} else {
-			updated = misspell.Replace(orig)
+		switch *mode {
+		case "go":
+			updated = r.ReplaceGo(orig)
+		default:
+			updated = r.Replace(orig)
 		}
 		updated, changes := misspell.DiffLines(orig, updated)
 		if !*quiet {
@@ -203,7 +212,7 @@ func main() {
 	results := make(chan int, *workers)
 
 	for i := 0; i < *workers; i++ {
-		go worker(*writeit, *debug, *mode, c, results)
+		go worker(*writeit, &r, *mode, c, results)
 	}
 
 	for _, filename := range args {

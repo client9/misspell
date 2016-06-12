@@ -12,12 +12,32 @@ func TestReplaceIgnore(t *testing.T) {
 	}{
 		{"knwo,gae", "https://github.com/Unknwon, github.com/hnakamur/gaesessions"},
 	}
-
 	for line, tt := range cases {
-		Ignore(strings.Split(tt.ignore, ","))
-		got := ReplaceDebug(tt.text)
+		r := New()
+		r.RemoveRule(strings.Split(tt.ignore, ","))
+		r.Compile()
+		got := r.Replace(tt.text)
 		if got != tt.text {
 			t.Errorf("%d: Replace files want %q got %q", line, tt.text, got)
+		}
+	}
+}
+
+func TestReplaceLocale(t *testing.T) {
+	cases := []struct {
+		orig string
+		want string
+	}{
+		{"The colours are pretty", "The colors are pretty"},
+	}
+
+	r := New()
+	r.AddRuleList(DictAmerican)
+	r.Compile()
+	for line, tt := range cases {
+		got := r.Replace(tt.orig)
+		if got != tt.want {
+			t.Errorf("%d: ReplaceLocale want %q got %q", line, tt.orig, got)
 		}
 	}
 }
@@ -37,8 +57,9 @@ func TestReplace(t *testing.T) {
 		{" preceed ", " precede "},
 		{" preceeding ", " preceding "},
 	}
+	r := New()
 	for line, tt := range cases {
-		got := Replace(tt.orig)
+		got := r.Replace(tt.orig)
 		if got != tt.want {
 			t.Errorf("%d: Replace files want %q got %q", line, tt.orig, got)
 		}
@@ -86,8 +107,9 @@ var foo int
 		},
 	}
 
+	r := New()
 	for casenum, tt := range cases {
-		got := ReplaceGo(tt.orig, true)
+		got := r.ReplaceGo(tt.orig)
 		if got != tt.want {
 			t.Errorf("%d: %q got converted to %q", casenum, tt, got)
 		}
