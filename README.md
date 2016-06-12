@@ -4,8 +4,6 @@ Correct commonly misspelled English words... quickly.
 
 ### install with `go get -u github.com/client9/misspell/cmd/misspell`
 
-new as of 2016-01-12
-
 ```bash
 $ misspell all.html your.txt important.md files.go
 your.txt:42:10 found "langauge" a misspelling of "language"
@@ -76,7 +74,8 @@ It doesn't work well for python and bash.
 ### Does this work with gometalinter?
 
 [gometalinter](https://github.com/alecthomas/gometalinter) runs
-multiple golang linters.  On 2016-06-12 gometalinter supports  `misspell` natively but it is disabled by default
+multiple golang linters.  Starting on [2016-06-12](https://github.com/alecthomas/gometalinter/pull/134)
+gometalinter supports `misspell` natively but it is disabled by default.
 
 ```bash
 # update your copy of gometalinter
