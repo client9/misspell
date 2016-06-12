@@ -21,12 +21,12 @@ test: install
 # the grep in line 2 is to remove misspellings in the spelling dictionary
 # that trigger false positives!!
 falsepositives: /scowl-wl
-	cat /scowl-wl/words-US-70.txt | \
-		grep -i -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
-		misspell -debug -error
-	cat /scowl-wl/words-US-70.txt | tr '[:lower:]' '[:upper:]' | \
-		 grep -i -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette" | \
-		 misspell -debug -error
+	cat /scowl-wl/words-US-60.txt | \
+		grep -i -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette|analyse|analogue|dialogue|paralyse|catalogue" | \
+		misspell -locale=US -debug -error
+	cat /scowl-wl/words-US-60.txt | tr '[:lower:]' '[:upper:]' | \
+		 grep -i -v -E "Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette|analyse|analogue|dialogue|paralyse|catalogue" | \
+		 misspell -locale=US -debug -error
 	cat /scowl-wl/words-GB-ise-60.txt | \
 		grep -v -E "nonoccurence|withing" | \
 		misspell -debug -error
