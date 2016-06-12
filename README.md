@@ -76,16 +76,25 @@ It doesn't work well for python and bash.
 ### Does this work with gometalinter?
 
 [gometalinter](https://github.com/alecthomas/gometalinter) runs
-multiple golang linters, and it works well with `misspell` too.
-
-After `go get -u github.com/client9/misspell` you need to add it, then
-enable it, like so:
+multiple golang linters.  On 2016-06-12 gometalinter supports  `misspell` natively but it is disabled by default
 
 ```bash
-gometalinter --disable-all \
-   --linter='misspell:misspell ./*.go:PATH:LINE:COL:MESSAGE' --enable=misspell \
-   ./...
+# update your copy of gometalinter
+go get -u github.com/alecthomas/gometalinter
+
+# install updates and misspell
+gometalinter --install --update
 ```
+
+To use, just enable `misspell`
+
+```
+gometalinter --enable misspell ./...
+```
+
+Note that gometalinter only checks golang file, and uses the default options of `misspell`
+
+You may wish to run this on your plaintext (.txt) and/or markdown files too.
 
 ### How can I change the output format?
 
