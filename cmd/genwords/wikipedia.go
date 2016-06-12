@@ -57,14 +57,11 @@ func dictWikipedia() map[string]string {
 
 	// these need either starting delimited or both
 	// starting and ending delimiter
-	delete(dict, "runing")
-	dict[" runing"] = "running"
-
 	delete(dict, "republi")
-	dict["republi "] = "republic"
+	dict["republi "] = "republic "
 
 	delete(dict, "republis")
-	dict["republis "] = "republics"
+	dict["republis "] = "republics "
 
 	// https://github.com/client9/misspell/issues/30
 	delete(dict, "Portugues")
@@ -73,7 +70,7 @@ func dictWikipedia() map[string]string {
 
 	// fallthru is a common abbreviation
 	delete(dict, "thru")
-	dict[" thru "] = "through"
+	dict[" thru "] = " through "
 
 	// begging
 	delete(dict, "beggin")
@@ -307,6 +304,7 @@ func dictWikipedia() map[string]string {
 		"stomache",
 	}
 	needLeft := []string{
+		"runing",
 		"extint",
 		"tahn",
 		"florescent",
@@ -1857,231 +1855,231 @@ embarrasment->embarrassment
 embezelled->embezzled
 emblamatic->emblematic
 eminate->emanate
- eminated->emanated
- emision->emission
- emited->emitted
- emiting->emitting
- emition->emission, emotion
- emmediately->immediately
- emmigrated->emigrated, immigrated
- emminent->eminent, imminent
- emminently->eminently
- emmisaries->emissaries
- emmisarries->emissaries
- emmisarry->emissary
- emmisary->emissary
- emmision->emission
- emmisions->emissions
- emmited->emitted
- emmiting->emitting
- emmitted->emitted
- emmitting->emitting
- emnity->enmity
- emperical->empirical
- emphaised->emphasised
- emphsis->emphasis
- emphysyma->emphysema
- empirial->empirical, imperial
- emporer->emperor
- emprisoned->imprisoned
- enameld->enameled
- enchancement->enhancement
- encouraing->encouraging
- encryptiion->encryption
- encylopedia->encyclopedia
- endevors->endeavors
- endevour->endeavour
- endig->ending
- endolithes->endoliths
- enduce->induce
- ened->need
- enforceing->enforcing
- engagment->engagement
- engeneer->engineer
- engeneering->engineering
- engieneer->engineer
- engieneers->engineers
- enlargment->enlargement
- enlargments->enlargements
- Enlish->English, enlist
- enourmous->enormous
- enourmously->enormously
- ensconsed->ensconced
- entaglements->entanglements
- enteratinment->entertainment
- enthusiatic->enthusiastic
- entitity->entity
- entitlied->entitled
- entrepeneur->entrepreneur
- entrepeneurs->entrepreneurs
- enviorment->environment
- enviormental->environmental
- enviormentally->environmentally
- enviorments->environments
- enviornment->environment
- enviornmental->environmental
- enviornmentalist->environmentalist
- enviornmentally->environmentally
- enviornments->environments
- enviroment->environment
- enviromental->environmental
- enviromentalist->environmentalist
- enviromentally->environmentally
- enviroments->environments
- envolutionary->evolutionary
- envrionments->environments
- enxt->next
- epidsodes->episodes
- epsiode->episode
- equialent->equivalent
- equilibium->equilibrium
- equilibrum->equilibrium
- equiped->equipped
- equippment->equipment
- equitorial->equatorial
- equivelant->equivalent
- equivelent->equivalent
- equivilant->equivalent
- equivilent->equivalent
- equivlalent->equivalent
- erally->orally, really
- eratic->erratic
- eratically->erratically
- eraticly->erratically
- erested->arrested, erected
- errupted->erupted
- esential->essential
- esitmated->estimated
- esle->else
- especialy->especially
- essencial->essential
- essense->essence
- essentail->essential
- essentialy->essentially
- essentual->essential
- essesital->essential
- estabishes->establishes
- establising->establishing
- ethnocentricm->ethnocentrism
- ethose->those, ethos
- Europian->European
- Europians->Europeans
- Eurpean->European
- Eurpoean->European
- evenhtually->eventually
- eventally->eventually
- eventhough->even though
- eventially->eventually
- eventualy->eventually
- everthing->everything
- everytime->every time
- everyting->everything
- eveyr->every
- evidentally->evidently
- exagerate->exaggerate
- exagerated->exaggerated
- exagerates->exaggerates
- exagerating->exaggerating
- exagerrate->exaggerate
- exagerrated->exaggerated
- exagerrates->exaggerates
- exagerrating->exaggerating
- examinated->examined
- exampt->exempt
- exapansion->expansion
- excact->exact
- excange->exchange
- excecute->execute
- excecuted->executed
- excecutes->executes
- excecuting->executing
- excecution->execution
- excedded->exceeded
- excelent->excellent
- excell->excel
- excellance->excellence
- excellant->excellent
- excells->excels
- excercise->exercise
- exchanching->exchanging
- excisted->existed
- exculsivly->exclusively
- execising->exercising
- exection->execution
- exectued->executed
- exeedingly->exceedingly
- exelent->excellent
- exellent->excellent
- exemple->example
- exept->except
- exeptional->exceptional
- exerbate->exacerbate
- exerbated->exacerbated
- exerciese->exercises
- exerpt->excerpt
- exerpts->excerpts
- exersize->exercise
- exerternal->external
- exhalted->exalted
- exhibtion->exhibition
- exibition->exhibition
- exibitions->exhibitions
- exicting->exciting
- exinct->extinct
- existance->existence
- existant->existent
- existince->existence
- exliled->exiled
- exludes->excludes
- exmaple->example
- exonorate->exonerate
- exoskelaton->exoskeleton
- expalin->explain
- expatriot->expatriate
- expeced->expected
- expecially->especially
- expeditonary->expeditionary
- expeiments->experiments
- expell->expel
- expells->expels
- experiance->experience
- experianced->experienced
- expiditions->expeditions
- expierence->experience
- explaination->explanation
- explaning->explaining
- explictly->explicitly
- exploititive->exploitative
- explotation->exploitation
- expropiated->expropriated
- expropiation->expropriation
- exressed->expressed
- extemely->extremely
- extention->extension
- extentions->extensions
- extered->exerted
- extermist->extremist
- extint->extinct, extant
- extradiction->extradition
- extraterrestial->extraterrestrial
- extraterrestials->extraterrestrials
- extravagent->extravagant
- extrememly->extremely
- extremeophile->extremophile
- extremly->extremely
- extrordinarily->extraordinarily
- extrordinary->extraordinary
- eyar->year, eyas
- eyars->years, eyas
- eyasr->years, eyas
- faciliate->facilitate
- faciliated->facilitated
- faciliates->facilitates
- facilites->facilities
- facillitate->facilitate
- facinated->fascinated
- facist->fascist
- familes->families
+eminated->emanated
+emision->emission
+emited->emitted
+emiting->emitting
+emition->emission, emotion
+emmediately->immediately
+emmigrated->emigrated, immigrated
+emminent->eminent, imminent
+emminently->eminently
+emmisaries->emissaries
+emmisarries->emissaries
+emmisarry->emissary
+emmisary->emissary
+emmision->emission
+emmisions->emissions
+emmited->emitted
+emmiting->emitting
+emmitted->emitted
+emmitting->emitting
+emnity->enmity
+emperical->empirical
+emphaised->emphasised
+emphsis->emphasis
+emphysyma->emphysema
+empirial->empirical, imperial
+emporer->emperor
+emprisoned->imprisoned
+enameld->enameled
+enchancement->enhancement
+encouraing->encouraging
+encryptiion->encryption
+encylopedia->encyclopedia
+endevors->endeavors
+endevour->endeavour
+endig->ending
+endolithes->endoliths
+enduce->induce
+ened->need
+enforceing->enforcing
+engagment->engagement
+engeneer->engineer
+engeneering->engineering
+engieneer->engineer
+engieneers->engineers
+enlargment->enlargement
+enlargments->enlargements
+Enlish->English, enlist
+enourmous->enormous
+enourmously->enormously
+ensconsed->ensconced
+entaglements->entanglements
+enteratinment->entertainment
+enthusiatic->enthusiastic
+entitity->entity
+entitlied->entitled
+entrepeneur->entrepreneur
+entrepeneurs->entrepreneurs
+enviorment->environment
+enviormental->environmental
+enviormentally->environmentally
+enviorments->environments
+enviornment->environment
+enviornmental->environmental
+enviornmentalist->environmentalist
+enviornmentally->environmentally
+enviornments->environments
+enviroment->environment
+enviromental->environmental
+enviromentalist->environmentalist
+enviromentally->environmentally
+enviroments->environments
+envolutionary->evolutionary
+envrionments->environments
+enxt->next
+epidsodes->episodes
+epsiode->episode
+equialent->equivalent
+equilibium->equilibrium
+equilibrum->equilibrium
+equiped->equipped
+equippment->equipment
+equitorial->equatorial
+equivelant->equivalent
+equivelent->equivalent
+equivilant->equivalent
+equivilent->equivalent
+equivlalent->equivalent
+erally->orally, really
+eratic->erratic
+eratically->erratically
+eraticly->erratically
+erested->arrested, erected
+errupted->erupted
+esential->essential
+esitmated->estimated
+esle->else
+especialy->especially
+essencial->essential
+essense->essence
+essentail->essential
+essentialy->essentially
+essentual->essential
+essesital->essential
+estabishes->establishes
+establising->establishing
+ethnocentricm->ethnocentrism
+ethose->those, ethos
+Europian->European
+Europians->Europeans
+Eurpean->European
+Eurpoean->European
+evenhtually->eventually
+eventally->eventually
+eventhough->even though
+eventially->eventually
+eventualy->eventually
+everthing->everything
+everytime->every time
+everyting->everything
+eveyr->every
+evidentally->evidently
+exagerate->exaggerate
+exagerated->exaggerated
+exagerates->exaggerates
+exagerating->exaggerating
+exagerrate->exaggerate
+exagerrated->exaggerated
+exagerrates->exaggerates
+exagerrating->exaggerating
+examinated->examined
+exampt->exempt
+exapansion->expansion
+excact->exact
+excange->exchange
+excecute->execute
+excecuted->executed
+excecutes->executes
+excecuting->executing
+excecution->execution
+excedded->exceeded
+excelent->excellent
+excell->excel
+excellance->excellence
+excellant->excellent
+excells->excels
+excercise->exercise
+exchanching->exchanging
+excisted->existed
+exculsivly->exclusively
+execising->exercising
+exection->execution
+exectued->executed
+exeedingly->exceedingly
+exelent->excellent
+exellent->excellent
+exemple->example
+exept->except
+exeptional->exceptional
+exerbate->exacerbate
+exerbated->exacerbated
+exerciese->exercises
+exerpt->excerpt
+exerpts->excerpts
+exersize->exercise
+exerternal->external
+exhalted->exalted
+exhibtion->exhibition
+exibition->exhibition
+exibitions->exhibitions
+exicting->exciting
+exinct->extinct
+existance->existence
+existant->existent
+existince->existence
+exliled->exiled
+exludes->excludes
+exmaple->example
+exonorate->exonerate
+exoskelaton->exoskeleton
+expalin->explain
+expatriot->expatriate
+expeced->expected
+expecially->especially
+expeditonary->expeditionary
+expeiments->experiments
+expell->expel
+expells->expels
+experiance->experience
+experianced->experienced
+expiditions->expeditions
+expierence->experience
+explaination->explanation
+explaning->explaining
+explictly->explicitly
+exploititive->exploitative
+explotation->exploitation
+expropiated->expropriated
+expropiation->expropriation
+exressed->expressed
+extemely->extremely
+extention->extension
+extentions->extensions
+extered->exerted
+extermist->extremist
+extint->extinct, extant
+extradiction->extradition
+extraterrestial->extraterrestrial
+extraterrestials->extraterrestrials
+extravagent->extravagant
+extrememly->extremely
+extremeophile->extremophile
+extremly->extremely
+extrordinarily->extraordinarily
+extrordinary->extraordinary
+eyar->year, eyas
+eyars->years, eyas
+eyasr->years, eyas
+faciliate->facilitate
+faciliated->facilitated
+faciliates->facilitates
+facilites->facilities
+facillitate->facilitate
+facinated->fascinated
+facist->fascist
+familes->families
  familliar->familiar
  famoust->famous
  fanatism->fanaticism
@@ -3966,269 +3964,269 @@ shorly->shortly
 shortwhile->short while
 shoudl->should
 shoudln->should, shouldn't
- shouldnt->should not
- shreak->shriek
- shrinked->shrunk
- sicne->since
- sideral->sidereal
- sieze->seize, size
- siezed->seized, sized
- siezing->seizing, sizing
- siezure->seizure
- siezures->seizures
- siginificant->significant
- signficant->significant
- signficiant->significant
- signfies->signifies
- signifantly->significantly
- significently->significantly
- signifigant->significant
- signifigantly->significantly
- signitories->signatories
- signitory->signatory
- similarily->similarly
- similiar->similar
- similiarity->similarity
- similiarly->similarly
- simmilar->similar
- simpley->simply
- simplier->simpler
- simultanous->simultaneous
- simultanously->simultaneously
- sincerley->sincerely
- singsog->singsong
- sinse->sines, since
- Sionist->Zionist
- Sionists->Zionists
- Sixtin->Sistine
- Skagerak->Skagerrak
- skateing->skating
- slaugterhouses->slaughterhouses
- slighly->slightly
- slippy->slippery
- slowy->slowly
- smae->same
- smealting->smelting
- smoe->some
- sneeks->sneaks
- snese->sneeze
- socalism->socialism
- socities->societies
- soem->some
- sofware->software
- sohw->show
- soilders->soldiers
- solatary->solitary
- soley->solely
- soliders->soldiers
- soliliquy->soliloquy
- soluable->soluble
- somene->someone
- somtimes->sometimes
- somwhere->somewhere
- sophicated->sophisticated
- sophmore->sophomore
- sorceror->sorcerer
- sorrounding->surrounding
- sotry->story
- sotyr->satyr, story
- soudn->sound
- soudns->sounds
- sould->could, should, sold, soul
- sountrack->soundtrack
- sourth->south
- sourthern->southern
- souvenier->souvenir
- souveniers->souvenirs
- soveits->soviets
- sovereignity->sovereignty
- soverign->sovereign
- soverignity->sovereignty
- soverignty->sovereignty
- spainish->Spanish
- speach->speech
- specfic->specific
- speciallized->specialised, specialized
- specif->specific, specify
- specifiying->specifying
- speciman->specimen
- spectauclar->spectacular
- spectaulars->spectaculars
- spects->aspects, expects
- spectum->spectrum
- speices->species
- spendour->splendour
- spermatozoan->spermatozoon
- spoace->space
- sponser->sponsor
- sponsered->sponsored
- spontanous->spontaneous
- sponzored->sponsored
- spoonfulls->spoonfuls
- sppeches->speeches
- spreaded->spread
- sprech->speech
- spred->spread
- spriritual->spiritual
- spritual->spiritual
- sqaure->square
- stablility->stability
- stainlees->stainless
- staion->station
- standars->standards
- stange->strange
- startegic->strategic
- startegies->strategies
- startegy->strategy
- stateman->statesman
- statememts->statements
- statment->statement
- steriods->steroids
- sterotypes->stereotypes
- stilus->stylus
- stingent->stringent
- stiring->stirring
- stirrs->stirs
- stlye->style
- stomache->stomach
- stong->strong
- stopry->story
- storeis->stories
- storise->stories
- stornegst->strongest
- stoyr->story
- stpo->stop
- stradegies->strategies
- stradegy->strategy
- strat->start, strata
- stratagically->strategically
- streemlining->streamlining
- stregth->strength
- strenghen->strengthen
- strenghened->strengthened
- strenghening->strengthening
- strenght->strength
- strenghten->strengthen
- strenghtened->strengthened
- strenghtening->strengthening
- strengtened->strengthened
- strenous->strenuous
- strictist->strictest
- strikely->strikingly
- strnad->strand
- stroy->story, destroy
- structual->structural
- stubborness->stubbornness
- stucture->structure
- stuctured->structured
- studdy->study
- studing->studying
- stuggling->struggling
- sturcture->structure
- subcatagories->subcategories
- subcatagory->subcategory
- subconsiously->subconsciously
- subjudgation->subjugation
- submachne->submachine
- subpecies->subspecies
- subsidary->subsidiary
- subsiduary->subsidiary
- subsquent->subsequent
- subsquently->subsequently
- substace->substance
- substancial->substantial
- substatial->substantial
- substituded->substituted
- substract->subtract
- substracted->subtracted
- substracting->subtracting
- substraction->subtraction
- substracts->subtracts
- subtances->substances
- subterranian->subterranean
- suburburban->suburban
- succceeded->succeeded
- succcesses->successes
- succedded->succeeded
- succeded->succeeded
- succeds->succeeds
- succesful->successful
- succesfully->successfully
- succesfuly->successfully
- succesion->succession
- succesive->successive
- successfull->successful
- successully->successfully
- succsess->success
- succsessfull->successful
- suceed->succeed
- suceeded->succeeded
- suceeding->succeeding
- suceeds->succeeds
- sucesful->successful
- sucesfully->successfully
- sucesfuly->successfully
- sucesion->succession
- sucess->success
- sucesses->successes
- sucessful->successful
- sucessfull->successful
- sucessfully->successfully
- sucessfuly->successfully
- sucession->succession
- sucessive->successive
- sucessor->successor
- sucessot->successor
- sucide->suicide
- sucidial->suicidal
- sufferage->suffrage
- sufferred->suffered
- sufferring->suffering
- sufficent->sufficient
- sufficently->sufficiently
- sumary->summary
- sunglases->sunglasses
- suop->soup
- superceeded->superseded
- superintendant->superintendent
- suphisticated->sophisticated
- suplimented->supplemented
- supose->suppose
- suposed->supposed
- suposedly->supposedly
- suposes->supposes
- suposing->supposing
- supplamented->supplemented
- suppliementing->supplementing
- suppoed->supposed
- supposingly->supposedly
- suppy->supply
- suprassing->surpassing
- supress->suppress
- supressed->suppressed
- supresses->suppresses
- supressing->suppressing
- suprise->surprise
- suprised->surprised
- suprising->surprising
- suprisingly->surprisingly
- suprize->surprise
- suprized->surprised
- suprizing->surprising
- suprizingly->surprisingly
- surfce->surface
- surley->surly, surely
- suround->surround
- surounded->surrounded
- surounding->surrounding
- suroundings->surroundings
- surounds->surrounds
- surplanted->supplanted
- surpress->suppress
- surpressed->suppressed
- surprize->surprise
- surprized->surprised
- surprizing->surprising
+shouldnt->should not
+shreak->shriek
+shrinked->shrunk
+sicne->since
+sideral->sidereal
+sieze->seize, size
+siezed->seized, sized
+siezing->seizing, sizing
+siezure->seizure
+siezures->seizures
+siginificant->significant
+signficant->significant
+signficiant->significant
+signfies->signifies
+signifantly->significantly
+significently->significantly
+signifigant->significant
+signifigantly->significantly
+signitories->signatories
+signitory->signatory
+similarily->similarly
+similiar->similar
+similiarity->similarity
+similiarly->similarly
+simmilar->similar
+simpley->simply
+simplier->simpler
+simultanous->simultaneous
+simultanously->simultaneously
+sincerley->sincerely
+singsog->singsong
+sinse->sines, since
+Sionist->Zionist
+Sionists->Zionists
+Sixtin->Sistine
+Skagerak->Skagerrak
+skateing->skating
+slaugterhouses->slaughterhouses
+slighly->slightly
+slippy->slippery
+slowy->slowly
+smae->same
+smealting->smelting
+smoe->some
+sneeks->sneaks
+snese->sneeze
+socalism->socialism
+socities->societies
+soem->some
+sofware->software
+sohw->show
+soilders->soldiers
+solatary->solitary
+soley->solely
+soliders->soldiers
+soliliquy->soliloquy
+soluable->soluble
+somene->someone
+somtimes->sometimes
+somwhere->somewhere
+sophicated->sophisticated
+sophmore->sophomore
+sorceror->sorcerer
+sorrounding->surrounding
+sotry->story
+sotyr->satyr, story
+soudn->sound
+soudns->sounds
+sould->could, should, sold, soul
+sountrack->soundtrack
+sourth->south
+sourthern->southern
+souvenier->souvenir
+souveniers->souvenirs
+soveits->soviets
+sovereignity->sovereignty
+soverign->sovereign
+soverignity->sovereignty
+soverignty->sovereignty
+spainish->Spanish
+speach->speech
+specfic->specific
+speciallized->specialised, specialized
+specif->specific, specify
+specifiying->specifying
+speciman->specimen
+spectauclar->spectacular
+spectaulars->spectaculars
+spects->aspects, expects
+spectum->spectrum
+speices->species
+spendour->splendour
+spermatozoan->spermatozoon
+spoace->space
+sponser->sponsor
+sponsered->sponsored
+spontanous->spontaneous
+sponzored->sponsored
+spoonfulls->spoonfuls
+sppeches->speeches
+spreaded->spread
+sprech->speech
+spred->spread
+spriritual->spiritual
+spritual->spiritual
+sqaure->square
+stablility->stability
+stainlees->stainless
+staion->station
+standars->standards
+stange->strange
+startegic->strategic
+startegies->strategies
+startegy->strategy
+stateman->statesman
+statememts->statements
+statment->statement
+steriods->steroids
+sterotypes->stereotypes
+stilus->stylus
+stingent->stringent
+stiring->stirring
+stirrs->stirs
+stlye->style
+stomache->stomach
+stong->strong
+stopry->story
+storeis->stories
+storise->stories
+stornegst->strongest
+stoyr->story
+stpo->stop
+stradegies->strategies
+stradegy->strategy
+strat->start, strata
+stratagically->strategically
+streemlining->streamlining
+stregth->strength
+strenghen->strengthen
+strenghened->strengthened
+strenghening->strengthening
+strenght->strength
+strenghten->strengthen
+strenghtened->strengthened
+strenghtening->strengthening
+strengtened->strengthened
+strenous->strenuous
+strictist->strictest
+strikely->strikingly
+strnad->strand
+stroy->story, destroy
+structual->structural
+stubborness->stubbornness
+stucture->structure
+stuctured->structured
+studdy->study
+studing->studying
+stuggling->struggling
+sturcture->structure
+subcatagories->subcategories
+subcatagory->subcategory
+subconsiously->subconsciously
+subjudgation->subjugation
+submachne->submachine
+subpecies->subspecies
+subsidary->subsidiary
+subsiduary->subsidiary
+subsquent->subsequent
+subsquently->subsequently
+substace->substance
+substancial->substantial
+substatial->substantial
+substituded->substituted
+substract->subtract
+substracted->subtracted
+substracting->subtracting
+substraction->subtraction
+substracts->subtracts
+subtances->substances
+subterranian->subterranean
+suburburban->suburban
+succceeded->succeeded
+succcesses->successes
+succedded->succeeded
+succeded->succeeded
+succeds->succeeds
+succesful->successful
+succesfully->successfully
+succesfuly->successfully
+succesion->succession
+succesive->successive
+successfull->successful
+successully->successfully
+succsess->success
+succsessfull->successful
+suceed->succeed
+suceeded->succeeded
+suceeding->succeeding
+suceeds->succeeds
+sucesful->successful
+sucesfully->successfully
+sucesfuly->successfully
+sucesion->succession
+sucess->success
+sucesses->successes
+sucessful->successful
+sucessfull->successful
+sucessfully->successfully
+sucessfuly->successfully
+sucession->succession
+sucessive->successive
+sucessor->successor
+sucessot->successor
+sucide->suicide
+sucidial->suicidal
+sufferage->suffrage
+sufferred->suffered
+sufferring->suffering
+sufficent->sufficient
+sufficently->sufficiently
+sumary->summary
+sunglases->sunglasses
+suop->soup
+superceeded->superseded
+superintendant->superintendent
+suphisticated->sophisticated
+suplimented->supplemented
+supose->suppose
+suposed->supposed
+suposedly->supposedly
+suposes->supposes
+suposing->supposing
+supplamented->supplemented
+suppliementing->supplementing
+suppoed->supposed
+supposingly->supposedly
+suppy->supply
+suprassing->surpassing
+supress->suppress
+supressed->suppressed
+supresses->suppresses
+supressing->suppressing
+suprise->surprise
+suprised->surprised
+suprising->surprising
+suprisingly->surprisingly
+suprize->surprise
+suprized->surprised
+suprizing->surprising
+suprizingly->surprisingly
+surfce->surface
+surley->surly, surely
+suround->surround
+surounded->surrounded
+surounding->surrounding
+suroundings->surroundings
+surounds->surrounds
+surplanted->supplanted
+surpress->suppress
+surpressed->suppressed
+surprize->surprise
+surprized->surprised
+surprizing->surprising
 surprizingly->surprisingly
 surrended->surrounded, surrendered
 surrepetitious->surreptitious
