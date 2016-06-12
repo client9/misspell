@@ -6,8 +6,12 @@ func dictAdditions() map[string]string {
 	dict[" parition"] = " partition"
 	dict["artefact "] = "artifact "
 	dict["carefull "] = "careful "
-	dict[" TOOD"] = " TODO"
-	dict[" Runing"] = " Running"
+
+	// the following are common in source code comments
+	dict[" tood"] = " todo"
+	dict["/tood"] = "/todo"
+	dict["#tood"] = "#todo"
+	dict["*tood"] = "*todo"
 	return dict
 }
 
