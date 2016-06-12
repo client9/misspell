@@ -97,12 +97,32 @@ func main() {
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	format := flag.String("f", "", "use Golang template for log message")
 	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
+	locale := flag.String("locale", "", "[UK|US]e.g. US will correct the British spelling of 'colour' to 'color'")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	exitError := flag.Bool("error", false, "Exit with 2 if misspelling found")
 
 	flag.Parse()
 
+	//
+	// Figure out regional variations
+	//
+	switch strings.ToUpper(*locale) {
+	case "":
+		// nothing
+	case "US":
+		//
+	case "UK", "GB":
+		//
+	case "NZ", "AU", "CA":
+		log.Fatalf("Locale not supported: consider using the UK locale")
+	default:
+		log.Fatalf("Unknow locale: %q", *locale)
+	}
+
+	//
+	// Source input mode
+	//
 	switch *mode {
 	case "auto":
 	case "go":
@@ -110,6 +130,10 @@ func main() {
 	default:
 		log.Fatalf("Mode must be one of auto=guess, go=golang source, text=plain or markdown-like text")
 	}
+
+	//
+	// Custom output
+	//
 	if len(*format) > 0 {
 		t, err := template.New("custom").Parse(*format)
 		if err != nil {
@@ -118,6 +142,10 @@ func main() {
 		defaultWrite = t
 		defaultRead = t
 	}
+
+	//
+	// Stuff to ignore
+	//
 	if len(*ignores) > 0 {
 		err := misspell.Ignore(strings.Split(*ignores, ","))
 		if err != nil {

@@ -57,6 +57,9 @@ func parseWikipediaFormat(text string) map[string]string {
 }
 
 func main() {
+	fmt.Printf("package misspell\n\n")
+
+	// create main word list
 	dict := make(map[string]string)
 	mergeDict(dict, dictWikipedia())
 	mergeDict(dict, dictAdditions())
@@ -65,9 +68,20 @@ func main() {
 		words = append(words, k)
 	}
 	sort.Strings(words)
-
-	fmt.Printf("package misspell\n\n")
 	fmt.Printf("var dictWikipedia = []string{\n")
+	for _, word := range words {
+		fmt.Printf("\t%q, %q,\n", word, dict[word])
+	}
+	fmt.Printf("}\n\n")
+
+	dict = make(map[string]string)
+	mergeDict(dict, dictAmerican())
+	words = make([]string, 0, len(dict))
+	for k := range dict {
+		words = append(words, k)
+	}
+	sort.Strings(words)
+	fmt.Printf("var dictAmerican = []string{\n")
 	for _, word := range words {
 		fmt.Printf("\t%q, %q,\n", word, dict[word])
 	}
