@@ -288,7 +288,7 @@ Here's some ideas for enhancements:
 
 *Opinionated US spellings*   US English has a number of words with alternate
 spellings.  Think [adviser vs.
-advisor](http://grammarist.com/spelling/adviser-advisor/).  With "advisor" is not wrong, the opinionated US
+advisor](http://grammarist.com/spelling/adviser-advisor/).  While "advisor" is not wrong, the opinionated US
 locale would correct "advisor" to "adviser".
 
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
