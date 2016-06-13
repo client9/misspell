@@ -34,8 +34,7 @@ ticket](https://github.com/client9/misspell/issues) please.
 * [Software License](#license)
 * [Problem statement](#problem)
 * [Other spelling correctors](#others)
-
-
+* [Other ideas](#otherideas)
 
 <a name="correct"></a>
 ### How can I make the corrections automatically?
@@ -264,10 +263,35 @@ can check your code using [golint](https://github.com/golang/lint)
 ### Where do the word lists come from?
 
 It started with a word list from
-[Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines)
-and then edited to remove false positives.
+[Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines).
+Unfortunately, this list had to be highly edited as many of the words are
+obsolete or based from mistakes on mechanical typewriters (I'm guessing).
 
-Then additional words were added based on actually mistakes seen in
-the wild.
+Additional words were added based on actually mistakes seen in
+the wild (meaning self-generated).
 
+Variations of UK and US spellings are based on many sources including:
+
+* http://www.tysto.com/uk-us-spelling-list.html (with heavy editing, many are incorrect)
+* http://www.oxforddictionaries.com/us/words/american-and-british-spelling-american (excellent site but incomplete)
+* Diffing [scowl dictionaries](http://wordlist.aspell.net) for US and UK
+
+American English is more accepting of spelling variations than is British
+English, so "what is American or not" is subject to opinion.  Corrections and help welcome.
+
+<a name="otherideas">
+### What are some other enhancements that could be done
+
+Here's some ideas of enhancements:
+
+_Capitalization of proper nouns_ could be done (e.g. weekday and month names, country names, language names)
+
+_Opinionated US spellings_   US English has a number of words with alternate
+spellings.  Think [adviser vs.
+advisor](http://grammarist.com/spelling/adviser-advisor/).  With "advisor" is not wrong, the opinionated US
+locale would correct "advisor" to "adviser".
+
+_Versioning_  Some type of versioning is needed so reporting mistakes and errors is easier.
+
+_Feedback_  Mistakes would be sent to some server for agregation and feedback review.
 
