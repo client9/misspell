@@ -12,6 +12,9 @@ func dictAdditions() map[string]string {
 	dict["/tood"] = "/todo"
 	dict["#tood"] = "#todo"
 	dict["*tood"] = "*todo"
+
+	dict = expandCase(dict)
+
 	return dict
 }
 

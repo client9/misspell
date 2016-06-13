@@ -1,24 +1,5 @@
 package main
 
-func addLeftDelimiter(dict map[string]string, word string) {
-	if val, ok := dict[word]; ok {
-		delete(dict, word)
-		dict[" "+word] = " " + val
-	}
-}
-func addRightDelimiter(dict map[string]string, word string) {
-	if val, ok := dict[word]; ok {
-		delete(dict, word)
-		dict[word+" "] = val + " "
-	}
-}
-func addBothDelimiter(dict map[string]string, word string) {
-	if val, ok := dict[word]; ok {
-		delete(dict, word)
-		dict[" "+word+" "] = " " + val + " "
-	}
-}
-
 func dictWikipedia() map[string]string {
 	dict := parseWikipediaFormat(wikipedia)
 	// Just wrong
@@ -428,9 +409,6 @@ func dictWikipedia() map[string]string {
 		"ommitted",
 	}
 
-	for _, word := range needDelete {
-		delete(dict, word)
-	}
 	for _, word := range needLeft {
 		addLeftDelimiter(dict, word)
 	}
@@ -440,6 +418,11 @@ func dictWikipedia() map[string]string {
 	for _, word := range needBoth {
 		addBothDelimiter(dict, word)
 	}
+	for _, word := range needDelete {
+		delete(dict, word)
+	}
+
+	dict = expandCase(dict)
 	return dict
 }
 
