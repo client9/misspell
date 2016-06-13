@@ -11,15 +11,68 @@ your.txt:42:10 found "langauge" a misspelling of "language"
 # ^ file, line, column
 ```
 
-You'll need [golang 1.5](https://golang.org/) installed to compile it.  But after that it's a standalone binary.
+You'll need [golang 1.5 or newer](https://golang.org/) installed to compile
+it.  But after that it's a standalone binary.
 
-If people want pre-compiled binaries, [file a ticket](https://github.com/client9/misspell/issues) please.
+If people want pre-compiled binaries, [file a
+ticket](https://github.com/client9/misspell/issues) please.
 
 ## FAQ
 
+* [Automatic Corrections](#correct)
+* [Converting UK spellings to US](#locale)
+* [Using pipes and stdin](#stdin)
+* [Golang special support](#golang)
+* [gometalinter support](#gometalinter)
+* [Changing output format](#output)
+* [Checking a folder recursively](#recursive)
+* [Performance](#performance)
+* [Known Issues](#issues)
+* [Debugging](#debug)
+* [False Negatives and missing words](#missing)
+* [Origin of Word Lists](#words)
+* [Software License](#license)
+* [Problem statement](#problem)
+* [Other spelling correctors](#others)
+
+
+
+<a name="correct"></a>
+### How can I make the corrections automatically?
+
+Just add the `-w` flag!
+
+```
+$ misspell -w all.html your.txt important.md files.go
+your.txt:9:21:corrected "langauge" to "language"
+
+# ^booyah
+```
+
+<a name="locale"></a>
+### How do I convert British spellings to American (or vice-versa)?
+
+Add the `-locale US` flag!
+
+```bash
+$ misspell -locale US important.txt
+important.txt:10:20 found "colour" a misspelling of "color"
+```
+
+Add the `-local UK` flag!
+
+```bash
+$ misspell -locale UK important.txt`
+2016/06/13 15:29:26 Help wanted. https://github.com/client9/misspell/issues/6
+```
+
+Uh-oh!  I'm working on it.  Help is appreciated as I'm neither British nor an
+expert in the English language.
+
+<a name="recursive"></a>
 ### How do you check an entire folder recursively?
 
-You can run misspell recursively using the following notation:
+You can run misspell recursively using the following shell tricks:
 
 ```bash
 misspell directory/**/*
@@ -30,6 +83,8 @@ or
 ```bash
 find . -name '*' | xargs misspell
 ```
+
+<a name="stdin"></a>
 ### Can I use pipes or `stdin` for input?
 
 Yes!
@@ -56,21 +111,25 @@ $ echo "zeebra" | misspell -w -q
 zebra
 ```
 
+<a name="golang"></a>
 ### Are there special rules for golang source files?
 
-Yes!  If the file ends in `.go`, then misspell will only check spelling in comments.
+Yes!  If the file ends in `.go`, then misspell will only check spelling in
+comments.
 
-If you want to force a file to be checked as a golang source, use
-`-source=go` on the command line.  Conversely, you can check a golang
-source as if it were pure text by using `-source=text`.  You might want to do this since
-many variable names have misspellings in them!
+If you want to force a file to be checked as a golang source, use `-source=go`
+on the command line.  Conversely, you can check a golang source as if it were
+pure text by using `-source=text`.  You might want to do this since many
+variable names have misspellings in them!
 
 ### Can I check only-comments in other other programming languages?
 
-I'm told the using `-source=go` works well for ruby, javascript, java, c and c++.
+I'm told the using `-source=go` works well for ruby, javascript, java, c and
+c++.
 
 It doesn't work well for python and bash.
 
+<a name="gometalinter"></a>
 ### Does this work with gometalinter?
 
 [gometalinter](https://github.com/alecthomas/gometalinter) runs
@@ -91,16 +150,19 @@ To use, just enable `misspell`
 gometalinter --enable misspell ./...
 ```
 
-Note that gometalinter only checks golang file, and uses the default options of `misspell`
+Note that gometalinter only checks golang files, and uses the default options
+of `misspell`
 
 You may wish to run this on your plaintext (.txt) and/or markdown files too.
 
+<a name="output"></a>
 ### How can I change the output format?
 
 Using the `-f template` flag you can pass in a
 [golang text template](https://golang.org/pkg/text/template/) to format the output.
 
-The built-in template uses everything, including the `js` function to escape the original text.
+The built-in template uses everything, including the `js` function to escape
+the original text.
 
 ```
 {{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ js .Original }}" to "{{ js .Corrected }}"
@@ -112,6 +174,7 @@ To just print probable misspellings:
 -f '{{ .Original }}'
 ```
 
+<a name="problem"></a>
 ### What problem does this solve?
 
 This corrects commonly misspelled English words in computer source
@@ -125,6 +188,7 @@ It does not work with binary formats (e.g. Word, etc).
 
 It is not a complete spell-checking program nor a grammar checker.
 
+<a name="others"></a>
 ### What are other misspelling correctors and what's wrong with them?
 
 Some other misspelling correctors:
@@ -138,29 +202,16 @@ They all work but had problems that prevented me from using them at scale:
 * slow, all of the above check one misspelling at a time (i.e. linear) using regexps
 * not MIT/Apache2 licensed (or equivalent)
 * have dependencies that don't work for me (python3, bash, linux sed, etc)
+* don't understand American vs. British English and sometimes makes unwelcome "corrections"
 
 That said, they might be perfect for you and many have more features
 than this project!
 
-### How much faster is this project?
+<a name="performance"></a>
+### How fast is it?
 
-Easily 100x to 1000x faster.  You should be able to check and correct
-1000 files in under 250ms.
-
-### What license is this?
-
-[MIT](https://github.com/client9/misspell/blob/master/LICENSE)
-
-### Where do the word lists come from?
-
-It started with a word list from
-[Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines)
-and then edited to remove false positives.
-
-Then additional words were added based on actually mistakes seen in
-the wild.
-
-### Why is this so fast?
+Misspell is Easily 100x to 1000x faster than other spelling correctors.  You
+should be able to check and correct 1000 files in under 250ms.
 
 This uses the mighty power of golang's
 [strings.Replacer](https://golang.org/pkg/strings/#Replacer) which is
@@ -170,33 +221,53 @@ This makes multiple substring matches *simultaneously*
 
 In addition this uses multiple CPU cores to work on multiple files.
 
+<a name="issues"></a>
 ### What problems does it have?
 
-Unlike the other projects, this doesn't know what a "word" is.  There
-may be more false positives and false negatives due to this.  On the
-other hand, it sometimes catches things others don't.
+Unlike the other projects, this doesn't know what a "word" is.  There may be
+more false positives and false negatives due to this.  On the other hand, it
+sometimes catches things others don't.
 
 Either way, please file bugs and we'll fix them!
 
-Since it operates in parallel to make corrections, it can be
-non-obvious to determine exactly what word was corrected.
+Since it operates in parallel to make corrections, it can be non-obvious to
+determine exactly what word was corrected.
 
+<a name="#debug"></a>
 ### It's making mistakes.  How can I debug?
 
-Run using `-debug` flag on the file you want.  It should then
-print what word it is trying to correct.  Then [file a bug](https://github.com/client9/misspell/issues) describing the
-problem.  Thanks!
+Run using `-debug` flag on the file you want.  It should then print what word
+it is trying to correct.  Then [file a
+bug](https://github.com/client9/misspell/issues) describing the problem.
+Thanks!
 
+<a name="#missing"></a>
 ### Why is it making mistakes or missing items in golang files?
 
-The matching function is *case-sensitive*, so variable names that are
-multiple worlds either in all-upper or all-lower case sometimes can
-cause false positives.  For instance a variable named `bodyreader`
-could trigger a false positive since `yrea` is in the middle that
-could be corrected to `year`.  Other problems happen if the variable
-name uses a English contraction that should use an apostrophe.  The
-best way of fixing this is to use the [Effective Go naming
-conventions](https://golang.org/doc/effective_go.html#mixed-caps) and
-use [camelCase](https://en.wikipedia.org/wiki/CamelCase) for variable names.  You can check your code using
-[golint](https://github.com/golang/lint)
+The matching function is *case-sensitive*, so variable names that are multiple
+worlds either in all-upper or all-lower case sometimes can cause false
+positives.  For instance a variable named `bodyreader` could trigger a false
+positive since `yrea` is in the middle that could be corrected to `year`.
+Other problems happen if the variable name uses a English contraction that
+should use an apostrophe.  The best way of fixing this is to use the
+[Effective Go naming
+conventions](https://golang.org/doc/effective_go.html#mixed-caps) and use
+[camelCase](https://en.wikipedia.org/wiki/CamelCase) for variable names.  You
+can check your code using [golint](https://github.com/golang/lint)
+
+<a name="license"></a>
+### What license is this?
+
+[MIT](https://github.com/client9/misspell/blob/master/LICENSE)
+
+<a name="words"></a>
+### Where do the word lists come from?
+
+It started with a word list from
+[Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines)
+and then edited to remove false positives.
+
+Then additional words were added based on actually mistakes seen in
+the wild.
+
 
