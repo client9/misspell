@@ -12,16 +12,147 @@ func dictBritish() map[string]string {
 		dict[v] = k
 	}
 
+	needCaseDelete := []string{
+		"Anglicize",
+		"Caroling",
+		"Savior",
+	}
+
 	needDelete := []string{
+		"breathalyze",
+		"breathalyzer",
+		"paleolithic",
+		"destabilization",
+		"stabilization",
+		"snowplow",
+		"humorless",
+		"pediatric",
+		"presidiums",
+		"calisthenics",
+		"archeological",
+		"archeologically",
+		"siphoned",
+		"siphoning",
+		"siphons",
+		"pediatrics",
+		"mustachioed",
+		"traveled",
+		"raveled",
+		"snorkeling",
+		"marginalization",
+		"technicolor",
+		"primeval",
+		"bougainvillea",
+		"bougainvilleas",
+		"passivized",
+		"passivizes",
+		"passivizing",
+		"humorlessly",
+		"canceling",
+		"medieval",
+		"passivize",
+		"homeopaths",
+		"destabilization",
+		"authorizing",
+		"balked",
+		"balks",
+		"balking",
+		"misspelled",
+		"installs",
+		"instills",
+		"connections",
+		"fetuses",
+		"fetus",
+		"authorized",
+		"licensing",
+		"homeopathic",
+		"homeopathy",
+		"ionize",
+		"ionizer",
+		"ionizers",
+		"tumor",
+		"pederast",
+		"pederasts",
+		"gypsies",
+		"discolor",
+		"discoloration",
+		"discolorations",
+		"microfibers",
+		"banister",
+		"banisters",
+		"practices",
+		"authorize",
+		"pressurize",
+		"counseling",
+		"encyclopedia",
+		"encyclopedias",
+		"encyclopedic",
+		"synthesize",
+		"licenses",
+		"synthesizer",
+		"synthesizers",
+		"siphon",
+		"inflection",
+		"inflections",
+		"micrometer",
+		"micrometers",
+		"canceled",
+		"license",
+		"licensed",
+		"practicing",
+		"almanac",
+		"almanacs",
+		"delimiters",
+		"programs",
+		"gluing",
+		"catalog",
+		"enthrall",
+		"enroll",
+		"stories",
+		"analog",
+		"analogs",
+		"filter",
+		"filters",
+		"connection",
+		"homeopath",
+		"griffin",
+		"griffins",
+		"caliper",
+		"calipers",
+		"groin",
+		"groins",
+		"fetid",
+		"instill",
+		"enthralling",
+		"specializing",
+		"pummel",
+		"presidium",
+		"sulfur",
 		"jail",
+		"jails",
+		"jailing",
+		"jailbird",
+		"jailbirds",
+		"jailbreaks",
+		"jailbreak",
+		"jailer",
+		"jailers",
+		"jailed",
 		"dialog",
 		"wagon",
-		"waggons",
+		"wagons",
 		"yogurt",
 		"yogurts",
 	}
 
 	needLeft := []string{
+		"plowed",
+		"plowing",
+		"esophagus",
+		"esophaguses",
+		"etiology",
+		"armor",
+		"estrogen",
 		"practice",
 		"fiber",
 		"odor",
@@ -33,13 +164,36 @@ func dictBritish() map[string]string {
 		"program",
 	}
 
-	needRight := []string{}
+	needRight := []string{
+		"labor",
+		"appall",
+		"valor",
+		"clangor",
+		"epaulet",
+		"rancor",
+		"harbor",
+		"splendor",
+	}
 
 	needBoth := []string{
+		"molt",
+		"specters",
+		"specter",
+		"rigor",
+		"miters",
+		"balk",
+		"luster",
+		"habor",
+		"arbor",
+		"meager",
+		"plow",
+		"humor",
+		"honor",
 		"liter",
 		"vigor",
 		"vapor",
 		"aging",
+		"fibers",
 		"story",
 		"mold",
 		"gram",
@@ -48,16 +202,19 @@ func dictBritish() map[string]string {
 		"centigrams",
 		"milligram",
 		"milligrams",
+		"clamor",
 		"kilogram",
 		"kilograms",
 		"distill",
 		"fulfill",
 		"check",
+		"checks",
 		"install",
 		"ton",
 		"tons",
 		"tire",
 		"tires",
+		"edema",
 	}
 
 	for _, word := range needDelete {
@@ -75,11 +232,15 @@ func dictBritish() map[string]string {
 
 	dict = expandCase(dict)
 
+	for _, word := range needCaseDelete {
+		removeCase(dict, word)
+	}
+
 	return dict
 }
 
 func dictAmerican() map[string]string {
-	needDelete := []string{
+	needCaseDelete := []string{
 		"Armour",
 		"Bannister",
 		"Louvre",
@@ -130,7 +291,7 @@ func dictAmerican() map[string]string {
 
 	dict = expandCase(dict)
 
-	for _, word := range needDelete {
+	for _, word := range needCaseDelete {
 		removeCase(dict, word)
 	}
 
