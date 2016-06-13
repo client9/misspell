@@ -274,24 +274,24 @@ Variations of UK and US spellings are based on many sources including:
 
 * http://www.tysto.com/uk-us-spelling-list.html (with heavy editing, many are incorrect)
 * http://www.oxforddictionaries.com/us/words/american-and-british-spelling-american (excellent site but incomplete)
-* Diffing [scowl dictionaries](http://wordlist.aspell.net) for US and UK
+* Diffing US and UK [scowl dictionaries](http://wordlist.aspell.net)
 
 American English is more accepting of spelling variations than is British
 English, so "what is American or not" is subject to opinion.  Corrections and help welcome.
 
 <a name="otherideas">
-### What are some other enhancements that could be done
+### What are some other enhancements that could be done?
 
-Here's some ideas of enhancements:
+Here's some ideas for enhancements:
 
-_Capitalization of proper nouns_ could be done (e.g. weekday and month names, country names, language names)
+*Capitalization of proper nouns* could be done (e.g. weekday and month names, country names, language names)
 
-_Opinionated US spellings_   US English has a number of words with alternate
+*Opinionated US spellings*   US English has a number of words with alternate
 spellings.  Think [adviser vs.
 advisor](http://grammarist.com/spelling/adviser-advisor/).  With "advisor" is not wrong, the opinionated US
 locale would correct "advisor" to "adviser".
 
-_Versioning_  Some type of versioning is needed so reporting mistakes and errors is easier.
+*Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
-_Feedback_  Mistakes would be sent to some server for agregation and feedback review.
+*Feedback*  Mistakes would be sent to some server for agregation and feedback review.
 
