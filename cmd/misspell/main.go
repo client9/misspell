@@ -116,9 +116,9 @@ func main() {
 	case "US":
 		r.AddRuleList(misspell.DictAmerican)
 	case "UK", "GB":
-		log.Fatalf("US to UK conversion coming soon")
+		log.Fatalf("Help wanted. https://github.com/client9/misspell/issues/6")
 	case "NZ", "AU", "CA":
-		log.Fatalf("Locale not supported: consider using the UK locale")
+		log.Fatalf("Help wanted.  https://github.com/client9/misspell/issues/6")
 	default:
 		log.Fatalf("Unknow locale: %q", *locale)
 	}
