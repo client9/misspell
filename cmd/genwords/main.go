@@ -102,5 +102,19 @@ func main() {
 	for _, word := range words {
 		fmt.Printf("\t%q, %q,\n", word, dict[word])
 	}
+	fmt.Printf("}\n\n")
+
+	dict = make(map[string]string)
+	mergeDict(dict, dictBritish())
+	words = make([]string, 0, len(dict))
+	for k := range dict {
+		words = append(words, k)
+	}
+	sort.Strings(words)
+	fmt.Printf("// DictBritish converts US spellings to UK spellings\n")
+	fmt.Printf("var DictBritish = []string{\n")
+	for _, word := range words {
+		fmt.Printf("\t%q, %q,\n", word, dict[word])
+	}
 	fmt.Printf("}\n")
 }

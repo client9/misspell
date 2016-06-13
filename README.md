@@ -61,11 +61,11 @@ important.txt:10:20 found "colour" a misspelling of "color"
 Add the `-local UK` flag!
 
 ```bash
-$ misspell -locale UK important.txt`
-2016/06/13 15:29:26 Help wanted. https://github.com/client9/misspell/issues/6
+$ echo "My favorite color is blue" | misspell -locale UK
+stdin:1:3:found "favorite color" a misspelling of "favourite colour"
 ```
 
-Uh-oh!  I'm working on it.  Help is appreciated as I'm neither British nor an
+Help is appreciated as I'm neither British nor an
 expert in the English language.
 
 <a name="recursive"></a>

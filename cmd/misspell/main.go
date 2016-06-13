@@ -95,7 +95,7 @@ func main() {
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
 	format := flag.String("f", "", "use Golang template for log message")
 	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
-	locale := flag.String("locale", "", "Correct spellings using locale perferances.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
+	locale := flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 	debug := flag.Bool("debug", false, "Debug matching, very slow")
 	exitError := flag.Bool("error", false, "Exit with 2 if misspelling found")
@@ -116,7 +116,7 @@ func main() {
 	case "US":
 		r.AddRuleList(misspell.DictAmerican)
 	case "UK", "GB":
-		log.Fatalf("Help wanted. https://github.com/client9/misspell/issues/6")
+		r.AddRuleList(misspell.DictBritish)
 	case "NZ", "AU", "CA":
 		log.Fatalf("Help wanted.  https://github.com/client9/misspell/issues/6")
 	default:

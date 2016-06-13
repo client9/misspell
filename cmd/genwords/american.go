@@ -1,5 +1,83 @@
 package main
 
+// dictBritish inverts the basic American word list
+//  and then makes additional corrections
+//
+func dictBritish() map[string]string {
+	usdict := parseWikipediaFormat(american)
+
+	// now flip keys and values
+	dict := make(map[string]string, len(usdict))
+	for k, v := range usdict {
+		dict[v] = k
+	}
+
+	needDelete := []string{
+		"jail",
+		"dialog",
+		"wagon",
+		"waggons",
+		"yogurt",
+		"yogurts",
+	}
+
+	needLeft := []string{
+		"practice",
+		"fiber",
+		"odor",
+		"center",
+		"color",
+		"meter",
+		"meters",
+		"miter",
+		"program",
+	}
+
+	needRight := []string{}
+
+	needBoth := []string{
+		"liter",
+		"vigor",
+		"vapor",
+		"aging",
+		"story",
+		"mold",
+		"gram",
+		"grams",
+		"centigram",
+		"centigrams",
+		"milligram",
+		"milligrams",
+		"kilogram",
+		"kilograms",
+		"distill",
+		"fulfill",
+		"check",
+		"install",
+		"ton",
+		"tons",
+		"tire",
+		"tires",
+	}
+
+	for _, word := range needDelete {
+		delete(dict, word)
+	}
+	for _, word := range needLeft {
+		addLeftDelimiter(dict, word)
+	}
+	for _, word := range needRight {
+		addRightDelimiter(dict, word)
+	}
+	for _, word := range needBoth {
+		addBothDelimiter(dict, word)
+	}
+
+	dict = expandCase(dict)
+
+	return dict
+}
+
 func dictAmerican() map[string]string {
 	needDelete := []string{
 		"Armour",
