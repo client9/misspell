@@ -20,6 +20,8 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+dependancies->dependencies
+emtpy->empty
 fandation->foundation
 environemnt->environment
 verious->various
