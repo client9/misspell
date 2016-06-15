@@ -6,6 +6,7 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"returndata",
 		"UNDERSTOOD",
 		"textinterface",
 		" committed ",
