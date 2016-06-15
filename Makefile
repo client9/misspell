@@ -29,7 +29,7 @@ falsepositives: /scowl-wl
 		 misspell -locale=US -debug -error
 	cat /scowl-wl/words-GB-ise-60.txt | \
 		grep -v -E "nonoccurence|withing" | \
-		misspell -debug -error
+		misspell -locale=UK -debug -error
 	cat /scowl-wl/words-GB-ise-60.txt | tr '[:lower:]' '[:upper:]' | \
 		grep -i -v -E "nonoccurence|withing" | \
 		misspell -debug -error
