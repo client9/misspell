@@ -48,6 +48,7 @@ func TestReplace(t *testing.T) {
 		want string
 	}{
 		{"I live in Amercia", "I live in America"},
+		{"grill brocoli now", "grill brocolli now"},
 		{"There is a zeebra", "There is a zebra"},
 		{"foo other bar", "foo other bar"},
 		{"ten fiels", "ten fields"},
