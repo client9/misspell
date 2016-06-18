@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+requrement->requirement
 brocoli->brocolli
 dependancies->dependencies
 emtpy->empty
