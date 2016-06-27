@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+datbase->database
 requrement->requirement
 brocoli->brocolli
 dependancies->dependencies

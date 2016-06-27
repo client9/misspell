@@ -377,10 +377,6 @@ anaesthetises->anesthetizes
 anaesthetising->anesthetizing
 anaesthetist->anesthetist
 anaesthetists->anesthetists
-anaesthetize->anesthetize
-anaesthetized->anesthetized
-anaesthetizes->anesthetizes
-anaesthetizing->anesthetizing
 analogue->analog
 analogues->analogs
 analyse->analyze
