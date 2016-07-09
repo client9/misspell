@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+laready->already
 varaible->variable
 datbase->database
 requrement->requirement
