@@ -346,7 +346,6 @@ func dictWikipedia() map[string]string {
 		"eratic",
 		"asetic",
 		"poisin",
-		"witn",
 		"halp",
 		"ilness",
 		"rythm",
@@ -406,6 +405,7 @@ func dictWikipedia() map[string]string {
 	}
 
 	needBoth := []string{
+		"witn",
 		"ommitting",
 		"ommitted",
 	}
