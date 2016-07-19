@@ -286,6 +286,8 @@ func dictWikipedia() map[string]string {
 		"stomache",
 	}
 	needLeft := []string{
+		"archtype",
+		"archtypes",
 		"runing",
 		"extint",
 		"tahn",
