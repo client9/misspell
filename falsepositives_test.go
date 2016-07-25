@@ -99,7 +99,7 @@ func TestFalsePositives(t *testing.T) {
 	r := New()
 	r.Debug = true
 	for casenum, tt := range cases {
-		got := r.Replace(tt)
+		got, _ := r.Replace(tt)
 		if got != tt {
 			t.Errorf("%d: %q got converted to %q", casenum, tt, got)
 		}

@@ -2,24 +2,13 @@ package main
 
 func dictAdditions() map[string]string {
 	dict := parseWikipediaFormat(additions)
-	dict["Dont "] = "Don't "
-	dict[" parition"] = " partition"
-	dict["artefact "] = "artifact "
-	dict["carefull "] = "careful "
-
-	// the following are common in source code comments
-	dict[" tood"] = " todo"
-	dict["/tood"] = "/todo"
-	dict["#tood"] = "#todo"
-	dict["*tood"] = "*todo"
-
 	dict = expandCase(dict)
-
 	return dict
 }
 
 // arent
 var additions = `
+tood->todo
 decscription->description
 keynode->keynote
 entreperure->entrepreneur
@@ -29,7 +18,8 @@ laready->already
 varaible->variable
 datbase->database
 requrement->requirement
-brocoli->brocolli
+brocoli->broccoli
+brocolli->broccoli
 dependancies->dependencies
 emtpy->empty
 fandation->foundation

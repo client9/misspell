@@ -49,16 +49,15 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 		}
 		orig := string(raw)
 		var updated string
-
+		var changes []misspell.Diff
 		// GROSS
 		isGolang := strings.HasSuffix(filename, ".go")
 		if mode == "go" || (mode == "auto" && isGolang) {
-			updated = r.ReplaceGo(orig)
+			updated, changes = r.Replace(orig)
 		} else {
-			updated = r.Replace(orig)
+			updated, changes = r.Replace(orig)
 		}
 
-		updated, changes := misspell.DiffLines(orig, updated)
 		if len(changes) == 0 {
 			continue
 		}
@@ -184,13 +183,13 @@ func main() {
 		}
 		orig := string(raw)
 		var updated string
+		var changes []misspell.Diff
 		switch *mode {
 		case "go":
-			updated = r.ReplaceGo(orig)
+			updated, changes = r.Replace(orig)
 		default:
-			updated = r.Replace(orig)
+			updated, changes = r.Replace(orig)
 		}
-		updated, changes := misspell.DiffLines(orig, updated)
 		if !*quiet {
 			for _, diff := range changes {
 				diff.Filename = "stdin"

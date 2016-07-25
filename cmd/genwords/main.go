@@ -71,6 +71,18 @@ func parseWikipediaFormat(text string) map[string]string {
 	return dict
 }
 
+type sortByLen []string
+
+func (a sortByLen) Len() int      { return len(a) }
+func (a sortByLen) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a sortByLen) Less(i, j int) bool {
+	if len(a[i]) == len(a[j]) {
+		return a[i] < a[j]
+	}
+	// INVERTED
+	return len(a[i]) > len(a[j])
+}
+
 func main() {
 	fmt.Printf("package misspell\n\n")
 
@@ -82,7 +94,7 @@ func main() {
 	for k := range dict {
 		words = append(words, k)
 	}
-	sort.Strings(words)
+	sort.Sort(sortByLen(words))
 	fmt.Printf("// DictMain is the main rule set, not including locale-specific spellings\n")
 	fmt.Printf("var DictMain = []string{\n")
 	for _, word := range words {
@@ -96,7 +108,7 @@ func main() {
 	for k := range dict {
 		words = append(words, k)
 	}
-	sort.Strings(words)
+	sort.Sort(sortByLen(words))
 	fmt.Printf("// DictAmerican converts UK spellings to US spellings\n")
 	fmt.Printf("var DictAmerican = []string{\n")
 	for _, word := range words {
@@ -110,7 +122,7 @@ func main() {
 	for k := range dict {
 		words = append(words, k)
 	}
-	sort.Strings(words)
+	sort.Sort(sortByLen(words))
 	fmt.Printf("// DictBritish converts US spellings to UK spellings\n")
 	fmt.Printf("var DictBritish = []string{\n")
 	for _, word := range words {
