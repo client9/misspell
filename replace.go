@@ -2,7 +2,6 @@ package misspell
 
 import (
 	"bytes"
-	"log"
 	"regexp"
 	"strings"
 )
