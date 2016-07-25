@@ -92,7 +92,6 @@ Depdending->Depending
 Disclamer->Disclaimer
 Elimintates->Eliminates
 Fowrards->Forwards
-Implementor->Implementer
 Instalation->Installation
 Numerious->Numerous
 Specifcation->Specification
