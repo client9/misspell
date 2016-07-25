@@ -37,6 +37,9 @@ func dictWikipedia() map[string]string {
 	dict["fiels"] = "fields"
 
 	needDelete := []string{
+		"toke",
+		"moil",
+		"lsat",
 		"gae",
 		"heterogenous",
 		"rarified",
