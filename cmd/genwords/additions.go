@@ -20,6 +20,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+decscription->description
 keynode->keynote
 entreperure->entrepreneur
 entreprenuer->entrepreneur
