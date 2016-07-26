@@ -1,8 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
+	"os"
 	"sort"
 	"strings"
 
@@ -84,7 +86,14 @@ func (a sortByLen) Less(i, j int) bool {
 }
 
 func main() {
-	fmt.Printf("package misspell\n\n")
+	out := flag.String("o", "words.go", "output file")
+	flag.Parse()
+	fo, err := os.Create(*out)
+	if err != nil {
+		log.Fatalf("unable to write %s: %s", *out, err)
+	}
+	defer fo.Close()
+	fo.WriteString("package misspell\n\n")
 
 	// create main word list
 	dict := make(map[string]string)
@@ -95,12 +104,12 @@ func main() {
 		words = append(words, k)
 	}
 	sort.Sort(sortByLen(words))
-	fmt.Printf("// DictMain is the main rule set, not including locale-specific spellings\n")
-	fmt.Printf("var DictMain = []string{\n")
+	fo.WriteString("// DictMain is the main rule set, not including locale-specific spellings\n")
+	fo.WriteString("var DictMain = []string{\n")
 	for _, word := range words {
-		fmt.Printf("\t%q, %q,\n", word, dict[word])
+		fo.WriteString(fmt.Sprintf("\t%q, %q,\n", word, dict[word]))
 	}
-	fmt.Printf("}\n\n")
+	fo.WriteString("}\n\n")
 
 	dict = make(map[string]string)
 	mergeDict(dict, dictAmerican())
@@ -109,12 +118,12 @@ func main() {
 		words = append(words, k)
 	}
 	sort.Sort(sortByLen(words))
-	fmt.Printf("// DictAmerican converts UK spellings to US spellings\n")
-	fmt.Printf("var DictAmerican = []string{\n")
+	fo.WriteString("// DictAmerican converts UK spellings to US spellings\n")
+	fo.WriteString("var DictAmerican = []string{\n")
 	for _, word := range words {
-		fmt.Printf("\t%q, %q,\n", word, dict[word])
+		fo.WriteString(fmt.Sprintf("\t%q, %q,\n", word, dict[word]))
 	}
-	fmt.Printf("}\n\n")
+	fo.WriteString("}\n\n")
 
 	dict = make(map[string]string)
 	mergeDict(dict, dictBritish())
@@ -123,10 +132,10 @@ func main() {
 		words = append(words, k)
 	}
 	sort.Sort(sortByLen(words))
-	fmt.Printf("// DictBritish converts US spellings to UK spellings\n")
-	fmt.Printf("var DictBritish = []string{\n")
+	fo.WriteString("// DictBritish converts US spellings to UK spellings\n")
+	fo.WriteString("var DictBritish = []string{\n")
 	for _, word := range words {
-		fmt.Printf("\t%q, %q,\n", word, dict[word])
+		fo.WriteString(fmt.Sprintf("\t%q, %q,\n", word, dict[word]))
 	}
-	fmt.Printf("}\n")
+	fo.WriteString("}\n")
 }
