@@ -4,10 +4,7 @@ all: install lint test
 
 install:
 	go version
-	go get -u github.com/client9/gospell
 	go run cmd/genwords/*.go > ./words.go
-	go get -t .
-	go get -t ./cmd/genwords
 	go install ./cmd/misspell
 
 lint:

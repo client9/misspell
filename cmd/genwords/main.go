@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/client9/gospell"
+	"github.com/client9/misspell"
 )
 
 func addOrPanic(dict map[string]string, key, value string) {
@@ -37,8 +37,8 @@ func mergeDict(a, b map[string]string) {
 }
 
 func removeCase(inmap map[string]string, word string) {
-	style := gospell.CaseStyle(word)
-	kcase := gospell.CaseVariations(word, style)
+	style := misspell.CaseStyle(word)
+	kcase := misspell.CaseVariations(word, style)
 	for i := 0; i < len(kcase); i++ {
 		delete(inmap, kcase[i])
 	}
@@ -46,9 +46,9 @@ func removeCase(inmap map[string]string, word string) {
 func expandCase(inmap map[string]string) map[string]string {
 	out := make(map[string]string, len(inmap)*3)
 	for k, v := range inmap {
-		style := gospell.CaseStyle(k)
-		kcase := gospell.CaseVariations(k, style)
-		vcase := gospell.CaseVariations(v, style)
+		style := misspell.CaseStyle(k)
+		kcase := misspell.CaseVariations(k, style)
+		vcase := misspell.CaseVariations(v, style)
 		for i := 0; i < len(kcase); i++ {
 			addOrPanic(out, kcase[i], vcase[i])
 		}
