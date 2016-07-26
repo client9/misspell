@@ -48,15 +48,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 			continue
 		}
 		orig := string(raw)
-		var updated string
-		var changes []misspell.Diff
-		// GROSS
-		isGolang := strings.HasSuffix(filename, ".go")
-		if mode == "go" || (mode == "auto" && isGolang) {
-			updated, changes = r.Replace(orig)
-		} else {
-			updated, changes = r.Replace(orig)
-		}
+		updated, changes := r.Replace(orig)
 
 		if len(changes) == 0 {
 			continue
@@ -182,14 +174,7 @@ func main() {
 			log.Fatalf("Unable to read stdin")
 		}
 		orig := string(raw)
-		var updated string
-		var changes []misspell.Diff
-		switch *mode {
-		case "go":
-			updated, changes = r.Replace(orig)
-		default:
-			updated, changes = r.Replace(orig)
-		}
+		update, changes := r.Replace(orig)
 		if !*quiet {
 			for _, diff := range changes {
 				diff.Filename = "stdin"
