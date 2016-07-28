@@ -174,7 +174,7 @@ func main() {
 			log.Fatalf("Unable to read stdin")
 		}
 		orig := string(raw)
-		update, changes := r.Replace(orig)
+		updated, changes := r.Replace(orig)
 		if !*quiet {
 			for _, diff := range changes {
 				diff.Filename = "stdin"
