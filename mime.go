@@ -46,7 +46,7 @@ var binary = map[string]bool{
 // Better heuristics could be done here, in particular a binary
 // file is unlikely to be UTF-8 encoded.  However this is cheap
 // and will solve the immediate need of making sure common
-// bianry formats are not corrupted by mistake.
+// binary formats are not corrupted by mistake.
 func IsBinaryFile(s string) bool {
 	return binary[strings.ToLower(filepath.Ext(s))]
 }
