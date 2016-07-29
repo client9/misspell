@@ -6,6 +6,7 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"Malcom_McLean",
 		"implementor", // alt spelling, see https://github.com/client9/misspell/issues/46
 		"searchtypes",
 		" witness",
