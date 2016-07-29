@@ -200,7 +200,9 @@ func main() {
 	}
 
 	for _, filename := range args {
-		c <- filename
+		if !misspell.IsBinaryFile(filename) {
+			c <- filename
+		}
 	}
 	close(c)
 
