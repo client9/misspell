@@ -17,6 +17,7 @@ var binary = map[string]bool{
 	".a":     true, // archive
 	".bin":   true, // binary
 	".bz2":   true, // compression
+	".class": true, // Java class file
 	".dll":   true, // shared library
 	".exe":   true, // binary
 	".gif":   true, // image
@@ -31,6 +32,8 @@ var binary = map[string]bool{
 	".o":     true, // object file
 	".pdf":   true, // pdf -- might be possible to use this later
 	".png":   true, // image
+	".pyc":   true, // Python bytecode
+	".pyo":   true, // Python bytecode
 	".so":    true, // shared library
 	".tar":   true, // archive
 	".tiff":  true, // image
