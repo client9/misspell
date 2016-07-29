@@ -37,6 +37,7 @@ func dictWikipedia() map[string]string {
 	dict["fiels"] = "fields"
 
 	needDelete := []string{
+		"Malcom", // https://en.wikipedia.org/wiki/Malcom_McLean
 		"toke",
 		"moil",
 		"lsat",
