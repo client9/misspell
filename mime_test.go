@@ -21,3 +21,20 @@ func TestIsBinaryFile(t *testing.T) {
 		}
 	}
 }
+
+func TestIsSCMPath(t *testing.T) {
+	cases := []struct {
+		path string
+		want bool
+	}{
+		{"foo.png", false},
+		{"foo/.git/whatever", true},
+	}
+
+	for num, tt := range cases {
+		if IsSCMPath(tt.path) != tt.want {
+			t.Errorf("Case %d: %s was not %v", num, tt.path, tt.want)
+		}
+	}
+
+}

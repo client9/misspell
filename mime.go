@@ -35,6 +35,7 @@ var binary = map[string]bool{
 	".pyc":   true, // Python bytecode
 	".pyo":   true, // Python bytecode
 	".so":    true, // shared library
+	".swp":   true, // vim swap file
 	".tar":   true, // archive
 	".tiff":  true, // image
 	".woff":  true, // font
@@ -52,4 +53,24 @@ var binary = map[string]bool{
 // binary formats are not corrupted by mistake.
 func IsBinaryFile(s string) bool {
 	return binary[strings.ToLower(filepath.Ext(s))]
+}
+
+var scm = map[string]bool{
+	".bzr": true,
+	".git": true,
+	".hg":  true,
+	".svn": true,
+	"CVS":  true,
+}
+
+// IsSCMPath returns true if the path is likely part of a (private) SCM
+//  directory.  E.g.  ./git/something  = true
+func IsSCMPath(s string) bool {
+	parts := strings.Split(s, string(filepath.Separator))
+	for _, dir := range parts {
+		if scm[dir] {
+			return true
+		}
+	}
+	return false
 }
