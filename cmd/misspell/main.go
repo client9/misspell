@@ -200,7 +200,7 @@ func main() {
 	}
 
 	for _, filename := range args {
-		if !misspell.IsSCMFile(filename) && !misspell.IsBinaryFile(filename) {
+		if !misspell.IsSCMPath(filename) && !misspell.IsBinaryFile(filename) {
 			c <- filename
 		}
 	}
