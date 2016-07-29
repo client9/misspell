@@ -47,7 +47,9 @@ func recheckLine(s string, rep *strings.Replacer, corrected map[string]bool) (st
 	diffs := []Diff{}
 	out := ""
 	first := 0
-	idx := wordRegexp.FindAllStringIndex(s, -1)
+	redacted := RemovePath(RemoveURL(s))
+
+	idx := wordRegexp.FindAllStringIndex(redacted, -1)
 	for _, ab := range idx {
 		word := s[ab[0]:ab[1]]
 		newword := rep.Replace(word)

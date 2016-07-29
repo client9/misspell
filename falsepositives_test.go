@@ -6,6 +6,8 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"url is http://zeebra.com ",
+		"path is /zeebra?zeebra=zeebra ",
 		"Malcom_McLean",
 		"implementor", // alt spelling, see https://github.com/client9/misspell/issues/46
 		"searchtypes",
