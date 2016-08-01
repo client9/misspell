@@ -5,6 +5,7 @@ import (
 	"flag"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"runtime"
 	"strings"
@@ -47,6 +48,19 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 			log.Printf("Unable to read %q: %s", filename, err)
 			continue
 		}
+
+		// try to avoid reading in binary files.
+		//  with "-w" flag this will cause corruption
+		// allow any text/ type with utf-8 encoding
+		// DetectContentType sometimes returns charset=utf-16 for XML stuff
+		//  in which case ignore.
+		// TODO: we'd really like to prevent reading in multi-gig files
+		//  just to ignore them
+		mime := http.DetectContentType(raw)
+		if !strings.HasPrefix(mime, "text/") || !strings.HasSuffix(mime, "charset=utf-8") {
+			continue
+		}
+
 		orig := string(raw)
 		updated, changes := r.Replace(orig)
 
