@@ -37,6 +37,9 @@ func dictWikipedia() map[string]string {
 	dict["fiels"] = "fields"
 
 	needDelete := []string{
+		"mear",   // too small
+		"larg",   // too small, similar to "L-arg"
+		"dum",    // too small
 		"Malcom", // https://en.wikipedia.org/wiki/Malcom_McLean
 		"toke",
 		"moil",
