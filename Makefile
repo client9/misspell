@@ -2,12 +2,13 @@ CONTAINER=nickg/misspell
 
 all: install lint test
 
-install:
-	go version
+words.go: $(shell find cmd/genwords -type f)
 	go run cmd/genwords/*.go -o words.go
+
+install: words.go
 	go install ./cmd/misspell
 
-lint:
+lint: words.go
 	golint ./...
 	go vet ./...
 	find . -name '*.go' | xargs gofmt -w -s
