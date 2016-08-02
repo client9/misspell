@@ -1751,201 +1751,201 @@ facillitate->facilitate
 facinated->fascinated
 facist->fascist
 familes->families
- familliar->familiar
- famoust->famous
- fanatism->fanaticism
- Farenheit->Fahrenheit
- fatc->fact
- faught->fought
- favoutrable->favourable
- feasable->feasible
- Febuary->February
- Feburary->February
- fedreally->federally
- femminist->feminist
- feromone->pheromone
- fertily->fertility
- fianite->finite
- fianlly->finally
- ficticious->fictitious
- fictious->fictitious
- fidn->find
- fiel->feel, field, file, phial
- fiels->feels, fields, files, phials
- fiercly->fiercely
- fightings->fighting
- filiament->filament
- fimilies->families
- finacial->financial
- finaly->finally
- financialy->financially
- firends->friends
- firts->flirts, first
- fisionable->fissionable
- flamable->flammable
- flawess->flawless
- fleed->fled, freed
- Flemmish->Flemish
- florescent->fluorescent
- flourescent->fluorescent
- flourine->fluorine
- fluorish->flourish
- flourishment->flourishing
- follwoing->following
- folowing->following
- fomed->formed
- fomr->from, form
- fonetic->phonetic
- fontrier->fontier
- foootball->football
- forbad->forbade
- forbiden->forbidden
- foreward->foreword
- forfiet->forfeit
- forhead->forehead
- foriegn->foreign
- Formalhaut->Fomalhaut
- formallize->formalize
- formallized->formalized
- formaly->formally, formerly
- formelly->formerly
- formidible->formidable
- formost->foremost
- forsaw->foresaw
- forseeable->foreseeable
- fortelling->foretelling
- forunner->forerunner
- foucs->focus
- foudn->found
- fougth->fought
- foundaries->foundries
- foundary->foundry
- Foundland->Newfoundland
- fourties->forties
- fourty->forty
- fouth->fourth
- foward->forward
- Fransiscan->Franciscan
- Fransiscans->Franciscans
- freind->friend
- freindly->friendly
- frequentily->frequently
- frome->from
- fromed->formed
- froniter->frontier
- fucntion->function
- fucntioning->functioning
- fufill->fulfill
- fufilled->fulfilled
- fulfiled->fulfilled
- fullfill->fulfill
- fullfilled->fulfilled
- fundametal->fundamental
- fundametals->fundamentals
- funguses->fungi
- funtion->function
- furuther->further
- futher->further
- futhermore->furthermore
- futhroc->futhark, futhorc
- gae->game, Gael, gale
- galatic->galactic
- Galations->Galatians
- gallaxies->galaxies
- galvinized->galvanized
- Gameboy->Game Boy
- ganerate->generate
- ganes->games
- ganster->gangster
- garantee->guarantee
- garanteed->guaranteed
- garantees->guarantees
- gardai->gardaí
- garnison->garrison
- gauarana->guaraná
- gaurantee->guarantee
- gauranteed->guaranteed
- gaurantees->guarantees
- gaurd->guard, gourd
- gaurentee->guarantee
- gaurenteed->guaranteed
- gaurentees->guarantees
- geneological->genealogical
- geneologies->genealogies
- geneology->genealogy
- generaly->generally
- generatting->generating
- genialia->genitalia
- geographicial->geographical
- geometrician->geometer
- geometricians->geometers
- gerat->great
- Ghandi->Gandhi
- glamourous->glamorous
- glight->flight
- gnawwed->gnawed
- godess->goddess
- godesses->goddesses
- Godounov->Godunov
- gogin->going, Gauguin
- goign->going
- gonig->going
- Gothenberg->Gothenburg
- Gottleib->Gottlieb
- gouvener->governor
- govement->government
- govenment->government
- govenrment->government
- goverance->governance
- goverment->government
- govermental->governmental
- governer->governor
- governmnet->government
- govorment->government
- govormental->governmental
- govornment->government
- gracefull->graceful
- graet->great
- grafitti->graffiti
- gramatically->grammatically
- grammaticaly->grammatically
- grammer->grammar
- grat->great
- gratuitious->gratuitous
- greatful->grateful
- greatfully->gratefully
- greif->grief
- gridles->griddles
- gropu->group
- grwo->grow
- Guaduloupe->Guadalupe, Guadeloupe
- Guadulupe->Guadalupe, Guadeloupe
- guage->gauge
- guarentee->guarantee
- guarenteed->guaranteed
- guarentees->guarantees
- Guatamala->Guatemala
- Guatamalan->Guatemalan
- guerrila->guerrilla
- guerrilas->guerrillas
- guidence->guidance
- Guilia->Giulia
- Guilio->Giulio
- Guiness->Guinness
- Guiseppe->Giuseppe
- gunanine->guanine
- gurantee->guarantee
- guranteed->guaranteed
- gurantees->guarantees
- guttaral->guttural
- gutteral->guttural
- habaeus->habeas
- habeus->habeas
- Habsbourg->Habsburg
- haemorrage->haemorrhage
- haev->have, heave
- halarious->hilarious
- Hallowean->Hallowe'en, Halloween
+familliar->familiar
+famoust->famous
+fanatism->fanaticism
+Farenheit->Fahrenheit
+fatc->fact
+faught->fought
+favoutrable->favourable
+feasable->feasible
+Febuary->February
+Feburary->February
+fedreally->federally
+femminist->feminist
+feromone->pheromone
+fertily->fertility
+fianite->finite
+fianlly->finally
+ficticious->fictitious
+fictious->fictitious
+fidn->find
+fiel->feel, field, file, phial
+fiels->feels, fields, files, phials
+fiercly->fiercely
+fightings->fighting
+filiament->filament
+fimilies->families
+finacial->financial
+finaly->finally
+financialy->financially
+firends->friends
+firts->flirts, first
+fisionable->fissionable
+flamable->flammable
+flawess->flawless
+fleed->fled, freed
+Flemmish->Flemish
+florescent->fluorescent
+flourescent->fluorescent
+flourine->fluorine
+fluorish->flourish
+flourishment->flourishing
+follwoing->following
+folowing->following
+fomed->formed
+fomr->from, form
+fonetic->phonetic
+fontrier->fontier
+foootball->football
+forbad->forbade
+forbiden->forbidden
+foreward->foreword
+forfiet->forfeit
+forhead->forehead
+foriegn->foreign
+Formalhaut->Fomalhaut
+formallize->formalize
+formallized->formalized
+formaly->formally, formerly
+formelly->formerly
+formidible->formidable
+formost->foremost
+forsaw->foresaw
+forseeable->foreseeable
+fortelling->foretelling
+forunner->forerunner
+foucs->focus
+foudn->found
+fougth->fought
+foundaries->foundries
+foundary->foundry
+Foundland->Newfoundland
+fourties->forties
+fourty->forty
+fouth->fourth
+foward->forward
+Fransiscan->Franciscan
+Fransiscans->Franciscans
+freind->friend
+freindly->friendly
+frequentily->frequently
+frome->from
+fromed->formed
+froniter->frontier
+fucntion->function
+fucntioning->functioning
+fufill->fulfill
+fufilled->fulfilled
+fulfiled->fulfilled
+fullfill->fulfill
+fullfilled->fulfilled
+fundametal->fundamental
+fundametals->fundamentals
+funguses->fungi
+funtion->function
+furuther->further
+futher->further
+futhermore->furthermore
+futhroc->futhark, futhorc
+gae->game, Gael, gale
+galatic->galactic
+Galations->Galatians
+gallaxies->galaxies
+galvinized->galvanized
+Gameboy->Game Boy
+ganerate->generate
+ganes->games
+ganster->gangster
+garantee->guarantee
+garanteed->guaranteed
+garantees->guarantees
+gardai->gardaí
+garnison->garrison
+gauarana->guaraná
+gaurantee->guarantee
+gauranteed->guaranteed
+gaurantees->guarantees
+gaurd->guard, gourd
+gaurentee->guarantee
+gaurenteed->guaranteed
+gaurentees->guarantees
+geneological->genealogical
+geneologies->genealogies
+geneology->genealogy
+generaly->generally
+generatting->generating
+genialia->genitalia
+geographicial->geographical
+geometrician->geometer
+geometricians->geometers
+gerat->great
+Ghandi->Gandhi
+glamourous->glamorous
+glight->flight
+gnawwed->gnawed
+godess->goddess
+godesses->goddesses
+Godounov->Godunov
+gogin->going, Gauguin
+goign->going
+gonig->going
+Gothenberg->Gothenburg
+Gottleib->Gottlieb
+gouvener->governor
+govement->government
+govenment->government
+govenrment->government
+goverance->governance
+goverment->government
+govermental->governmental
+governer->governor
+governmnet->government
+govorment->government
+govormental->governmental
+govornment->government
+gracefull->graceful
+graet->great
+grafitti->graffiti
+gramatically->grammatically
+grammaticaly->grammatically
+grammer->grammar
+grat->great
+gratuitious->gratuitous
+greatful->grateful
+greatfully->gratefully
+greif->grief
+gridles->griddles
+gropu->group
+grwo->grow
+Guaduloupe->Guadalupe, Guadeloupe
+Guadulupe->Guadalupe, Guadeloupe
+guage->gauge
+guarentee->guarantee
+guarenteed->guaranteed
+guarentees->guarantees
+Guatamala->Guatemala
+Guatamalan->Guatemalan
+guerrila->guerrilla
+guerrilas->guerrillas
+guidence->guidance
+Guilia->Giulia
+Guilio->Giulio
+Guiness->Guinness
+Guiseppe->Giuseppe
+gunanine->guanine
+gurantee->guarantee
+guranteed->guaranteed
+gurantees->guarantees
+guttaral->guttural
+gutteral->guttural
+habaeus->habeas
+habeus->habeas
+Habsbourg->Habsburg
+haemorrage->haemorrhage
+haev->have, heave
+halarious->hilarious
+Hallowean->Hallowe'en, Halloween
 halp->help
 hapen->happen
 hapened->happened
@@ -1969,334 +1969,334 @@ harrasses->harassed
 harrassing->harassing
 harrassment->harassment
 harrassments->harassments
- hasnt->hasn't
- Hatian->Haitian
- haviest->heaviest
- headquarer->headquarter
- headquater->headquarter
- headquatered->headquartered
- headquaters->headquarters
- healthercare->healthcare
- heared->heard
- heathy->healthy
- Heidelburg->Heidelberg
- heigher->higher
- heirarchy->hierarchy
- heiroglyphics->hieroglyphics
- helment->helmet
- helpfull->helpful
- helpped->helped
- hemmorhage->hemorrhage
- herad->heard, Hera
- heridity->heredity
- heroe->hero
- heros->heroes
- hertiage->heritage
- hertzs->hertz
- hesistant->hesitant
- heterogenous->heterogeneous
- hieght->height
- hierachical->hierarchical
- hierachies->hierarchies
- hierachy->hierarchy
- hierarcical->hierarchical
- hierarcy->hierarchy
- hieroglph->hieroglyph
- hieroglphs->hieroglyphs
- higer->higher
- higest->highest
- higway->highway
- hillarious->hilarious
- himselv->himself
- hinderance->hindrance
- hinderence->hindrance
- hindrence->hindrance
- hipopotamus->hippopotamus
- hismelf->himself
- histocompatability->histocompatibility
- historicians->historians
- hitsingles->hit singles
- holf->hold
- holliday->holiday
- homestate->home state
- homogeneize->homogenize
- homogeneized->homogenized
- honory->honorary
- horrifing->horrifying
- hosited->hoisted
- hospitible->hospitable
- hounour->honour
- housr->hours, house
- howver->however
- hsitorians->historians
- hstory->history
- hten->then, hen, the
- htere->there, here
- htey->they
- htikn->think
- hting->thing
- htink->think
- htis->this
- humer->humor, humour
- humerous->humorous, humerus
- huminoid->humanoid
- humoural->humoral
- humurous->humorous
- husban->husband
- hvae->have
- hvaing->having
- hvea->have, heave
- hwihc->which
- hwile->while
- hwole->whole
- hydogen->hydrogen
- hydropile->hydrophile
- hydropilic->hydrophilic
- hydropobe->hydrophobe
- hydropobic->hydrophobic
- hygeine->hygiene
- hypocracy->hypocrisy
- hypocrasy->hypocrisy
- hypocricy->hypocrisy
- hypocrit->hypocrite
- hypocrits->hypocrites
- iconclastic->iconoclastic
- idaeidae->idea
- idaes->ideas
- idealogies->ideologies
- idealogy->ideology
- identicial->identical
- identifers->identifiers
- ideosyncratic->idiosyncratic
- idesa->ideas, ides
- idiosyncracy->idiosyncrasy
+hasnt->hasn't
+Hatian->Haitian
+haviest->heaviest
+headquarer->headquarter
+headquater->headquarter
+headquatered->headquartered
+headquaters->headquarters
+healthercare->healthcare
+heared->heard
+heathy->healthy
+Heidelburg->Heidelberg
+heigher->higher
+heirarchy->hierarchy
+heiroglyphics->hieroglyphics
+helment->helmet
+helpfull->helpful
+helpped->helped
+hemmorhage->hemorrhage
+herad->heard, Hera
+heridity->heredity
+heroe->hero
+heros->heroes
+hertiage->heritage
+hertzs->hertz
+hesistant->hesitant
+heterogenous->heterogeneous
+hieght->height
+hierachical->hierarchical
+hierachies->hierarchies
+hierachy->hierarchy
+hierarcical->hierarchical
+hierarcy->hierarchy
+hieroglph->hieroglyph
+hieroglphs->hieroglyphs
+higer->higher
+higest->highest
+higway->highway
+hillarious->hilarious
+himselv->himself
+hinderance->hindrance
+hinderence->hindrance
+hindrence->hindrance
+hipopotamus->hippopotamus
+hismelf->himself
+histocompatability->histocompatibility
+historicians->historians
+hitsingles->hit singles
+holf->hold
+holliday->holiday
+homestate->home state
+homogeneize->homogenize
+homogeneized->homogenized
+honory->honorary
+horrifing->horrifying
+hosited->hoisted
+hospitible->hospitable
+hounour->honour
+housr->hours, house
+howver->however
+hsitorians->historians
+hstory->history
+hten->then, hen, the
+htere->there, here
+htey->they
+htikn->think
+hting->thing
+htink->think
+htis->this
+humer->humor, humour
+humerous->humorous, humerus
+huminoid->humanoid
+humoural->humoral
+humurous->humorous
+husban->husband
+hvae->have
+hvaing->having
+hvea->have, heave
+hwihc->which
+hwile->while
+hwole->whole
+hydogen->hydrogen
+hydropile->hydrophile
+hydropilic->hydrophilic
+hydropobe->hydrophobe
+hydropobic->hydrophobic
+hygeine->hygiene
+hypocracy->hypocrisy
+hypocrasy->hypocrisy
+hypocricy->hypocrisy
+hypocrit->hypocrite
+hypocrits->hypocrites
+iconclastic->iconoclastic
+idaeidae->idea
+idaes->ideas
+idealogies->ideologies
+idealogy->ideology
+identicial->identical
+identifers->identifiers
+ideosyncratic->idiosyncratic
+idesa->ideas, ides
+idiosyncracy->idiosyncrasy
  Ihaca->Ithaca
- illegimacy->illegitimacy
- illegitmate->illegitimate
- illess->illness
- illiegal->illegal
- illution->illusion
- ilness->illness
- ilogical->illogical
- imagenary->imaginary
- imagin->imagine
- imaginery->imaginary, imagery
- imanent->eminent, imminent
- imcomplete->incomplete
- imediately->immediately
- imense->immense
- imigrant->emigrant, immigrant
- imigrated->emigrated, immigrated
- imigration->emigration, immigration
- iminent->eminent, imminent, immanent
- immediatley->immediately
- immediatly->immediately
- immidately->immediately
- immidiately->immediately
- immitate->imitate
- immitated->imitated
- immitating->imitating
- immitator->imitator
- immunosupressant->immunosuppressant
- impecabbly->impeccably
- impedence->impedance
- implamenting->implementing
- impliment->implement
- implimented->implemented
- imploys->employs
- importamt->important
- impressario->impresario
- imprioned->imprisoned
- imprisonned->imprisoned
- improvision->improvisation
- improvments->improvements
- inablility->inability
- inaccessable->inaccessible
- inadiquate->inadequate
- inadquate->inadequate
- inadvertant->inadvertent
- inadvertantly->inadvertently
- inagurated->inaugurated
- inaguration->inauguration
- inappropiate->inappropriate
- inaugures->inaugurates
- inbalance->imbalance
- inbalanced->imbalanced
- inbetween->between
- incarcirated->incarcerated
- incidentially->incidentally
- incidently->incidentally
- inclreased->increased
- includ->include
- includng->including
- incompatabilities->incompatibilities
- incompatability->incompatibility
- incompatable->incompatible
- incompatablities->incompatibilities
- incompatablity->incompatibility
- incompatiblities->incompatibilities
- incompatiblity->incompatibility
- incompetance->incompetence
- incompetant->incompetent
- incomptable->incompatible
- incomptetent->incompetent
- inconsistant->inconsistent
- incoroporated->incorporated
- incorperation->incorporation
- incorportaed->incorporated
- incorprates->incorporates
- incorruptable->incorruptible
- incramentally->incrementally
- increadible->incredible
- incredable->incredible
- inctroduce->introduce
- inctroduced->introduced
- incuding->including
- incunabla->incunabula
- indefinately->indefinitely
- indefineable->undefinable
- indefinitly->indefinitely
- indentical->identical
- indepedantly->independently
- indepedence->independence
- independance->independence
- independant->independent
- independantly->independently
- independece->independence
- independendet->independent
- indespensable->indispensable
- indespensible->indispensable
- indictement->indictment
- indigineous->indigenous
- indipendence->independence
- indipendent->independent
- indipendently->independently
- indispensible->indispensable
- indisputible->indisputable
- indisputibly->indisputably
- indite->indict
- individualy->individually
- indpendent->independent
- indpendently->independently
- indulgue->indulge
- indutrial->industrial
- indviduals->individuals
- inefficienty->inefficiently
- inevatible->inevitable
- inevitible->inevitable
- inevititably->inevitably
- infalability->infallibility
- infallable->infallible
- infectuous->infectious
- infered->inferred
- infilitrate->infiltrate
- infilitrated->infiltrated
- infilitration->infiltration
- infinit->infinite
- inflamation->inflammation
- influencial->influential
- influented->influenced
- infomation->information
- informtion->information
- infrantryman->infantryman
- infrigement->infringement
- ingenius->ingenious
- ingreediants->ingredients
- inhabitans->inhabitants
- inherantly->inherently
- inheritage->heritage, inheritance
- inheritence->inheritance
- inital->initial
- initally->initially
- initation->initiation
- initiaitive->initiative
- inlcuding->including
- inmigrant->immigrant
- inmigrants->immigrants
- innoculated->inoculated
- inocence->innocence
- inofficial->unofficial
- inot->into
- inpeach->impeach
- inpending->impending
- inpenetrable->impenetrable
- inpolite->impolite
- inprisonment->imprisonment
- inproving->improving
- insectiverous->insectivorous
- insensative->insensitive
- inseperable->inseparable
- insistance->insistence
- insitution->institution
- insitutions->institutions
- inspite->in spite, inspire
- instade->instead
- instatance->instance
- institue->institute
- instuction->instruction
- instuments->instruments
- instutionalized->institutionalized
- instutions->intuitions
- insurence->insurance
- intelectual->intellectual
- inteligence->intelligence
- inteligent->intelligent
- intenational->international
- intented->intended, indented
- intepretation->interpretation
- intepretator->interpretor
- interational->international
- interbread->interbreed, interbred
- interchangable->interchangeable
- interchangably->interchangeably
- intercontinential->intercontinental
- intercontinetal->intercontinental
- intered->interred, interned
- interelated->interrelated
- interferance->interference
- interfereing->interfering
- intergrated->integrated
- intergration->integration
- interm->interim
- internation->international
- interpet->interpret
- interrim->interim
- interrugum->interregnum
- intertaining->entertaining
- interupt->interrupt
- intervines->intervenes
- intevene->intervene
- intial->initial
- intially->initially
- intrduced->introduced
- intrest->interest
- introdued->introduced
- intruduced->introduced
- intrument->instrument
- intrumental->instrumental
- intruments->instruments
- intrusted->entrusted
- intutive->intuitive
- intutively->intuitively
- inudstry->industry
- inumerable->enumerable, innumerable
- inventer->inventor
- invertibrates->invertebrates
- investingate->investigate
- involvment->involvement
- irelevent->irrelevant
- iresistable->irresistible
- iresistably->irresistibly
- iresistible->irresistible
- iresistibly->irresistibly
- iritable->irritable
- iritated->irritated
- ironicly->ironically
- irregardless->regardless
- irrelevent->irrelevant
- irreplacable->irreplaceable
- irresistable->irresistible
- irresistably->irresistibly
+illegimacy->illegitimacy
+illegitmate->illegitimate
+illess->illness
+illiegal->illegal
+illution->illusion
+ilness->illness
+ilogical->illogical
+imagenary->imaginary
+imagin->imagine
+imaginery->imaginary, imagery
+imanent->eminent, imminent
+imcomplete->incomplete
+imediately->immediately
+imense->immense
+imigrant->emigrant, immigrant
+imigrated->emigrated, immigrated
+imigration->emigration, immigration
+iminent->eminent, imminent, immanent
+immediatley->immediately
+immediatly->immediately
+immidately->immediately
+immidiately->immediately
+immitate->imitate
+immitated->imitated
+immitating->imitating
+immitator->imitator
+immunosupressant->immunosuppressant
+impecabbly->impeccably
+impedence->impedance
+implamenting->implementing
+impliment->implement
+implimented->implemented
+imploys->employs
+importamt->important
+impressario->impresario
+imprioned->imprisoned
+imprisonned->imprisoned
+improvision->improvisation
+improvments->improvements
+inablility->inability
+inaccessable->inaccessible
+inadiquate->inadequate
+inadquate->inadequate
+inadvertant->inadvertent
+inadvertantly->inadvertently
+inagurated->inaugurated
+inaguration->inauguration
+inappropiate->inappropriate
+inaugures->inaugurates
+inbalance->imbalance
+inbalanced->imbalanced
+inbetween->between
+incarcirated->incarcerated
+incidentially->incidentally
+incidently->incidentally
+inclreased->increased
+includ->include
+includng->including
+incompatabilities->incompatibilities
+incompatability->incompatibility
+incompatable->incompatible
+incompatablities->incompatibilities
+incompatablity->incompatibility
+incompatiblities->incompatibilities
+incompatiblity->incompatibility
+incompetance->incompetence
+incompetant->incompetent
+incomptable->incompatible
+incomptetent->incompetent
+inconsistant->inconsistent
+incoroporated->incorporated
+incorperation->incorporation
+incorportaed->incorporated
+incorprates->incorporates
+incorruptable->incorruptible
+incramentally->incrementally
+increadible->incredible
+incredable->incredible
+inctroduce->introduce
+inctroduced->introduced
+incuding->including
+incunabla->incunabula
+indefinately->indefinitely
+indefineable->undefinable
+indefinitly->indefinitely
+indentical->identical
+indepedantly->independently
+indepedence->independence
+independance->independence
+independant->independent
+independantly->independently
+independece->independence
+independendet->independent
+indespensable->indispensable
+indespensible->indispensable
+indictement->indictment
+indigineous->indigenous
+indipendence->independence
+indipendent->independent
+indipendently->independently
+indispensible->indispensable
+indisputible->indisputable
+indisputibly->indisputably
+indite->indict
+individualy->individually
+indpendent->independent
+indpendently->independently
+indulgue->indulge
+indutrial->industrial
+indviduals->individuals
+inefficienty->inefficiently
+inevatible->inevitable
+inevitible->inevitable
+inevititably->inevitably
+infalability->infallibility
+infallable->infallible
+infectuous->infectious
+infered->inferred
+infilitrate->infiltrate
+infilitrated->infiltrated
+infilitration->infiltration
+infinit->infinite
+inflamation->inflammation
+influencial->influential
+influented->influenced
+infomation->information
+informtion->information
+infrantryman->infantryman
+infrigement->infringement
+ingenius->ingenious
+ingreediants->ingredients
+inhabitans->inhabitants
+inherantly->inherently
+inheritage->heritage, inheritance
+inheritence->inheritance
+inital->initial
+initally->initially
+initation->initiation
+initiaitive->initiative
+inlcuding->including
+inmigrant->immigrant
+inmigrants->immigrants
+innoculated->inoculated
+inocence->innocence
+inofficial->unofficial
+inot->into
+inpeach->impeach
+inpending->impending
+inpenetrable->impenetrable
+inpolite->impolite
+inprisonment->imprisonment
+inproving->improving
+insectiverous->insectivorous
+insensative->insensitive
+inseperable->inseparable
+insistance->insistence
+insitution->institution
+insitutions->institutions
+inspite->in spite, inspire
+instade->instead
+instatance->instance
+institue->institute
+instuction->instruction
+instuments->instruments
+instutionalized->institutionalized
+instutions->intuitions
+insurence->insurance
+intelectual->intellectual
+inteligence->intelligence
+inteligent->intelligent
+intenational->international
+intented->intended, indented
+intepretation->interpretation
+intepretator->interpretor
+interational->international
+interbread->interbreed, interbred
+interchangable->interchangeable
+interchangably->interchangeably
+intercontinential->intercontinental
+intercontinetal->intercontinental
+intered->interred, interned
+interelated->interrelated
+interferance->interference
+interfereing->interfering
+intergrated->integrated
+intergration->integration
+interm->interim
+internation->international
+interpet->interpret
+interrim->interim
+interrugum->interregnum
+intertaining->entertaining
+interupt->interrupt
+intervines->intervenes
+intevene->intervene
+intial->initial
+intially->initially
+intrduced->introduced
+intrest->interest
+introdued->introduced
+intruduced->introduced
+intrument->instrument
+intrumental->instrumental
+intruments->instruments
+intrusted->entrusted
+intutive->intuitive
+intutively->intuitively
+inudstry->industry
+inumerable->enumerable, innumerable
+inventer->inventor
+invertibrates->invertebrates
+investingate->investigate
+involvment->involvement
+irelevent->irrelevant
+iresistable->irresistible
+iresistably->irresistibly
+iresistible->irresistible
+iresistibly->irresistibly
+iritable->irritable
+iritated->irritated
+ironicly->ironically
+irregardless->regardless
+irrelevent->irrelevant
+irreplacable->irreplaceable
+irresistable->irresistible
+irresistably->irresistibly
 isnt->isn't
 Israelies->Israelis
 issueing->issuing
@@ -3941,54 +3941,54 @@ sytem->system
 sytle->style
 tabacco->tobacco
 tahn->than
- taht->that
- talekd->talked
- targetted->targeted
- targetting->targeting
- tast->taste
- tath->that
- tatoo->tattoo
- tattooes->tattoos
- taxanomic->taxonomic
- taxanomy->taxonomy
- teached->taught
- techician->technician
- techicians->technicians
- techiniques->techniques
- technitian->technician
- technnology->technology
- technolgy->technology
- teh->the
- tehy->they
- telelevision->television
- televsion->television
- telphony->telephony
- temerature->temperature
- tempalte->template
- tempaltes->templates
- temparate->temperate
- temperarily->temporarily
- temperment->temperament
- tempertaure->temperature
- temperture->temperature
- temprary->temporary
- tenacle->tentacle
- tenacles->tentacles
- tendacy->tendency
- tendancies->tendencies
- tendancy->tendency
- tennisplayer->tennis player
- tepmorarily->temporarily
- terrestial->terrestrial
- terriories->territories
- terriory->territory
- territorist->terrorist
- territoy->territory
- terroist->terrorist
- testiclular->testicular
- testomony->testimony
- tghe->the
- thast->that, that's
+taht->that
+talekd->talked
+targetted->targeted
+targetting->targeting
+tast->taste
+tath->that
+tatoo->tattoo
+tattooes->tattoos
+taxanomic->taxonomic
+taxanomy->taxonomy
+teached->taught
+techician->technician
+techicians->technicians
+techiniques->techniques
+technitian->technician
+technnology->technology
+technolgy->technology
+teh->the
+tehy->they
+telelevision->television
+televsion->television
+telphony->telephony
+temerature->temperature
+tempalte->template
+tempaltes->templates
+temparate->temperate
+temperarily->temporarily
+temperment->temperament
+tempertaure->temperature
+temperture->temperature
+temprary->temporary
+tenacle->tentacle
+tenacles->tentacles
+tendacy->tendency
+tendancies->tendencies
+tendancy->tendency
+tennisplayer->tennis player
+tepmorarily->temporarily
+terrestial->terrestrial
+terriories->territories
+terriory->territory
+territorist->terrorist
+territoy->territory
+terroist->terrorist
+testiclular->testicular
+testomony->testimony
+tghe->the
+thast->that, that's
 theather->theater
 theese->these
 theif->thief
@@ -3999,51 +3999,51 @@ ther->there, their, the
 therafter->thereafter
 therby->thereby
 theri->their
- theyre->they're
- thgat->that
- thge->the
- thier->their
- thign->thing
- thigns->things
- thigsn->things
- thikn->think
- thikning->thinking, thickening
- thikns->thinks
- thiunk->think
- thn->then
- thna->than
- thne->then
- thnig->thing
- thnigs->things
- thoughout->throughout
- threatend->threatened
- threatning->threatening
- threee->three
- threshhold->threshold
- thrid->third
- throrough->thorough
- throughly->thoroughly
- throught->thought, through, throughout
- througout->throughout
- thru->through
- thsi->this
- thsoe->those
- thta->that
- thyat->that
- tiem->time, Tim
- tihkn->think
- tihs->this
- timne->time
- tiome->time, tome
- tje->the
- tjhe->the
- tjpanishad->upanishad
- tkae->take
- tkaes->takes
- tkaing->taking
- tlaking->talking
- tobbaco->tobacco
- todays->today's
+theyre->they're
+thgat->that
+thge->the
+thier->their
+thign->thing
+thigns->things
+thigsn->things
+thikn->think
+thikning->thinking, thickening
+thikns->thinks
+thiunk->think
+thn->then
+thna->than
+thne->then
+thnig->thing
+thnigs->things
+thoughout->throughout
+threatend->threatened
+threatning->threatening
+threee->three
+threshhold->threshold
+thrid->third
+throrough->thorough
+throughly->thoroughly
+throught->thought, through, throughout
+througout->throughout
+thru->through
+thsi->this
+thsoe->those
+thta->that
+thyat->that
+tiem->time, Tim
+tihkn->think
+tihs->this
+timne->time
+tiome->time, tome
+tje->the
+tjhe->the
+tjpanishad->upanishad
+tkae->take
+tkaes->takes
+tkaing->taking
+tlaking->talking
+tobbaco->tobacco
+todays->today's
 todya->today
 toghether->together
 toke->took
@@ -4296,91 +4296,91 @@ warantee->warranty
 wardobe->wardrobe
 warrent->warrant
 warrriors->warriors
- wasnt->wasn't
- wass->was
- watn->want
- wayword->wayward
- weaponary->weaponry
- weas->was
- wehn->when
- weild->wield, wild
- weilded->wielded
- wendsay->Wednesday
- wensday->Wednesday
- wereabouts->whereabouts
- whant->want
- whants->wants
- whcih->which
- wheras->whereas
- wherease->whereas
- whereever->wherever
- whic->which
- whihc->which
- whith->with
- whlch->which
- whn->when
- wholey->wholly
- wholy->wholly, holy
- whta->what
- whther->whether
- wich->which, witch
- widesread->widespread
- wief->wife
- wierd->weird
- wiew->view
- wih->with
- wiht->with
- wille->will
- willk->will
- willingless->willingness
- wirting->writing
- withdrawl->withdrawal, withdraw
- witheld->withheld
- withh->with
- withing->within
- withold->withhold
- witht->with
- witn->with
- wiull->will
- wnat->want
- wnated->wanted
- wnats->wants
- wohle->whole
- wokr->work
- wokring->working
- wonderfull->wonderful
- wordlwide->worldwide
- workststion->workstation
- worls->world
- worstened->worsened
- woudl->would
- wresters->wrestlers
- wriet->write
- writen->written
- wroet->wrote
- wrok->work
- wroking->working
- wtih->with
- wupport->support
- xenophoby->xenophobia
- yaching->yachting
- yaer->year
- yaerly->yearly
- yaers->years
- yatch->yacht
- yearm->year
- yeasr->years
- yeild->yield
- yeilding->yielding
- Yementite->Yemenite, Yemeni
- yera->year
- yrea->year
- yeras->years
- yersa->years
- yotube->youtube
- youseff->yousef
- youself->yourself
- ytou->you
+wasnt->wasn't
+wass->was
+watn->want
+wayword->wayward
+weaponary->weaponry
+weas->was
+wehn->when
+weild->wield, wild
+weilded->wielded
+wendsay->Wednesday
+wensday->Wednesday
+wereabouts->whereabouts
+whant->want
+whants->wants
+whcih->which
+wheras->whereas
+wherease->whereas
+whereever->wherever
+whic->which
+whihc->which
+whith->with
+whlch->which
+whn->when
+wholey->wholly
+wholy->wholly, holy
+whta->what
+whther->whether
+wich->which, witch
+widesread->widespread
+wief->wife
+wierd->weird
+wiew->view
+wih->with
+wiht->with
+wille->will
+willk->will
+willingless->willingness
+wirting->writing
+withdrawl->withdrawal, withdraw
+witheld->withheld
+withh->with
+withing->within
+withold->withhold
+witht->with
+witn->with
+wiull->will
+wnat->want
+wnated->wanted
+wnats->wants
+wohle->whole
+wokr->work
+wokring->working
+wonderfull->wonderful
+wordlwide->worldwide
+workststion->workstation
+worls->world
+worstened->worsened
+woudl->would
+wresters->wrestlers
+wriet->write
+writen->written
+wroet->wrote
+wrok->work
+wroking->working
+wtih->with
+wupport->support
+xenophoby->xenophobia
+yaching->yachting
+yaer->year
+yaerly->yearly
+yaers->years
+yatch->yacht
+yearm->year
+yeasr->years
+yeild->yield
+yeilding->yielding
+Yementite->Yemenite, Yemeni
+yera->year
+yrea->year
+yeras->years
+yersa->years
+yotube->youtube
+youseff->yousef
+youself->yourself
+ytou->you
 yuo->you
 zeebra->zebra
 `
