@@ -37,6 +37,7 @@ func dictWikipedia() map[string]string {
 	dict["fiels"] = "fields"
 
 	needDelete := []string{
+		"upto",   // ruby method name, do not correct to 'up to'
 		"mear",   // too small
 		"larg",   // too small, similar to "L-arg"
 		"dum",    // too small
