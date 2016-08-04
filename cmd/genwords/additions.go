@@ -8,6 +8,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+carniverous->carnivorous
 bianry->binary
 transcation->transaction
 tood->todo

@@ -53,7 +53,6 @@ func dictWikipedia() map[string]string {
 		"causalities",
 		"commandoes",
 		"customises",
-		"dependant",
 		"descendent",
 		"funguses",
 		"glamourous",
@@ -114,6 +113,8 @@ func dictWikipedia() map[string]string {
 	dict = expandCase(dict)
 	return dict
 }
+
+// https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines
 
 var wikipedia = `
 abandonned->abandoned
@@ -807,11 +808,11 @@ carnege->carnage, Carnegie
 carnige->carnage, Carnegie
 Carnigie->Carnegie
 Carnigie-Mellon->Carnegie-Mellon
-carniverous->carnivorous
 carreer->career
 carrers->careers
 Carribbean->Caribbean
 Carribean->Caribbean
+carryng->carrying
 cartdridge->cartridge
 Carthagian->Carthaginian
 carthographer->cartographer
@@ -899,6 +900,7 @@ chemestry->chemistry
 chemicaly->chemically
 childbird->childbirth
 childen->children
+choclate->chocolate
 choosen->chosen
 chracter->character
 chuch->church
@@ -1291,7 +1293,6 @@ deparmental->departmental
 deparments->departments
 dependance->dependence
 dependancy->dependency
-dependant->dependent
 deram->dram, dream
 deriviated->derived
 derivitive->derivative
@@ -1500,7 +1501,7 @@ effulence->effluence
 eigth->eighth, eight
 eiter->either
 elction->election
-electic->electric
+electic->eclectic, electric
 electon->election, electron
 electrial->electrical
 electricly->electrically
@@ -2056,6 +2057,8 @@ hydropilic->hydrophilic
 hydropobe->hydrophobe
 hydropobic->hydrophobic
 hygeine->hygiene
+hyjack->hijack
+hyjacking->hijacking
 hypocracy->hypocrisy
 hypocrasy->hypocrisy
 hypocricy->hypocrisy
@@ -2071,7 +2074,7 @@ identifers->identifiers
 ideosyncratic->idiosyncratic
 idesa->ideas, ides
 idiosyncracy->idiosyncrasy
- Ihaca->Ithaca
+Ihaca->Ithaca
 illegimacy->illegitimacy
 illegitmate->illegitimate
 illess->illness
@@ -2526,6 +2529,7 @@ millenialism->millennialism
 millenium->millennium
 millepede->millipede
 millioniare->millionaire
+millitant->militant
 millitary->military
 millon->million
 miltary->military
@@ -3851,6 +3855,8 @@ sucessor->successor
 sucessot->successor
 sucide->suicide
 sucidial->suicidal
+sudent->student
+sudents->students
 sufferage->suffrage
 sufferred->suffered
 sufferring->suffering
@@ -4059,6 +4065,7 @@ tormenters->tormentors
 tornadoe->tornado
 torpeados->torpedoes
 torpedos->torpedoes
+tortise ->tortoise
 tothe->to the
 toubles->troubles
 tounge->tongue
@@ -4263,7 +4270,7 @@ vigourous->vigorous
 villian->villain
 villification->vilification
 villify->vilify
-villin->villain
+villin->villi, villain, villein
 vincinity->vicinity
 violentce->violence
 virtualy->virtually
