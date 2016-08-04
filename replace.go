@@ -29,7 +29,7 @@ func inArray(haystack []string, needle string) bool {
 	return false
 }
 
-var wordRegexp = regexp.MustCompile(`[a-zA-Z']+`)
+var wordRegexp = regexp.MustCompile(`[a-zA-Z0-9']+`)
 
 /*
 line1 and line2 are different
