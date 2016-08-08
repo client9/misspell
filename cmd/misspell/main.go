@@ -5,7 +5,6 @@ import (
 	"flag"
 	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 	"runtime"
 	"strings"
@@ -38,30 +37,15 @@ func init() {
 func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string, results chan<- int) {
 	count := 0
 	for filename := range files {
-		// ignore directories
-		if f, err := os.Stat(filename); err != nil || f.IsDir() {
-			continue
-		}
-
-		raw, err := ioutil.ReadFile(filename)
+		orig, err := misspell.ReadTextFile(filename)
 		if err != nil {
-			log.Printf("Unable to read %q: %s", filename, err)
+			log.Println(err)
+			continue
+		}
+		if len(orig) == 0 {
 			continue
 		}
 
-		// try to avoid reading in binary files.
-		//  with "-w" flag this will cause corruption
-		// allow any text/ type with utf-8 encoding
-		// DetectContentType sometimes returns charset=utf-16 for XML stuff
-		//  in which case ignore.
-		// TODO: we'd really like to prevent reading in multi-gig files
-		//  just to ignore them
-		mime := http.DetectContentType(raw)
-		if !strings.HasPrefix(mime, "text/") || !strings.HasSuffix(mime, "charset=utf-8") {
-			continue
-		}
-
-		orig := string(raw)
 		updated, changes := r.Replace(orig)
 
 		if len(changes) == 0 {
@@ -214,9 +198,7 @@ func main() {
 	}
 
 	for _, filename := range args {
-		if !misspell.IsSCMPath(filename) && !misspell.IsBinaryFile(filename) {
-			c <- filename
-		}
+		c <- filename
 	}
 	close(c)
 
