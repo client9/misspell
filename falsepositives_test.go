@@ -6,6 +6,7 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"publically",
 		"6YUO5",   // base64
 		"cleaner", // triggered by "cleane->cleanser" and partial word FP
 		"  http.Redirect(w, req, req.URL.Path, http.StatusFound) ",
