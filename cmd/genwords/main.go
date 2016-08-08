@@ -12,8 +12,10 @@ import (
 )
 
 func addOrPanic(dict map[string]string, key, value string) {
-	if _, ok := dict[key]; ok {
-		log.Printf("Already have %q", key)
+	if val, ok := dict[key]; ok && val != value {
+		log.Printf("Removing duplicate mismatch: %q -> %q or %q", key, val, value)
+		delete(dict, key)
+		return
 	}
 
 	// this happens for captialization rules
@@ -99,6 +101,8 @@ func main() {
 	dict := make(map[string]string)
 	mergeDict(dict, dictWikipedia())
 	mergeDict(dict, dictAdditions())
+	//mergeDict(dict, dictReddit())
+
 	words := make([]string, 0, len(dict))
 	for k := range dict {
 		words = append(words, k)

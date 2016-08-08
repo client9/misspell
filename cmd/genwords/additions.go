@@ -8,6 +8,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+unabel->unable
 corretly->correctly
 bianry->binary
 transcation->transaction
