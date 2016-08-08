@@ -16,7 +16,7 @@ func TestIsBinaryFile(t *testing.T) {
 	}
 
 	for num, tt := range cases {
-		if IsBinaryFile(tt.path) != tt.want {
+		if isBinaryFilename(tt.path) != tt.want {
 			t.Errorf("Case %d: %s was not %v", num, tt.path, tt.want)
 		}
 	}
@@ -32,9 +32,8 @@ func TestIsSCMPath(t *testing.T) {
 	}
 
 	for num, tt := range cases {
-		if IsSCMPath(tt.path) != tt.want {
+		if isSCMPath(tt.path) != tt.want {
 			t.Errorf("Case %d: %s was not %v", num, tt.path, tt.want)
 		}
 	}
-
 }
