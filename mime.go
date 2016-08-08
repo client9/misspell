@@ -68,7 +68,7 @@ var scm = map[string]bool{
 	"CVS":  true,
 }
 
-// IsSCMPath returns true if the path is likely part of a (private) SCM
+// isSCMPath returns true if the path is likely part of a (private) SCM
 //  directory.  E.g.  ./git/something  = true
 func isSCMPath(s string) bool {
 	parts := strings.Split(s, string(filepath.Separator))
