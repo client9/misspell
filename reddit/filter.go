@@ -39,7 +39,7 @@ func doit(prefix, url string) {
 	// blah/RC_2015-06.gz --> RC_2015-06-counts.csv
 	base := path.Base(url)
 	ext := filepath.Ext(base)
-	base = base[0:len(base)-len(ext)] + "-body.json"
+	base = base[0:len(base)-len(ext)] + "-body.json.gz"
 	log.Printf("[%s] %s -> %s", prefix, url, base)
 
 	resp, err := http.Get(url)
