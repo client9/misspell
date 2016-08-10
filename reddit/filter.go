@@ -3,8 +3,8 @@ package main
 // reads in a reddit comment archive URL
 //  and just extracts the body field
 import (
-	"bufio"
 	"compress/bzip2"
+	"compress/gzip"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -58,8 +58,8 @@ func doit(prefix, url string) {
 	if err != nil {
 		log.Fatalf("[%s] unable to write: %s", prefix, err)
 	}
-	// buffer output
-	bufout := bufio.NewWriter(fo)
+	// gzip output
+	bufout := gzip.NewWriter(fo)
 	// steam out json
 	jsonout := json.NewEncoder(bufout)
 
@@ -81,7 +81,7 @@ func doit(prefix, url string) {
 		}
 	}
 
-	bufout.Flush()
+	bufout.Close()
 	fo.Close()
 	log.Printf("[%s] done %d lines", prefix, lines)
 }
