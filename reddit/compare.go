@@ -129,12 +129,11 @@ func main() {
 		// must have at least this many occurances to
 		// have an entry
 
-		// TODO: what is the break point?  A CDF/PDF
-		// would be better instead of absolute
-		// TODO: move comparison out of loop
-		if a.count < 20000 {
+		// exit if we got 90% of words covered
+		if cdf > 90.0 {
 			break
 		}
+
 		aword := a.word
 		for bottom := top + 1; bottom < len(words); bottom++ {
 			b := words[bottom]

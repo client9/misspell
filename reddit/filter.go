@@ -68,11 +68,12 @@ func doit(prefix, url string) {
 	for jsonin.More() && lines < maxLines {
 		lines++
 		// decode an array value (Message)
+		obj.Body = ""
 		err := jsonin.Decode(&obj)
 		if err != nil {
 			log.Fatalf("[%s] unable to unmarshal object: %s", prefix, err)
 		}
-		if obj.Body == "[deleted]" {
+		if obj.Body == "[deleted]" || obj.Body == "" {
 			continue
 		}
 		err = jsonout.Encode(&obj)
