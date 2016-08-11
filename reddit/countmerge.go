@@ -84,13 +84,15 @@ func main() {
 		total += v
 	}
 	sort.Strings(keys)
+	uniques := 0
 	for _, k := range keys {
 		if counts[k] > *mincount {
 			fout.Write([]byte(fmt.Sprintf("%s,%d\n", k, counts[k])))
+			uniques++
 		}
 	}
 
 	fout.Close()
 	fo.Close()
-	log.Printf("DONE: wrote %s got %d unique words from %d", *outfile, len(counts), total)
+	log.Printf("DONE: wrote %s got %d unique words from %d", *outfile, uniques, total)
 }
