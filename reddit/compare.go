@@ -46,7 +46,7 @@ func loadCSV(fname string) (counts, error) {
 		return nil, err
 	}
 	defer fizip.Close()
-	words := make(counts, 0, 700000)
+	words := make(counts, 0, 5000000)
 	scanner := bufio.NewScanner(fizip)
 	for scanner.Scan() {
 		line := scanner.Text()
@@ -110,6 +110,7 @@ func main() {
 
 	// make total count
 	total := 0
+	sum := 0
 	for _, kv := range words {
 		total += kv.count
 	}
@@ -117,7 +118,7 @@ func main() {
 
 	for top := 0; top < len(words); top++ {
 		a := words[top]
-
+		sum += a.count
 		// must have at least this many occurances to
 		// have an entry
 
@@ -161,9 +162,9 @@ func main() {
 			}
 			val := smetrics.JaroWinkler(aword, bword, 0.7, 4)
 			if val > 0.96 {
-				fmt.Printf("%s,%s,%d,%d,%d,%d,%f,%f\n",
+				fmt.Printf("%s,%s,%d,%f,%d,%d,%d,%f,%f\n",
 					aword, bword,
-					top, bottom,
+					top, 100.0*float64(sum)/float64(total), bottom,
 					a.count, b.count, ratio,
 					val)
 			}
