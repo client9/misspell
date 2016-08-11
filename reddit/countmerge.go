@@ -80,19 +80,17 @@ func main() {
 	keys := make([]string, 0, len(counts))
 	total := 0
 	for k, v := range counts {
-		keys = append(keys, k)
 		total += v
+		if v > *mincount {
+			keys = append(keys, k)
+		}
 	}
 	sort.Strings(keys)
-	uniques := 0
 	for _, k := range keys {
-		if counts[k] > *mincount {
-			fout.Write([]byte(fmt.Sprintf("%s,%d\n", k, counts[k])))
-			uniques++
-		}
+		fout.Write([]byte(fmt.Sprintf("%s,%d\n", k, counts[k])))
 	}
 
 	fout.Close()
 	fo.Close()
-	log.Printf("DONE: wrote %s got %d unique words from %d", *outfile, uniques, total)
+	log.Printf("DONE: wrote %s got %d unique words from %d", *outfile, len(keys), total)
 }
