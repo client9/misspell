@@ -57,8 +57,8 @@ func loadCSV(counts freqCount, fname string) error {
 
 func main() {
 	outfile := flag.String("o", "", "output file name")
-	mincount := flag.Int("mincount", 0, "only output if freqcount greater than this, 0 = all")
-	minlen := flag.Int("minlen", 0, "only output if word is >, 0 = all")
+	mincount := flag.Int("mincount", 0, "only output if freqcount >=, 0 = all")
+	minlen := flag.Int("minlen", 0, "only output if word is >=, 0 = all")
 	flag.Parse()
 	if *outfile == "" {
 		log.Fatalf("Must specificy outfile")
