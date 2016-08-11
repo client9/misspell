@@ -55,10 +55,33 @@ func loadCSV(counts freqCount, fname string) error {
 	return scanner.Err()
 }
 
+// returns true if any character is repeated more than N times
+func repeated(s string, n int) bool {
+	slen := len(s)
+	if slen < n {
+		return false
+	}
+	ch := s[0]
+	count := 1
+	for i := 1; i < slen; i++ {
+		cnext := s[i]
+		if cnext != ch {
+			ch = cnext
+			count = 1
+			continue
+		}
+		count++
+		if count == n {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	outfile := flag.String("o", "", "output file name")
-	mincount := flag.Int("mincount", 0, "only output if freqcount >=, 0 = all")
-	minlen := flag.Int("minlen", 0, "only output if word is >=, 0 = all")
+	mincount := flag.Int("mincount", 2, "only output if freqcount >=, 0 = all")
+	minlen := flag.Int("minlen", 6, "only output if word is >=, 0 = all")
 	flag.Parse()
 	if *outfile == "" {
 		log.Fatalf("Must specificy outfile")
@@ -82,7 +105,7 @@ func main() {
 	total := 0
 	for k, v := range counts {
 		total += v
-		if v >= *mincount && len(k) >= *minlen {
+		if v >= *mincount && len(k) >= *minlen && !repeated(k, 4) {
 			keys = append(keys, k)
 		}
 	}
