@@ -91,14 +91,14 @@ func doit(prefix, filename string) {
 		log.Fatalf("[%s]: %s", prefix, err)
 	}
 
-	file, err := gzip.NewReader(fi)
+	fizip, err := gzip.NewReader(fi)
 	if err != nil {
 		log.Fatalf("[%s]: gzip error %s", prefix, err)
 	}
 
 	// no need to buffer this since raw network and bzip2 will
 	// naturally buffer the input
-	jsonin := json.NewDecoder(file)
+	jsonin := json.NewDecoder(fizip)
 	obj := Reddit{}
 	lines := 0
 	total := 0
@@ -123,6 +123,7 @@ func doit(prefix, filename string) {
 		}
 
 	}
+	fizip.Close()
 	fi.Close()
 
 	fo, err := os.Create(base)
