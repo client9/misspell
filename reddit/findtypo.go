@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"compress/gzip"
 	"fmt"
 	"log"
 	"os"
@@ -315,6 +316,11 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 		return nil, err
 	}
 	defer fi.Close()
+	fizip, err := gzip.NewReader(fi)
+	if err != nil {
+		return nil, err
+	}
+	defer fizip.Close()
 	scanner := bufio.NewScanner(fi)
 	for scanner.Scan() {
 		line := scanner.Text()
