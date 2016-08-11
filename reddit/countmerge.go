@@ -56,7 +56,7 @@ func loadCSV(counts freqCount, fname string) error {
 }
 
 func main() {
-	outfile := flag.String("-out", "", "output file name")
+	outfile := flag.String("o", "", "output file name")
 	flag.Parse()
 	if *outfile == "" {
 		log.Fatalf("Must specificy outfile")
