@@ -321,7 +321,7 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 		return nil, err
 	}
 	defer fizip.Close()
-	scanner := bufio.NewScanner(fi)
+	scanner := bufio.NewScanner(fizip)
 	for scanner.Scan() {
 		line := scanner.Text()
 		parts := strings.Split(line, ",")
