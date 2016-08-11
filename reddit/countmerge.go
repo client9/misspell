@@ -64,6 +64,7 @@ func main() {
 	args := flag.Args()
 	counts := newFreqCount()
 	for _, arg := range args {
+		log.Printf("Loading %s", arg)
 		err := loadCSV(counts, arg)
 		if err != nil {
 			log.Fatalf("%s: %s", arg, err)
