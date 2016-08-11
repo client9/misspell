@@ -4,6 +4,7 @@ package main
 // looks for 0.01% (1 in 10,000) frequency or more
 import (
 	"bufio"
+	"compress/gzip"
 	"fmt"
 	"log"
 	"os"
