@@ -5,6 +5,7 @@ package main
 import (
 	"bufio"
 	"compress/gzip"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -94,16 +95,21 @@ func LoadWordList(fname string) (map[string]bool, error) {
 }
 
 func main() {
-
+	dictfile := flag.String("d", "dict.txt", "aspell wordlist")
+	//outfile := flag.String("o", "RC_2015-score.csv", "outfile")
+	infile := flag.String("i", "RC_2015-total.csv.gz", "infile")
+	minScore := flag.Float64("minscore", 0.96, "min Jaro-Winkler score")
+	minRatio := flag.Float64("minratio", 0.01, "error ratio")
+	flag.Parse()
 	// load known-good words`
-	truewords, err := LoadWordList("dict.txt")
+	truewords, err := LoadWordList(*dictfile)
 	if err != nil {
 		log.Fatalf("Unable to read wordlist")
 	}
 	log.Printf("Got %d real words from dictionary", len(truewords))
 
 	// load frequency counts
-	words, err := loadCSV("RC_2015-total.csv.gz")
+	words, err := loadCSV(*infile)
 	if err != nil {
 		log.Fatalf("Unable to freq counts: %s", err)
 	}
@@ -119,6 +125,7 @@ func main() {
 	for top := 0; top < len(words); top++ {
 		a := words[top]
 		sum += a.count
+		cdf := 100.0 * float64(sum) / float64(total)
 		// must have at least this many occurances to
 		// have an entry
 
@@ -131,7 +138,6 @@ func main() {
 		aword := a.word
 		for bottom := top + 1; bottom < len(words); bottom++ {
 			b := words[bottom]
-
 			// misspelling must occur twice
 			// TODO: again this is a fixed point in the list
 			if b.count < 2 {
@@ -145,7 +151,7 @@ func main() {
 				continue
 			}
 			// if less than 0.01% ignore, too rare
-			if ratio < 0.01 {
+			if ratio < *minRatio {
 				break
 			}
 
@@ -161,11 +167,11 @@ func main() {
 				continue
 			}
 			val := smetrics.JaroWinkler(aword, bword, 0.7, 4)
-			if val > 0.96 {
+			if val >= *minScore {
 				fmt.Printf("%s,%s,%d,%f,%d,%d,%d,%f,%f\n",
 					aword, bword,
-					top, 100.0*float64(sum)/float64(total), bottom,
-					a.count, b.count, ratio,
+					top, cdf, a.count,
+					bottom, b.count, ratio,
 					val)
 			}
 		}
