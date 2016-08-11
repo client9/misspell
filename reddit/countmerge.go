@@ -82,7 +82,7 @@ func main() {
 	total := 0
 	for k, v := range counts {
 		total += v
-		if v > *mincount && len(k) > *minlen {
+		if v >= *mincount && len(k) >= *minlen {
 			keys = append(keys, k)
 		}
 	}
