@@ -133,7 +133,7 @@ func doit(prefix, filename string) {
 	fout := gzip.NewWriter(fo)
 
 	keys := make([]string, 0, len(counts))
-	for k, _ := range counts {
+	for k := range counts {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
