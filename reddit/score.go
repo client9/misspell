@@ -96,11 +96,17 @@ func LoadWordList(fname string) (map[string]bool, error) {
 
 func main() {
 	dictfile := flag.String("d", "dict.txt", "aspell wordlist")
-	//outfile := flag.String("o", "RC-score.csv", "outfile")
+
+	// not compressing output file since this is a single go-routine
+	// and two lazy to fire off a separate routine to compress...
+	// i.e. it's not parallelized and gzip will just slow things down
+	// Output is only like 2M anyways.
+	outfile := flag.String("o", "RC-score.csv", "outfile")
 	infile := flag.String("i", "RC-total.csv.gz", "infile")
 	minScore := flag.Float64("minscore", 0.96, "min Jaro-Winkler score")
 	minRatio := flag.Float64("minratio", 0.01, "error ratio")
 	flag.Parse()
+
 	// load known-good words`
 	truewords, err := LoadWordList(*dictfile)
 	if err != nil {
@@ -121,6 +127,12 @@ func main() {
 		total += kv.count
 	}
 	log.Printf("Got %d uniques, %d total", len(words), total)
+
+	fo, err := os.Create(*outfile)
+	if err != nil {
+		log.Fatalf("Unable to create outfile: %s", err)
+	}
+	fobuf := bufio.NewWriter(fo)
 
 	for top := 0; top < len(words); top++ {
 		a := words[top]
@@ -167,12 +179,15 @@ func main() {
 			}
 			val := smetrics.JaroWinkler(aword, bword, 0.7, 4)
 			if val >= *minScore {
-				fmt.Printf("%s,%s,%d,%f,%d,%d,%d,%f,%f\n",
+				fobuf.WriteString(fmt.Sprintf("%s,%s,%d,%f,%d,%d,%d,%f,%f\n",
 					aword, bword,
 					top, cdf, a.count,
 					bottom, b.count, ratio,
-					val)
+					val))
 			}
 		}
 	}
+
+	fobuf.Flush()
+	fo.Close()
 }
