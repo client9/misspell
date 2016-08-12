@@ -96,8 +96,8 @@ func LoadWordList(fname string) (map[string]bool, error) {
 
 func main() {
 	dictfile := flag.String("d", "dict.txt", "aspell wordlist")
-	//outfile := flag.String("o", "RC_2015-score.csv", "outfile")
-	infile := flag.String("i", "RC_2015-total.csv.gz", "infile")
+	//outfile := flag.String("o", "RC-score.csv", "outfile")
+	infile := flag.String("i", "RC-total.csv.gz", "infile")
 	minScore := flag.Float64("minscore", 0.96, "min Jaro-Winkler score")
 	minRatio := flag.Float64("minratio", 0.01, "error ratio")
 	flag.Parse()
