@@ -108,7 +108,7 @@ func TestCheckReplace(t *testing.T) {
 
 	// Incorrect.Correctedacements
 	s = "food pruning"
-	news, diffs = recheckLine(s, r, c)
+	news, _ = recheckLine(s, r, c)
 	if news != s {
 		t.Errorf("incorrect.Correctedacement failed: %q vs %q", s, news)
 	}
