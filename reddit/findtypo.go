@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"compress/gzip"
+	//"compress/gzip"
 	"flag"
 	"fmt"
 	"log"
@@ -317,12 +317,14 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 		return nil, err
 	}
 	defer fi.Close()
-	fizip, err := gzip.NewReader(fi)
-	if err != nil {
-		return nil, err
-	}
-	defer fizip.Close()
-	scanner := bufio.NewScanner(fizip)
+	/*
+		fizip, err := gzip.NewReader(fi)
+		if err != nil {
+			return nil, err
+		}
+		defer fizip.Close()
+	*/
+	scanner := bufio.NewScanner(fi)
 	for scanner.Scan() {
 		line := scanner.Text()
 		parts := strings.Split(line, ",")
@@ -403,7 +405,7 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 func main() {
 	dictfile := flag.String("d", "dict.txt", "aspell wordlist")
 	//outfile := flag.String("o", "RC-score.csv", "outfile")
-	infile := flag.String("i", "RC-score.csv.gz", "infile")
+	infile := flag.String("i", "RC-score.csv", "infile")
 	flag.Parse()
 	knownGood, err := LoadWordList(*dictfile)
 	if err != nil {
