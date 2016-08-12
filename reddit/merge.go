@@ -78,9 +78,9 @@ func repeated(s string, n int) bool {
 	return false
 }
 
-// returns true if a haha words.  hahhahahhhahaha, etc.
+// returns true if a haha words.  hahhahahhhahaha, lololo
 func haha(s string) bool {
-	return strings.Contains(s, "haha")
+	return strings.Contains(s, "haha") || strings.Contains(s, "lolo")
 }
 
 func main() {
