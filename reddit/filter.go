@@ -121,6 +121,7 @@ func yearmonthRange(start, end yearmonth) []yearmonth {
 }
 
 func main() {
+	args := []string{}
 	dates := yearmonthRange(yearmonth{2010, 1}, yearmonth{2011, 12})
 	for _, ym := range dates {
 		arg := fmt.Sprintf("http://files.pushshift.io/reddit/comments/RC_%d-%02d.bz2", ym.year, ym.month)
