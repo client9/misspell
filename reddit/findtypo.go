@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"compress/gzip"
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -400,13 +401,17 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 }
 
 func main() {
-	knownGood, err := LoadWordList("dict.txt")
+	dictfile := flag.String("d", "dict.txt", "aspell wordlist")
+	//outfile := flag.String("o", "RC-score.csv", "outfile")
+	infile := flag.String("i", "RC-score.csv.gz", "infile")
+	flag.Parse()
+	knownGood, err := LoadWordList(*dictfile)
 	if err != nil {
 		log.Fatalf("Unable to load word list: %s", err)
 	}
 	log.Printf("Loaded %d known-good words", len(knownGood))
 
-	dict, err := LoadCSV("RC_2015-total.csv.gz", knownGood)
+	dict, err := LoadCSV(*infile, knownGood)
 	if err != nil {
 		log.Fatalf("Unable to load csv: %s", err)
 	}
