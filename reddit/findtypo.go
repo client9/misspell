@@ -14,264 +14,334 @@ import (
 )
 
 var badWord = map[string]bool{
-	"shitter":       true,
-	"shittier":      true,
-	"lightsaber":    true,
-	"einstein":      true,
-	"samsung":       true,
-	"googled":       true,
-	"dragonborn":    true,
-	"circlejerk":    true,
-	"cinderhulk":    true,
-	"shithead":      true,
-	"sanchez":       true,
-	"ronaldo":       true,
-	"retards":       true,
-	"michael":       true,
-	"killionaires":  true,
-	"villionaires":  true,
-	"sverige":       true,
-	"snapchat":      true,
-	"siempre":       true,
-	"shittiest":     true,
-	"shitposting":   true,
-	"warpig":        true,
-	"shitlord":      true,
-	"illidan":       true,
-	"magneto":       true,
-	"martinez":      true,
-	"darkrai":       true,
-	"fuckton":       true,
-	"deandre":       true,
-	"whatsapp":      true,
-	"wrestlemania":  true,
-	"youtuber":      true,
-	"godzilla":      true,
-	"charles":       true,
-	"cortana":       true,
-	"monsanto":      true,
-	"horseshit":     true,
-	"balotelli":     true,
-	"aquaman":       true,
-	"antonio":       true,
-	"happend":       true,
-	"arduino":       true,
-	"acuerdo":       true,
 	"ableton":       true,
-	"marshawn":      true,
-	"metroid":       true,
-	"starcraft":     true,
-	"sarkeesian":    true,
-	"fatebringer":   true,
-	"frickin":       true,
-	"minecraft":     true,
-	"shoulda":       true,
-	"tristana":      true,
-	"pcpartpicker":  true,
-	"linkedin":      true,
-	"myfitnesspal":  true,
-	"goddamned":     true,
+	"abrahamic":     true,
+	"accutane":      true, //brand (drug)
+	"acuerdo":       true,
+	"aguero":        true,
+	"aldrig":        true, // ??
+	"alguien":       true, // unknown
+	"alienware":     true,
+	"alistar":       true, // name
+	"ambrose":       true, // name
+	"amendola":      true, // unknown
+	"amiibos":       true,
+	"amirite":       true, // slang
+	"anderson":      true, // name
+	"andreas":       true,
+	"antonio":       true,
+	"aquaman":       true,
+	"arduino":       true,
+	"atlantis":      true,
+	"atletico":      true, // ?
+	"baldwin":       true, // name
+	"balotelli":     true,
+	"baratheon":     true, // ??
+	"barbara":       true,
+	"baretta":       true,
+	"batshit":       true,
+	"bayonetta":     true,
+	"beckham":       true,
+	"beleive":       true, // FP
+	"benjamin":      true,
+	"bernard":       true,
+	"bioshock":      true,
+	"bitchin":       true,
+	"bjergsen":      true,
+	"bledsoe":       true, // name
+	"blitzcrank":    true, // ??
+	"boohoooooo":    true,
+	"bortles":       true, // ??
+	"bradley":       true, // name
+	"bradshaw":      true,
+	"bridgewater":   true, // brand
+	"brienne":       true,
+	"britney":       true,
+	"bronies":       true,
+	"bulbasaur":     true,
+	"bullshitting":  true,
+	"bundesliga":    true,
+	"caitlyn":       true,
+	"cartoony":      true, // FP
+	"castlevania":   true,
+	"catelyn":       true,
+	"celestia":      true,
+	"charizard":     true,
+	"charles":       true,
+	"charleston":    true, //place name with possible variations
+	"charlie":       true,
+	"charlotte":     true, // name
+	"charmander":    true,
+	"chipotle":      true,
+	"chomsky":       true,
+	"christie":      true,
+	"christina":     true, // name
+	"christine":     true, // name
+	"christopher":   true,
+	"chromebook":    true,
+	"chromecast":    true,
+	"chronos":       true,
+	"cinderhulk":    true,
+	"circlejerk":    true,
+	"circlejerking": true,
+	"circlejerks":   true,
+	"ciudadanos":    true, // Spanish
+	"closes":        true, // lots of FP
+	"clusterfuck":   true,
+	"collins":       true,
+	"connery":       true,
+	"constantine":   true,
+	"cortana":       true,
+	"coutinho":      true,
+	"crawford":      true, // name
+	"crossfit":      true, // brand
+	"cualquier":     true,
+	"daenerys":      true,
+	"dailymotion":   true, // brand
+	"daniels":       true,
+	"darkrai":       true,
+	"deandre":       true,
+	"dennis":        true,
 	"dipshit":       true,
+	"doritos":       true, // brand
+	"douchebags":    true,
+	"dragonball":    true,
+	"dragonborn":    true,
+	"dragonite":     true,
+	"einstein":      true,
+	"evangelion":    true, // brand, name
+	"expandjs":      true, // javascript something?
+	"fatebringer":   true,
+	"ferguson":      true,
+	"fernando":      true, // name
+	"fittit":        true,
+	"fitzgerald":    true, //name
+	"floats":        true,
+	"francis":       true,
+	"freakin":       true,
+	"frickin":       true,
+	"friendzone":    true, // causual word
+	"fuckton":       true,
+	"gabriel":       true, //name
+	"galactica":     true,
+	"gilbert":       true,
+	"gjallarhorn":   true,
+	"goddamned":     true,
+	"goddamnit":     true,
+	"godzilla":      true,
+	"golems":        true,
+	"googled":       true,
+	"gracias":       true,
+	"graphs":        true, // lots of FP
+	"greatsword":    true,
+	"gregory":       true,
+	"greninja":      true,
+	"griffin":       true,
+	"grinds":        true,
+	"hammers":       true,
+	"happend":       true,
+	"harbaugh":      true,
+	"hawkmoon":      true,
+	"hecarim":       true,
+	"hermione":      true,
+	"herrera":       true,
+	"historia":      true, //??
+	"hornets":       true, // FP
+	"horseshit":     true,
+	"illidan":       true,
+	"importante":    true, // Spanish
+	"iniesta":       true, // ??
+	"iphones":       true, // brand
+	"jessica":       true,
+	"jigglypuff":    true,
+	"johnson":       true,
+	"judgment":      true, // misspelling
+	"jungler":       true,
+	"junglers":      true,
+	"kalista":       true, // name
+	"kanthal":       true,
+	"karambit":      true,
+	"kassadin":      true,
 	"katarina":      true,
-	"programa":      true,
+	"katowice":      true,
+	"kendrick":      true, // name, multiple spellings
+	"killionaires":  true,
+	"kingston":      true,
+	"krugman":       true, // name
+	"lamborghini":   true, // name, brand
+	"leblanc":       true,
+	"lebowski":      true, // name
+	"leonardo":      true, // name
+	"lightsaber":    true,
+	"linkedin":      true,
+	"lucario":       true,
+	"machina":       true,
+	"magicka":       true,
+	"magneto":       true,
+	"manziel":       true,
+	"mariota":       true,
+	"marshawn":      true,
+	"martinez":      true,
+	"masses":        true,
 	"mayweather":    true,
-	"superstars":    true, // FP
-	"redditor":      true,
+	"mcdonalds":     true,
+	"megaman":       true,
+	"metroid":       true,
+	"michael":       true,
+	"michaels":      true,
+	"minecraft":     true,
+	"mitchell":      true,
+	"mohammed":      true,
+	"monedero":      true,
+	"monsanto":      true,
+	"morgana":       true,
+	"motherfucker":  true,
+	"motherfuckers": true,
+	"motherfucking": true,
+	"mourinho":      true,
+	"muchos":        true, // spanish?
 	"muhammad":      true,
-	"redditors":     true,
+	"murican":       true, // slang
+	"murphy":        true,
+	"myfitnesspal":  true,
+	"mythbusters":   true, // brand
+	"natalie":       true, // name
+	"netanyahu":     true,
+	"netflix":       true,
+	"neville":       true, // name
+	"nicholas":      true,
+	"nickelback":    true, // brand
+	"nicolas":       true, // name
 	"nintendo":      true,
 	"nosotros":      true,
-	"goddamnit":     true,
-	"tolkien":       true,
-	"stephanie":     true,
-	"warlock":       true,
-	"circlejerking": true,
-	"ciudadanos":    true, // Spanish
-	"judgment":      true, // misspelling
-	"importante":    true, // Spanish
-	"iphones":       true, // brand
-	"soundcloud":    true, // company
-	"roberts":       true, // name
-	"nicholas":      true,
-	"doritos":       true, // brand
-	"radiohead":     true, // name
-	"bullshitting":  true,
-	"katowice":      true,
-	"chromebook":    true,
-	"abrahamic":     true,
-	"greninja":      true,
-	"reddits":       true,
-	"mitchell":      true,
-	"templatejs":    true,
-	"expandjs":      true, // javascript something?
-	"caitlyn":       true,
-	"sigelei":       true,
-	"andreas":       true,
-	"tarantino":     true,
-	"amiibos":       true,
-	"patreon":       true, // misspelling of patron
-	"herrera":       true,
-	"skeltal":       true, // misspelling of skeletal?
-	"scientology":   true,
-	"spongebob":     true,
-	"swordbearer":   true,
-	"coutinho":      true,
-	"porsche":       true,
-	"michaels":      true,
-	"junglers":      true,
-	"manziel":       true,
-	"griffin":       true,
-	"thunderlord":   true,
-	"witcher":       true,
-	"batshit":       true,
-	"clusterfuck":   true,
-	"atlantis":      true,
-	"netflix":       true,
-	"greatsword":    true,
-	"karambit":      true,
-	"sephora":       true,
-	"freakin":       true,
-	"jungler":       true,
-	"hawkmoon":      true,
-	"benjamin":      true,
-	"westeros":      true,
-	"hermione":      true,
-	"runescape":     true,
-	"bioshock":      true,
-	"rosalina":      true,
-	"superheroes":   true, // FP
-	"chipotle":      true,
-	"dragonball":    true,
-	"gilbert":       true,
-	"johnson":       true,
-	"christopher":   true,
-	"mcdonalds":     true,
-	"santorin":      true,
-	"pikachu":       true,
 	"okcupid":       true,
-	"shitpost":      true,
-	"jessica":       true,
-	"chromecast":    true,
-	"francis":       true,
-	"boohoooooo":    true,
-	"william":       true,
-	"charmander":    true,
-	"douchebags":    true,
-	"overheat":      true,
-	"presser":       true,
-	"trudeau":       true,
-	"zelnite":       true,
-	"cualquier":     true,
-	"ventura":       true,
-	"problema":      true,
-	"gracias":       true,
 	"outside":       true,
-	"hammers":       true,
-	"seinfeld":      true,
-	"hecarim":       true,
-	"barbara":       true,
-	"mariota":       true,
-	"hornets":       true, // FP
-	"ferguson":      true,
-	"machina":       true,
-	"charlie":       true,
-	"bernard":       true,
-	"alienware":     true,
-	"daenerys":      true,
-	"sejuani":       true,
-	"leblanc":       true,
-	"targaryen":     true,
-	"charizard":     true,
-	"bundesliga":    true,
-	"mohammed":      true,
-	"daniels":       true,
-	"walmart":       true,
-	"chomsky":       true,
-	"netanyahu":     true,
-	"voldemort":     true,
-	"rodriguez":     true,
-	"gjallarhorn":   true,
-	"bayonetta":     true,
-	"morgana":       true,
-	"vladimir":      true,
-	"motherfucker":  true,
-	"motherfucking": true,
-	"megaman":       true,
-	"rngesus":       true,
-	"collins":       true,
-	"motherfuckers": true,
-	"spaces":        true,
-	"murphy":        true,
-	"phones":        true,
-	"radios":        true, // FP
+	"overheat":      true,
+	"pacquiao":      true,
 	"partido":       true,
-	"kingston":      true,
-	"kassadin":      true,
-	"gregory":       true,
+	"patreon":       true, // misspelling of patron
+	"pcpartpicker":  true,
+	"phones":        true,
+	"pikachu":       true,
+	"planetside":    true, // brand
+	"porsche":       true,
+	"presser":       true,
+	"problema":      true,
+	"programa":      true,
+	"radiohead":     true, // name
+	"radios":        true, // FP
+	"redditor":      true,
+	"redditors":     true,
+	"reddits":       true,
+	"retards":       true,
+	"rngesus":       true,
+	"roberts":       true, // name
+	"rodriguez":     true,
+	"ronaldo":       true,
+	"rosalina":      true,
+	"runescape":     true,
+	"samsung":       true,
+	"sanchez":       true,
+	"santorin":      true,
+	"sarkeesian":    true,
+	"scientology":   true,
+	"seinfeld":      true,
+	"sejuani":       true,
+	"sephora":       true,
+	"shithead":      true,
+	"shitlord":      true,
 	"shitlords":     true,
-	"fittit":        true,
-	"lucario":       true,
-	"floats":        true,
-	"masses":        true,
-	"grinds":        true,
-	"christie":      true,
+	"shitpost":      true,
+	"shitposting":   true,
+	"shitposts":     true,
+	"shitter":       true,
+	"shittier":      true,
+	"shittiest":     true,
+	"shoulda":       true,
+	"siempre":       true,
+	"sigelei":       true,
+	"skeltal":       true, // misspelling of skeletal?
+	"snapchat":      true,
+	"somthing":      true, // FP
+	"soundcloud":    true, // company
+	"spaces":        true,
+	"spongebob":     true,
+	"starcraft":     true,
+	"stephanie":     true,
 	"stephen":       true, // name
 	"stomps":        true, // lots of FP
-	"graphs":        true, // lots of FP
-	"pacquiao":      true,
-	"baretta":       true,
-	"aguero":        true,
-	"kendrick":      true, // name, multiple spellings
-	"kalista":       true, // name
-	"muchos":        true, // spanish?
-	"aldrig":        true, // ??
-	"mourinho":      true,
-	"dennis":        true,
-	"monedero":      true,
-	"magicka":       true,
-	"golems":        true,
+	"superheroes":   true, // FP
+	"superstars":    true, // FP
+	"sverige":       true,
+	"swordbearer":   true,
+	"tarantino":     true,
+	"targaryen":     true,
+	"templatejs":    true,
+	"terran":        true,
+	"terrans":       true, // (in science fiction) an inhabitant of the planet Earth.
 	"terraria":      true,
-	"closes":        true, // lots of FP
+	"thunderlord":   true,
+	"tolkien":       true,
+	"tristana":      true,
+	"trudeau":       true,
+	"ventura":       true,
+	"veronica":      true, // name
+	"villionaires":  true,
+	"vladimir":      true,
+	"voldemort":     true,
+	"vonnegut":      true, // name
+	"walmart":       true,
+	"warlock":       true,
+	"warpig":        true,
+	"westeros":      true,
+	"whatcha":       true, // slang
+	"whatsapp":      true,
+	"william":       true,
+	"witcher":       true,
+	"wrestlemania":  true,
+	"youtuber":      true,
+	"zelnite":       true,
 }
 
 var badTypo = map[string]bool{
-	"carnagie":       true, //name
-	"granda":         true,
-	"sourceid":       true,
-	"messageid":      true,
-	"falsey":         true, // technical word for "false value type"
-	"progresse":      true, // progesses, progressives
-	"amature":        true, // gets corrected to "armature" or maybe "a mature"
-	"bogons":         true, // technical word
-	"bogon":          true, // technical word
-	"expandos":       true, // "technical" word, for something that expands (see jQuery)
-	"accessors":      true, // technical word
-	"accessor":       true, // technical word
-	"sithlord":       true,
-	"administratie":  true, // Dutch spelling
-	"killionaires":   true,
-	"villionaires":   true,
-	"zillionaires":   true,
-	"codifications":  true,
-	"administracion": true,
-	"potentiella":    true,
-	"pistos":         true,
-	"corpe":          true,
-	"cleaner":        true, // real word
-	"thirty":         true, // real word
-	"reactjs":        true, // name of product
-	"chroo":          true, // not clear what this is a typo of
-	"cleane":         true, // not clear if "cleaner" or "cleanser", causes FP
-	"matchers":       true, // real word
-	"mongos":         true, // mongo database server
-	"mongod":         true, // mongo database daemon
-	"expresssion":    true, // real word
-	"parens":         true, // common for parenthesis
-	"thru":           true, // informal, style
-	"warpig":         true,
-	"governmnet":     true, // mapping this way for some reason, governmnet->governments
-	"intereating":    true,
-	"interdating":    true,
+	"carnagie":         true, //name
+	"granda":           true,
+	"sourceid":         true,
+	"messageid":        true,
+	"falsey":           true, // technical word for "false value type"
+	"progresse":        true, // progesses, progressives
+	"amature":          true, // gets corrected to "armature" or maybe "a mature"
+	"bogons":           true, // technical word
+	"bogon":            true, // technical word
+	"generalizaciones": true, //spanish
+	"expandos":         true, // "technical" word, for something that expands (see jQuery)
+	"accessors":        true, // technical word
+	"accessor":         true, // technical word
+	"sithlord":         true,
+	"administratie":    true, // Dutch spelling
+	"killionaires":     true,
+	"villionaires":     true,
+	"zillionaires":     true,
+	"codifications":    true,
+	"administracion":   true,
+	"potentiella":      true,
+	"pistos":           true,
+	"corpe":            true,
+	"cleaner":          true, // real word
+	"thirty":           true, // real word
+	"reactjs":          true, // name of product
+	"chroo":            true, // not clear what this is a typo of
+	"cleane":           true, // not clear if "cleaner" or "cleanser", causes FP
+	"matchers":         true, // real word
+	"mongos":           true, // mongo database server
+	"mongod":           true, // mongo database daemon
+	"expresssion":      true, // real word
+	"parens":           true, // common for parenthesis
+	"thru":             true, // informal, style
+	"warpig":           true,
+	"governmnet":       true, // mapping this way for some reason, governmnet->governments
+	"intereating":      true,
+	"interdating":      true,
 }
 
 // LoadWordList loads in a list of known-good words
