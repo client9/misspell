@@ -98,7 +98,6 @@ var badWord = map[string]bool{
 	"chrysler":      true, // brand
 	"cortana":       true,
 	"coutinho":      true,
-	"crawford":      true, // name
 	"crossfit":      true, // brand
 	"cualquier":     true,
 	"dawkins":       true,
@@ -315,10 +314,8 @@ var badWord = map[string]bool{
 	"dumbledore":    true,
 	"fabregas":      true,
 	"fucktard":      true,
-	"fitzgerald":    true,
 	"fleshlight":    true,
 	"futurama":      true,
-	"gabriel":       true,
 	"gangsta":       true,
 	"gambino":       true,
 	"genesect":      true,
@@ -363,7 +360,6 @@ var badWord = map[string]bool{
 	"orianna":       true,
 	"optimus":       true,
 	"phillips":      true,
-	"planetside":    true,
 	"playstation":   true,
 	"archers":       true,
 	"rhaegar":       true,
@@ -391,8 +387,6 @@ var badWord = map[string]bool{
 	"ubisoft":       true,
 	"victoria":      true,
 	"virginia":      true,
-	"vonnegut":      true,
-	"whatcha":       true,
 	"warlocks":      true,
 	"wannabe":       true,
 	"westboro":      true,
