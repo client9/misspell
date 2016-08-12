@@ -78,6 +78,11 @@ func repeated(s string, n int) bool {
 	return false
 }
 
+// returns true if a haha words.  hahhahahhhahaha, etc.
+func haha(s string) bool {
+	return strings.Contains(s, "haha")
+}
+
 func main() {
 	outfile := flag.String("o", "", "output file name")
 	mincount := flag.Int("mincount", 2, "only output if freqcount >=, 0 = all")
@@ -105,7 +110,7 @@ func main() {
 	total := 0
 	for k, v := range counts {
 		total += v
-		if v >= *mincount && len(k) >= *minlen && !repeated(k, 4) {
+		if v >= *mincount && len(k) >= *minlen && !repeated(k, 4) && !haha(k) {
 			keys = append(keys, k)
 		}
 	}
