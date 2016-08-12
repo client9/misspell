@@ -178,7 +178,6 @@ var badWord = map[string]bool{
 	"bernard":       true,
 	"alienware":     true,
 	"daenerys":      true,
-	"hahahah":       true,
 	"sejuani":       true,
 	"leblanc":       true,
 	"targaryen":     true,
@@ -201,7 +200,6 @@ var badWord = map[string]bool{
 	"rngesus":       true,
 	"collins":       true,
 	"motherfuckers": true,
-	"hahahahaha":    true,
 	"spaces":        true,
 	"murphy":        true,
 	"phones":        true,
@@ -223,7 +221,6 @@ var badWord = map[string]bool{
 	"pacquiao":      true,
 	"baretta":       true,
 	"aguero":        true,
-	"hahahaha":      true,
 	"kendrick":      true, // name, multiple spellings
 	"kalista":       true, // name
 	"muchos":        true, // spanish?
@@ -337,6 +334,11 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 			continue
 		}
 		if badWord[word] {
+			continue
+		}
+
+		// not sure how 'hahahahaha' keeps sneaking in
+		if strings.Contains(word, "haha") {
 			continue
 		}
 		if badTypo[typo] {
