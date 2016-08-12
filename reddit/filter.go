@@ -94,12 +94,36 @@ func worker(id int, jobs <-chan string) {
 	wg.Done()
 }
 
-func main() {
+type yearmonth struct {
+	year  int
+	month int
+}
 
-	args := []string{}
-	year := 2015
-	for month := 1; month <= 12; month++ {
-		arg := fmt.Sprintf("http://files.pushshift.io/reddit/comments/RC_%d-%02d.bz2", year, month)
+func yearmonthRange(start, end yearmonth) []yearmonth {
+	out := []yearmonth{}
+	m := start.month
+	y := start.year
+	for {
+		out = append(out, yearmonth{y, m})
+		m++
+		if m == 13 {
+			m = 1
+			y++
+		}
+		if y > end.year {
+			break
+		}
+		if y == end.year && m > end.month {
+			break
+		}
+	}
+	return out
+}
+
+func main() {
+	dates := yearmonthRange(yearmonth{2010, 1}, yearmonth{2011, 12})
+	for _, ym := range dates {
+		arg := fmt.Sprintf("http://files.pushshift.io/reddit/comments/RC_%d-%02d.bz2", ym.year, ym.month)
 		args = append(args, arg)
 	}
 
