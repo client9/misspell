@@ -23,7 +23,6 @@ var badWord = map[string]bool{
 	"jeffrey":       true,
 	"forsett":       true,
 	"shyvana":       true,
-	"machina":       true,
 	"froakie":       true,
 	"jenkins":       true,
 	"walgreens":     true,
