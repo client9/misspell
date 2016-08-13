@@ -14,6 +14,24 @@ import (
 )
 
 var badWord = map[string]bool{
+	"donovan":       true,
+	"kakashi":       true, // Japanese for "scarecrow"/
+	"welbeck":       true,
+	"remeber":       true, // Misspelling!!
+	"mcmahon":       true,
+	"ganondorf":     true,
+	"jeffrey":       true,
+	"forsett":       true,
+	"shyvana":       true,
+	"machina":       true,
+	"froakie":       true,
+	"jenkins":       true,
+	"walgreens":     true,
+	"buzzfeed":      true,
+	"kershaw":       true,
+	"rebecca":       true,
+	"completly":     true, // Misspelling!!
+	"gandalf":       true,
 	"apeshit":       true,
 	"cazorla":       true,
 	"maximus":       true,
