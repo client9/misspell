@@ -8,6 +8,7 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+encompase->encompass
 uncomited->uncommitted
 uncommited->uncommitted
 uncomitted->uncommitted
