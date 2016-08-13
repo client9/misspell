@@ -613,6 +613,11 @@ func LoadCSV(fname string, knownGood map[string]bool, minTypo int) (map[string][
 			continue
 		}
 
+		// championshipLESS -> championship
+		if strings.HasSuffix(typo, "less") && !strings.HasSuffix(word, "less") {
+			continue
+		}
+
 		// does one typo map to two correct words?
 		if otherWord, ok := typos[typo]; ok {
 			val1 := smetrics.JaroWinkler(word, typo, 0.7, 4)
