@@ -14,6 +14,8 @@ import (
 )
 
 var badWord = map[string]bool{
+	"alexandria":    true,
+	"alexander":     true,
 	"donovan":       true,
 	"kakashi":       true, // Japanese for "scarecrow"/
 	"welbeck":       true,
@@ -499,7 +501,7 @@ func LoadWordList(fname string) (map[string]bool, error) {
 }
 
 // LoadCSV loads a file in csv format of "word, typo, ..."
-func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, error) {
+func LoadCSV(fname string, knownGood map[string]bool, minTypo int) (map[string][]string, error) {
 
 	// map of word to mutiple typos
 	dict := make(map[string][]string, 100000)
@@ -593,9 +595,9 @@ func LoadCSV(fname string, knownGood map[string]bool) (map[string][]string, erro
 		return nil, err
 	}
 
-	// remove items with only 1 or 2 corrections
+	// remove items with too few variations
 	for k, v := range dict {
-		if len(v) < 3 {
+		if len(v) < minTypo {
 			delete(dict, k)
 		}
 	}
@@ -606,6 +608,7 @@ func main() {
 	dictfile := flag.String("d", "dict.txt", "aspell wordlist")
 	//outfile := flag.String("o", "RC-score.csv", "outfile")
 	infile := flag.String("i", "RC-score.csv", "infile")
+	minTypo := flag.Int("mintypo", 2, "require at least this many typos to include")
 	flag.Parse()
 	knownGood, err := LoadWordList(*dictfile)
 	if err != nil {
@@ -613,7 +616,7 @@ func main() {
 	}
 	log.Printf("Loaded %d known-good words", len(knownGood))
 
-	dict, err := LoadCSV(*infile, knownGood)
+	dict, err := LoadCSV(*infile, knownGood, *minTypo)
 	if err != nil {
 		log.Fatalf("Unable to load csv: %s", err)
 	}
