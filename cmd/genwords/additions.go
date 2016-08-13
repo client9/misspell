@@ -123,7 +123,6 @@ configuraiton->configuration
 consitency->consistency
 contructed->constructed
 contructor->constructor
-december->December
 declareation->declaration
 decomposeion->decomposition
 deliviered->delivered
@@ -191,7 +190,6 @@ seperator->separator
 similarlly->similarly
 simplfy->simplify
 singals->signals
-spanish->Spanish
 specifcally->specifically
 specifed->specified
 specifiy->specify
