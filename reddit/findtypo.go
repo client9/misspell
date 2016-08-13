@@ -428,15 +428,36 @@ var badWord = map[string]bool{
 	"wolfenstein":   true,
 	"xpecial":       true,
 	"yogscast":      true,
+	"administrador": true, // Spanish
+	"officiella":    true,
 }
 
 var badTypo = map[string]bool{
+	"officiella":       true,
+	"authorid":         true,
+	"characterid":      true,
+	"contractid":       true,
+	"customid":         true,
+	"positionid":       true,
+	"discountid":       true,
+	"employeeid":       true,
+	"multicasting":     true,
+	"positionals":      true,
+	"bundlers":         true,
+	"bundler":          true,
+	"questionid":       true,
+	"randomid":         true,
+	"summonerid":       true,
+	"installare":       true, // IT
+	"installato":       true, // IT
+	"dokumentation":    true, // DE
 	"superpowder":      true,
 	"proletara":        true,
 	"pediction":        true,
 	"motorola":         true,
 	"moranian":         true,
 	"misqualified":     true,
+	"exerciseid":       true,
 	"mingleplayer":     true,
 	"melbournite":      true,
 	"mathological":     true,
@@ -444,6 +465,7 @@ var badTypo = map[string]bool{
 	"granda":           true,
 	"sourceid":         true,
 	"messageid":        true,
+	"certificacion":    true, // Spanish
 	"falsey":           true, // technical word for "false value type"
 	"progresse":        true, // progesses, progressives
 	"amature":          true, // gets corrected to "armature" or maybe "a mature"
@@ -481,6 +503,24 @@ var badTypo = map[string]bool{
 	"interdating":      true,
 	"dogspeed":         true,
 	"laventine":        true,
+	"administrador":    true, // Spanish
+	"recognizers":      true,
+	"expresso":         true, // wrong guess
+	"administra":       true, // Spanish?
+	"launchd":          true, // name of program
+	"systemd":          true,
+	"collectd":         true,
+	"relativize":       true,
+	"dependee":         true,
+	"functionals":      true,
+	"octobre":          true,
+	"novembre":         true,
+	"septembre":        true,
+	"revolucion":       true,
+	"tortilleras":      true,
+	"automagically":    true,
+	"benchmarkers":     true,
+	"englisch":         true,
 }
 
 // LoadWordList loads in a list of known-good words
