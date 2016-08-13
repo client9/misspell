@@ -14,6 +14,12 @@ import (
 )
 
 var badWord = map[string]bool{
+	"apeshit":       true,
+	"cazorla":       true,
+	"maximus":       true,
+	"reginald":      true,
+	"andrews":       true,
+	"abdullah":      true,
 	"ableton":       true,
 	"abrahamic":     true,
 	"accutane":      true, //brand (drug)
