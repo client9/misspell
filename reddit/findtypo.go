@@ -14,6 +14,12 @@ import (
 )
 
 var badWord = map[string]bool{
+	"klingon":       true,
+	"grammer":       true, // misspelling
+	"sennheiser":    true, // brand, name
+	"demarco":       true,
+	"chillin":       true,
+	"palpatine":     true,
 	"alexandria":    true,
 	"alexander":     true,
 	"donovan":       true,
@@ -363,6 +369,7 @@ var badWord = map[string]bool{
 	"karthus":       true,
 	"katrina":       true,
 	"whatcha":       true, // slang
+	"affleck":       true,
 	"limbaugh":      true,
 	"whatsapp":      true,
 	"william":       true,
@@ -446,6 +453,7 @@ var badTypo = map[string]bool{
 	"accessors":        true, // technical word
 	"accessor":         true, // technical word
 	"sithlord":         true,
+	"postless":         true,
 	"administratie":    true, // Dutch spelling
 	"killionaires":     true,
 	"villionaires":     true,
