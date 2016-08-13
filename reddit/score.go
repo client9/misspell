@@ -179,7 +179,7 @@ func main() {
 			}
 			val := smetrics.JaroWinkler(aword, bword, 0.7, 4)
 			if val >= *minScore {
-				fobuf.WriteString(fmt.Sprintf("%s,%s,%d,%f,%d,%d,%d,%f,%f\n",
+				fobuf.WriteString(fmt.Sprintf("%s,%s,%d,%.2f,%d,%d,%d,%.2f,%.3f\n",
 					aword, bword,
 					top, cdf, a.count,
 					bottom, b.count, ratio,
