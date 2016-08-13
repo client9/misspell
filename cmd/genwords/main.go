@@ -101,7 +101,7 @@ func main() {
 	dict := make(map[string]string)
 	mergeDict(dict, dictWikipedia())
 	mergeDict(dict, dictAdditions())
-	//mergeDict(dict, dictReddit())
+	mergeDict(dict, dictReddit())
 
 	words := make([]string, 0, len(dict))
 	for k := range dict {
