@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-var reEmail = regexp.MustCompile(`[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9-.]+\.[a-zA-Z]{2,6}`)
-var reHost = regexp.MustCompile(`[a-zA-Z0-9-.]+\.[a-zA-Z]{2,6}`)
+var reEmail = regexp.MustCompile(`[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9-.]+\.[a-zA-Z]{2,6}[^a-zA-Z]`)
+var reHost = regexp.MustCompile(`[a-zA-Z0-9-.]+\.[a-zA-Z]+`)
 
 // RemovePath attempts to strip away embedded file system paths, e.g.
 //  /foo/bar or /static/myimg.png

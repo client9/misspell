@@ -15,6 +15,7 @@ func TestNotWords(t *testing.T) {
 		{"/", "/"},
 		{"x nickg@client9.xxx y", "x                   y"},
 		{"x infinitie.net y", "x               y"},
+		{"(s.svc.GetObject(", "(               ("},
 	}
 	for pos, tt := range cases {
 		got := RemoveNotWords(tt.word)
