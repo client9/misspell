@@ -433,6 +433,14 @@ var badWord = map[string]bool{
 }
 
 var badTypo = map[string]bool{
+	"wraping":          true, // wrapping or warping"
+	"deleters":         true,
+	"invalide":         true, // French
+	"releasers":        true,
+	"supplementals":    true, // should be corrected to supplemental (adjective)
+	"unindented":       true,
+	"upgraders":        true,
+	"cumulate":         true,
 	"officiella":       true,
 	"authorid":         true,
 	"characterid":      true,
