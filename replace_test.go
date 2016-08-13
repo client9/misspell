@@ -29,6 +29,7 @@ func TestReplaceLocale(t *testing.T) {
 		want string
 	}{
 		{"The colours are pretty", "The colors are pretty"},
+		{"summaries", "summaries"},
 	}
 
 	r := New()

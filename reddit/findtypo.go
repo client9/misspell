@@ -433,7 +433,7 @@ var badWord = map[string]bool{
 }
 
 var badTypo = map[string]bool{
-	"summaries":        true, // correct!
+	"summarie":         true, // FP
 	"encompase":        true, // should be corrected to encompass
 	"transitionend":    true, // JS event
 	"responders":       true,
