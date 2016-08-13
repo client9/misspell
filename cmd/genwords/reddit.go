@@ -16205,12 +16205,10 @@ occasionnal->occasional
 occational->occasional
 occationally->occasionally
 occidentally->accidentally
-occrued->occured
 occulation->occupation
 occupaiton->occupation
 occupating->occupation
 occupato->occupation
-occureed->occured
 occurrances->occurrences
 occurrencies->occurrences
 ocotber->october
