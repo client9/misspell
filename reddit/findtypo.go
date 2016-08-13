@@ -433,6 +433,11 @@ var badWord = map[string]bool{
 }
 
 var badTypo = map[string]bool{
+	"summaries":        true, // correct!
+	"encompase":        true, // should be corrected to encompass
+	"transitionend":    true, // JS event
+	"responders":       true,
+	"parenthesised":    true, // word
 	"wraping":          true, // wrapping or warping"
 	"deleters":         true,
 	"invalide":         true, // French

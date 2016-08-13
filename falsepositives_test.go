@@ -6,6 +6,9 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"infinitie.net",
+		"foo summaries\n",
+		"thru",
 		"publically",
 		"6YUO5",   // base64
 		"cleaner", // triggered by "cleane->cleanser" and partial word FP
