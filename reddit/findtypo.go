@@ -433,6 +433,12 @@ var badWord = map[string]bool{
 }
 
 var badTypo = map[string]bool{
+	"perceptron":       true,
+	"perceptrons":      true,
+	"intensional":      true, // real word, http://foldoc.org/intensional
+	"undernet":         true, // name of computer network
+	"exploder":         true, //real word
+	"exploders":        true, // real word
 	"duplicative":      true, // real word
 	"computable":       true, // real word
 	"incomputable":     true, // real word

@@ -9300,8 +9300,6 @@ explioted->exploited
 explioting->exploiting
 expliots->exploits
 explodeds->explodes
-exploder->explore
-exploders->explodes
 explodie->explode
 explods->explodes
 exploiding->exploiting
@@ -12629,7 +12627,6 @@ intendes->intends
 intendos->intends
 intenisty->intensity
 intenseley->intensely
-intensional->intentional
 intensionally->intentionally
 intensions->intentions
 intensitiy->intensity
@@ -17125,8 +17122,6 @@ percentige->percentile
 percentille->percentile
 percepcion->perception
 perceptoin->perceptions
-perceptron->perception
-perceptrons->perceptions
 percession->percussion
 percetange->percentages
 percetnage->percentages
@@ -24491,7 +24486,6 @@ undernearth->underneath
 underneeth->underneath
 underneight->underweight
 underneith->underneath
-undernet->underneath
 undernieth->underneath
 undernotes->undertones
 underog->undergo

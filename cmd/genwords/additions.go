@@ -8,6 +8,10 @@ func dictAdditions() map[string]string {
 
 // arent
 var additions = `
+hexidecimal->hexadecimal
+terrabyte->terabyte
+syncronous->synchronous
+asyncronous->asynchronous
 encompase->encompass
 uncomited->uncommitted
 uncommited->uncommitted
