@@ -433,6 +433,9 @@ var badWord = map[string]bool{
 }
 
 var badTypo = map[string]bool{
+	"duplicative":      true, // real word
+	"computable":       true, // real word
+	"incomputable":     true, // real word
 	"summarie":         true, // FP
 	"encompase":        true, // should be corrected to encompass
 	"transitionend":    true, // JS event

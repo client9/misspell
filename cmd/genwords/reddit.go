@@ -1,10 +1,11 @@
 package main
 
 func dictReddit() map[string]string {
-        dict := parseWikipediaFormat(additionsReddit)
-        dict = expandCase(dict)
-        return dict
+	dict := parseWikipediaFormat(additionsReddit)
+	dict = expandCase(dict)
+	return dict
 }
+
 var additionsReddit = `
 abandenment->abandonment
 abandining->abandoning
@@ -4596,7 +4597,6 @@ compuslion->compulsion
 compuslive->compulsive
 compuslory->compulsory
 compustion->compulsion
-computable->compatible
 computacion->computation
 computacional->computational
 computanti->computation
@@ -8063,7 +8063,6 @@ dupilcates->duplicates
 duplicants->duplicates
 duplicas->duplicates
 duplicatas->duplicates
-duplicative->duplicate
 duplicats->duplicates
 duplicitas->duplicates
 duplifaces->duplicates
@@ -11761,7 +11760,6 @@ incomprehensive->incomprehensible
 incomprehesible->incomprehensible
 incomprehinsible->incomprehensible
 incomprihensible->incomprehensible
-incomputable->incompatible
 inconcequential->inconsequential
 inconciderate->inconsiderate
 inconcistencies->inconsistencies
