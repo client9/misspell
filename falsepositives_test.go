@@ -6,6 +6,7 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"convertors", // alt spelling
 		"adventurers",
 		" s.svc.GetObject ",
 		"infinitie.net",
