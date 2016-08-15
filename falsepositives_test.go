@@ -6,8 +6,9 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
-		"perceptron", // http://foldoc.org/perceptron
-		"convertors", // alt spelling
+		"perceptron",  // http://foldoc.org/perceptron
+		"perceptrons", // ^^
+		"convertors",  // alt spelling
 		"adventurers",
 		" s.svc.GetObject ",
 		"infinitie.net",
