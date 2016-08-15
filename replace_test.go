@@ -58,6 +58,7 @@ func TestReplace(t *testing.T) {
 		{" TOOD: foobar", " TODO: foobar"},
 		{" preceed ", " precede "},
 		{"preceeding", "preceding"},
+		{"functionallity", "functionality"},
 	}
 	r := New()
 	for line, tt := range cases {

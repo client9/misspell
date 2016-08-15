@@ -10153,8 +10153,6 @@ funcitons->functions
 functionable->functional
 functionailty->functionality
 functionaliy->functionally
-functionallity->functionality
-functionallity->functionally
 functionalty->functionality
 functionaly->functionality
 functionaly->functionally
