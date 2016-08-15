@@ -36,7 +36,7 @@ if new-word in list of replacements
 new word not original, and not in list of replacements
   some substring got mixed up.  UNdo
 */
-func recheckLine(s string, rep *strings.Replacer, corrected map[string]bool) (string, []Diff) {
+func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (string, []Diff) {
 	diffs := []Diff{}
 	out := ""
 	first := 0
@@ -50,7 +50,7 @@ func recheckLine(s string, rep *strings.Replacer, corrected map[string]bool) (st
 			// no replacement done
 			continue
 		}
-		if corrected[strings.ToLower(newword)] {
+		if corrected[strings.ToLower(word)] == strings.ToLower(newword) {
 			// word got corrected into something we know
 			out += s[first:ab[0]] + newword
 			first = ab[1]
@@ -78,7 +78,7 @@ type Diff struct {
 
 // DiffLines produces a grep-like diff between two strings showing
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
-func DiffLines(input, output string, r *strings.Replacer, c map[string]bool) (string, []Diff) {
+func DiffLines(input, output string, r *strings.Replacer, c map[string]string) (string, []Diff) {
 	var changes []Diff
 
 	// fast case -- no changes!
@@ -114,7 +114,7 @@ type Replacer struct {
 	Replacements []string
 	Debug        bool
 	engine       *strings.Replacer
-	corrected    map[string]bool
+	corrected    map[string]string
 }
 
 // New creates a new default Replacer using the main rule list
@@ -150,9 +150,9 @@ func (r *Replacer) AddRuleList(additions []string) {
 
 // Compile compiles the rules.  Required before using the Replace functions
 func (r *Replacer) Compile() {
-	r.corrected = make(map[string]bool)
-	for i := 1; i < len(r.Replacements); i += 2 {
-		r.corrected[strings.ToLower(r.Replacements[i])] = true
+	r.corrected = make(map[string]string)
+	for i := 0; i < len(r.Replacements); i += 2 {
+		r.corrected[strings.ToLower(r.Replacements[i])] = strings.ToLower(r.Replacements[i+1])
 	}
 	r.engine = strings.NewReplacer(r.Replacements...)
 }

@@ -72,9 +72,9 @@ func TestReplace(t *testing.T) {
 func TestCheckReplace(t *testing.T) {
 
 	r := strings.NewReplacer("foo", "foobar", "runing", "running")
-	c := map[string]bool{
-		"foobar":  true,
-		"running": true,
+	c := map[string]string{
+		"foo":    "foobar",
+		"runing": "running",
 	}
 
 	s := "nothing at all"
