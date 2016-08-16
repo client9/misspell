@@ -238,7 +238,7 @@ func main() {
 
 	switch *format {
 	case "sqlite", "sqlite3":
-		log.Println(sqliteFooter)
+		stdout.Println(sqliteFooter)
 	}
 
 	if count != 0 && *exitError {
