@@ -73,7 +73,14 @@ expert in the English language.
 <a name="recursive"></a>
 ### How do you check an entire folder recursively?
 
-You can run misspell recursively using the following shell tricks:
+Just list a directory you'd like to check
+
+```bash
+misspell .
+misspell aDirectory anotherDirectory aFile
+```
+
+You can also run misspell recursively using the following shell tricks:
 
 ```bash
 misspell directory/**/*
@@ -82,7 +89,7 @@ misspell directory/**/*
 or
 
 ```bash
-find . -name '*' | xargs misspell
+find . -type f | xargs misspell
 ```
 
 <a name="stdin"></a>
