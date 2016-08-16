@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"text/template"
@@ -218,7 +219,7 @@ func main() {
 		return
 	}
 
-	c := make(chan string, len(args))
+	c := make(chan string, 64)
 	results := make(chan int, *workers)
 
 	for i := 0; i < *workers; i++ {
@@ -226,7 +227,12 @@ func main() {
 	}
 
 	for _, filename := range args {
-		c <- filename
+		filepath.Walk(filename, func(path string, info os.FileInfo, err error) error {
+			if err == nil && !info.IsDir() {
+				c <- path
+			}
+			return nil
+		})
 	}
 	close(c)
 
