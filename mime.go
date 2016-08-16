@@ -26,6 +26,7 @@ var binary = map[string]bool{
 	".dll":   true, // shared library
 	".exe":   true, // binary
 	".gif":   true, // image
+	".gpg":   true, // text, but really all base64
 	".gz":    true, // compression
 	".ico":   true, // image
 	".jar":   true, // archive
