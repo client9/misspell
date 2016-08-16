@@ -24,6 +24,8 @@ ticket](https://github.com/client9/misspell/issues) please.
 * [Using pipes and stdin](#stdin)
 * [Golang special support](#golang)
 * [gometalinter support](#gometalinter)
+* [CSV Output](#csv)
+* [Using SQLite3](#sqlite)
 * [Changing output format](#output)
 * [Checking a folder recursively](#recursive)
 * [Performance](#performance)
@@ -154,17 +156,65 @@ of `misspell`
 
 You may wish to run this on your plaintext (.txt) and/or markdown files too.
 
+
+<a name="csv"</a>
+### How Can I Get CSV Output?
+
+Using `-f csv`, the output is standard comma-seprated values with headers in the first row.
+
+```
+misspell -f csv *
+file,line,column,typo,corrected
+"README.md",9,22,langauge,language
+"README.md",47,25,langauge,language
+```
+
+<a name="sqlite"</a>
+### How can I export to SQLite3? 
+
+Using `-f sqlite`, the output is a [sqlite3](https://www.sqlite.org/index.html) dump-file.
+
+```bash
+$ misspell -f sqlite * > /tmp/misspell.sql
+$ cat /tmp/misspell.sql
+
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE misspell(
+  "file" TEXT,
+  "line" INTEGER,i
+  "column" INTEGER,i
+  "typo" TEXT,
+  "corrected" TEXT
+);
+INSERT INTO misspell VALUES("install.txt",202,31,"immediatly","immediately");
+# etc...
+COMMIT;
+```
+
+```bash
+$ sqlite3 -init /tmp/misspell.sql :memory: 'select count(*) from misspell'
+1
+```
+
+With some tricks you can directly pipe output to sqlite3 by using `-init /dev/stdin`:
+
+```
+misspell -f sqlite * | sqlite3 -init /dev/stdin -column -cmd '.width 60 15' ':memory' \
+    'select substr(file,35),typo,count(*) as count from misspell group by file, typo order by count desc;'
+```
+
 <a name="output"></a>
 ### How can I change the output format?
 
 Using the `-f template` flag you can pass in a
 [golang text template](https://golang.org/pkg/text/template/) to format the output.
 
-The built-in template uses everything, including the `js` function to escape
-the original text.
+One can use `printf "%q" VALUE` to safely quote a value.
 
+The default template is compatible with [gometalinter](https://github.com/alecthomas/gometalinter)
 ```
-{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ js .Original }}" to "{{ js .Corrected }}"
+{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected {{ printf "%q" .Original }} to "{{ printf "%q" .Corrected }}"
 ```
 
 To just print probable misspellings:

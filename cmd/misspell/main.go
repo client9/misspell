@@ -16,12 +16,22 @@ import (
 var (
 	defaultWrite *template.Template
 	defaultRead  *template.Template
-	stdout       *log.Logger // see below in init()
+
+	stdout *log.Logger // see below in init()
 )
 
 const (
 	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
 	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:found "{{ js .Original }}" a misspelling of "{{ js .Corrected }}"`
+	csvTmpl          = `{{ printf "%q" .Filename }},{{ .Line }},{{ .Column }},{{ .Original }},{{ .Corrected }}`
+	csvHeader        = `file,line,column,typo,corrected`
+	sqliteTmpl       = `INSERT INTO misspell VALUES({{ printf "%q" .Filename }},{{ .Line }},{{ .Column }},{{ printf "%q" .Original }},{{ printf "%q" .Corrected }});`
+	sqliteHeader     = `PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE misspell(
+	"file" TEXT, "line" INTEGER, "column" INTEGER, "typo" TEXT, "corrected" TEXT
+);`
+	sqliteFooter = "COMMIT;"
 )
 
 func init() {
@@ -82,7 +92,7 @@ func main() {
 	quiet := flag.Bool("q", false, "quiet")
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
-	format := flag.String("f", "", "use Golang template for log message")
+	format := flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
 	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
 	locale := flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
@@ -133,13 +143,26 @@ func main() {
 	//
 	// Custom output
 	//
-	if len(*format) > 0 {
-		t, err := template.New("custom").Parse(*format)
-		if err != nil {
-			log.Fatalf("Unable to compile log format: %s", err)
+	switch *format {
+	case "csv":
+		tmpl := template.Must(template.New("csv").Parse(csvTmpl))
+		defaultWrite = tmpl
+		defaultRead = tmpl
+		stdout.Println(csvHeader)
+	case "sqlite", "sqlite3":
+		tmpl := template.Must(template.New("sqlite3").Parse(sqliteTmpl))
+		defaultWrite = tmpl
+		defaultRead = tmpl
+		stdout.Println(sqliteHeader)
+	default:
+		if len(*format) > 0 {
+			t, err := template.New("custom").Parse(*format)
+			if err != nil {
+				log.Fatalf("Unable to compile log format: %s", err)
+			}
+			defaultWrite = t
+			defaultRead = t
 		}
-		defaultWrite = t
-		defaultRead = t
 	}
 
 	//
@@ -176,16 +199,21 @@ func main() {
 		if !*quiet {
 			for _, diff := range changes {
 				diff.Filename = "stdin"
+				var output bytes.Buffer
 				if *writeit {
-					defaultWrite.Execute(os.Stderr, diff)
+					defaultWrite.Execute(&output, diff)
 				} else {
-					defaultRead.Execute(os.Stderr, diff)
+					defaultRead.Execute(&output, diff)
 				}
-				os.Stderr.Write([]byte("\n"))
+				stdout.Println(output.String())
 			}
 		}
 		if *writeit {
-			os.Stdout.Write([]byte(updated))
+			stdout.Println(updated)
+		}
+		switch *format {
+		case "sqlite", "sqlite3":
+			stdout.Println(sqliteFooter)
 		}
 		return
 	}
@@ -207,6 +235,12 @@ func main() {
 		changed := <-results
 		count += changed
 	}
+
+	switch *format {
+	case "sqlite", "sqlite3":
+		log.Println(sqliteFooter)
+	}
+
 	if count != 0 && *exitError {
 		// log.Printf("Got %d", count)
 		// error
