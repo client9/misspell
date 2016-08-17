@@ -86,7 +86,7 @@ func main() {
 	var (
 		workers   = flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 		writeit   = flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
-		quietFlag = flag.Bool("quiet", false, "Do not emit misspelling output")
+		quietFlag = flag.Bool("q", false, "Do not emit misspelling output")
 		outFlag   = flag.String("o", "stdout", "output file or [stderr|stdout|]")
 		format    = flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
 		ignores   = flag.String("i", "", "ignore the following corrections, comma separated")
