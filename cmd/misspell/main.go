@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/client9/misspell"
 )
@@ -19,6 +20,7 @@ var (
 	defaultRead  *template.Template
 
 	stdout *log.Logger
+	debug  *log.Logger
 )
 
 const (
@@ -80,6 +82,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 }
 
 func main() {
+	t := time.Now()
 	quiet := flag.Bool("q", false, "quiet")
 	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
 	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
@@ -87,16 +90,21 @@ func main() {
 	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
 	locale := flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
 	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
-	debug := flag.Bool("debug", false, "Debug matching, very slow")
+	debugFlag := flag.Bool("debug", false, "Debug matching, very slow")
 	exitError := flag.Bool("error", false, "Exit with 2 if misspelling found")
 
 	flag.Parse()
 
-	r := misspell.Replacer{
-		Replacements: misspell.DictMain,
-		Debug:        *debug,
+	if *debugFlag {
+		debug = log.New(os.Stderr, "DEBUG ", 0)
+	} else {
+		debug = log.New(ioutil.Discard, "", 0)
 	}
 
+	r := misspell.Replacer{
+		Replacements: misspell.DictMain,
+		Debug:        *debugFlag,
+	}
 	//
 	// Figure out regional variations
 	//
@@ -171,7 +179,7 @@ func main() {
 	if *workers == 0 {
 		*workers = runtime.NumCPU()
 	}
-	if *debug {
+	if *debugFlag {
 		*workers = 1
 	}
 
@@ -182,6 +190,7 @@ func main() {
 	r.Compile()
 
 	args := flag.Args()
+	debug.Printf("initialization complete in %v", time.Since(t))
 
 	// unix style pipes: different output module
 	// stdout: output of corrected text
