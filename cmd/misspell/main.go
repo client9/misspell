@@ -83,16 +83,18 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 
 func main() {
 	t := time.Now()
-	quiet := flag.Bool("q", false, "quiet")
-	workers := flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
-	writeit := flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
-	format := flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
-	ignores := flag.String("i", "", "ignore the following corrections, comma separated")
-	locale := flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
-	mode := flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
-	debugFlag := flag.Bool("debug", false, "Debug matching, very slow")
-	exitError := flag.Bool("error", false, "Exit with 2 if misspelling found")
-
+	var (
+		workers   = flag.Int("j", 0, "Number of workers, 0 = number of CPUs")
+		writeit   = flag.Bool("w", false, "Overwrite file with corrections (default is just to display)")
+		quietFlag = flag.Bool("quiet", false, "Do not emit misspelling output")
+		outFlag   = flag.String("o", "stdout", "output file or [stderr|stdout|]")
+		format    = flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
+		ignores   = flag.String("i", "", "ignore the following corrections, comma separated")
+		locale    = flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
+		mode      = flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
+		debugFlag = flag.Bool("debug", false, "Debug matching, very slow")
+		exitError = flag.Bool("error", false, "Exit with 2 if misspelling found")
+	)
 	flag.Parse()
 
 	if *debugFlag {
@@ -168,7 +170,23 @@ func main() {
 	// we cant't just write to os.Stdout directly since we have multiple goroutine
 	// all writing at the same time causing broken output.  Log is routine safe.
 	// we see it so it doesn't use a prefix or include a time stamp.
-	stdout = log.New(os.Stdout, "", 0)
+	switch {
+	case *quietFlag || *outFlag == "/dev/null":
+		stdout = log.New(ioutil.Discard, "", 0)
+	case *outFlag == "/dev/stderr" || *outFlag == "stderr":
+		stdout = log.New(os.Stderr, "", 0)
+	case *outFlag == "/dev/stdout" || *outFlag == "stdout":
+		stdout = log.New(os.Stdout, "", 0)
+	case *outFlag == "" || *outFlag == "-":
+		stdout = log.New(os.Stdout, "", 0)
+	default:
+		fo, err := os.Create(*outFlag)
+		if err != nil {
+			log.Fatalf("unable to create outfile %q: %s", *outFlag, err)
+		}
+		defer fo.Close()
+		stdout = log.New(fo, "", 0)
+	}
 
 	//
 	// Number of Workers / CPU to use
@@ -202,7 +220,7 @@ func main() {
 		}
 		orig := string(raw)
 		updated, changes := r.Replace(orig)
-		if !*quiet {
+		if !*quietFlag {
 			for _, diff := range changes {
 				diff.Filename = "stdin"
 				var output bytes.Buffer
