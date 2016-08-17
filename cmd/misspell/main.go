@@ -18,7 +18,7 @@ var (
 	defaultWrite *template.Template
 	defaultRead  *template.Template
 
-	stdout *log.Logger // see below in init()
+	stdout *log.Logger
 )
 
 const (
@@ -34,16 +34,6 @@ CREATE TABLE misspell(
 );`
 	sqliteFooter = "COMMIT;"
 )
-
-func init() {
-	defaultWrite = template.Must(template.New("defaultWrite").Parse(defaultWriteTmpl))
-	defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
-
-	// we cant't just write to os.Stdout directly since we have multiple goroutine
-	// all writing at the same time causing broken output.  Log is routine safe.
-	// we see it so it doesn't use a prefix or include a time stamp.
-	stdout = log.New(os.Stdout, "", 0)
-}
 
 func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string, results chan<- int) {
 	count := 0
@@ -144,27 +134,33 @@ func main() {
 	//
 	// Custom output
 	//
-	switch *format {
-	case "csv":
+	switch {
+	case *format == "csv":
 		tmpl := template.Must(template.New("csv").Parse(csvTmpl))
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(csvHeader)
-	case "sqlite", "sqlite3":
+	case *format == "sqlite" || *format == "sqlite3":
 		tmpl := template.Must(template.New("sqlite3").Parse(sqliteTmpl))
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(sqliteHeader)
-	default:
-		if len(*format) > 0 {
-			t, err := template.New("custom").Parse(*format)
-			if err != nil {
-				log.Fatalf("Unable to compile log format: %s", err)
-			}
-			defaultWrite = t
-			defaultRead = t
+	case len(*format) > 0:
+		t, err := template.New("custom").Parse(*format)
+		if err != nil {
+			log.Fatalf("Unable to compile log format: %s", err)
 		}
+		defaultWrite = t
+		defaultRead = t
+	default: // format == ""
+		defaultWrite = template.Must(template.New("defaultWrite").Parse(defaultWriteTmpl))
+		defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
 	}
+
+	// we cant't just write to os.Stdout directly since we have multiple goroutine
+	// all writing at the same time causing broken output.  Log is routine safe.
+	// we see it so it doesn't use a prefix or include a time stamp.
+	stdout = log.New(os.Stdout, "", 0)
 
 	//
 	// Number of Workers / CPU to use
