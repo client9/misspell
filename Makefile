@@ -6,9 +6,18 @@ install:
 	go install ./cmd/misspell
 
 lint: 
-	golint ./...
-	go vet ./...
-	find . -name '*.go' | xargs gofmt -w -s
+	gometalinter \
+		 --vendor \
+		 --deadline=60s \
+	         --disable-all \
+		 --enable=vet \
+		 --enable=golint \
+		 --enable=gofmt \
+		 --enable=goimports \
+		 --enable=gosimple \
+		 --enable=staticcheck \
+		 --enable=ineffassign \
+		 ./...
 
 test: install
 	go test .
