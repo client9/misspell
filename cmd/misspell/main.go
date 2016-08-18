@@ -252,6 +252,7 @@ func main() {
 	for _, filename := range args {
 		filepath.Walk(filename, func(path string, info os.FileInfo, err error) error {
 			if err == nil && !info.IsDir() {
+				debug.Printf("Processing %s", path)
 				c <- path
 			}
 			return nil

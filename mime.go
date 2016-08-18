@@ -18,38 +18,38 @@ import (
 // Golang's internal table is very small and can't be
 // relied on.  Even then things like ".js" have a mime
 // type of "application/javascipt" which isn't very helpful.
-//
+// "[x]" means we have  sniff test and suffix test should be eliminated
 var binary = map[string]bool{
-	".a":     true, // archive
-	".bin":   true, // binary
-	".bz2":   true, // compression
-	".class": true, // Java class file
-	".dll":   true, // shared library
-	".exe":   true, // binary
-	".gif":   true, // image
-	".gpg":   true, // text, but really all base64
-	".gz":    true, // compression
-	".ico":   true, // image
-	".jar":   true, // archive
-	".jpeg":  true, // image
-	".jpg":   true, // image
-	".mp3":   true, // audio
-	".mp4":   true, // video
-	".mpeg":  true, // video
-	".o":     true, // object file
-	".pdf":   true, // pdf -- might be possible to use this later
-	".png":   true, // image
-	".pyc":   true, // Python bytecode
-	".pyo":   true, // Python bytecode
-	".so":    true, // shared library
-	".swp":   true, // vim swap file
-	".tar":   true, // archive
-	".tiff":  true, // image
-	".woff":  true, // font
-	".woff2": true, // font
-	".xz":    true, // compression
-	".z":     true, // compression
-	".zip":   true, // archive
+	".a":     true, // [ ] archive
+	".bin":   true, // [ ] binary
+	".bz2":   true, // [ ] compression
+	".class": true, // [x] Java class file
+	".dll":   true, // [ ] shared library
+	".exe":   true, // [ ] binary
+	".gif":   true, // [ ] image
+	".gpg":   true, // [x] text, but really all base64
+	".gz":    true, // [ ] compression
+	".ico":   true, // [ ] image
+	".jar":   true, // [x] archive
+	".jpeg":  true, // [ ] image
+	".jpg":   true, // [ ] image
+	".mp3":   true, // [ ] audio
+	".mp4":   true, // [ ] video
+	".mpeg":  true, // [ ] video
+	".o":     true, // [ ] object file
+	".pdf":   true, // [x] pdf
+	".png":   true, // [x] image
+	".pyc":   true, // [ ] Python bytecode
+	".pyo":   true, // [ ] Python bytecode
+	".so":    true, // [x] shared library
+	".swp":   true, // [ ] vim swap file
+	".tar":   true, // [ ] archive
+	".tiff":  true, // [ ] image
+	".woff":  true, // [ ] font
+	".woff2": true, // [ ] font
+	".xz":    true, // [ ] compression
+	".z":     true, // [ ] compression
+	".zip":   true, // [x] archive
 }
 
 // isBinaryFilename returns true if the file is likely to be binary
@@ -82,15 +82,41 @@ func isSCMPath(s string) bool {
 	return false
 }
 
-func isTextFile(raw []byte) bool {
+var magicHeaders = [][]byte{
 	// Issue #68
 	// PGP messages and signatures are "text" but really just
 	// blobs of base64-text and should not be misspell-checked
-	if bytes.HasPrefix(raw, []byte("-----BEGIN PGP MESSAGE-----")) {
-		return false
-	}
-	if bytes.HasPrefix(raw, []byte("-----BEGIN PGP SIGNATURE-----")) {
-		return false
+	[]byte("-----BEGIN PGP MESSAGE-----"),
+	[]byte("-----BEGIN PGP SIGNATURE-----"),
+
+	// ELF
+	{0x7f, 0x45, 0x4c, 0x46},
+
+	// Postscript
+	{0x25, 0x21, 0x50, 0x53},
+
+	// PDF
+	{0x25, 0x50, 0x44, 0x46},
+
+	// Java class file
+	// https://en.wikipedia.org/wiki/Java_class_file
+	{0xCA, 0xFE, 0xBA, 0xBE},
+
+	// PNG
+	// https://en.wikipedia.org/wiki/Portable_Network_Graphics
+	{0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a},
+
+	// ZIP, JAR, ODF, OOXML
+	{0x50, 0x4B, 0x03, 0x04},
+	{0x50, 0x4B, 0x05, 0x06},
+	{0x50, 0x4B, 0x07, 0x08},
+}
+
+func isTextFile(raw []byte) bool {
+	for _, magic := range magicHeaders {
+		if bytes.HasPrefix(raw, magic) {
+			return false
+		}
 	}
 
 	// allow any text/ type with utf-8 encoding
@@ -111,7 +137,7 @@ func isTextFile(raw []byte) bool {
 //   1 more stat,open, read everything, close (via ioutil.ReadAll)
 //  This could be kinder to the filesystem.
 //
-// This uses some heuristics of the file's extenion (e.g. .zip, .txt) and
+// This uses some heuristics of the file's extension (e.g. .zip, .txt) and
 // uses a sniffer to determine if the file is text or not.
 // Using file extensions isn't great, but probably
 // good enough for real-world use.
