@@ -1,6 +1,7 @@
 package misspell
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -82,6 +83,16 @@ func isSCMPath(s string) bool {
 }
 
 func isTextFile(raw []byte) bool {
+	// Issue #68
+	// PGP messages and signatures are "text" but really just
+	// blobs of base64-text and should not be misspell-checked
+	if bytes.HasPrefix(raw, []byte("-----BEGIN PGP MESSAGE-----")) {
+		return false
+	}
+	if bytes.HasPrefix(raw, []byte("-----BEGIN PGP SIGNATURE-----")) {
+		return false
+	}
+
 	// allow any text/ type with utf-8 encoding
 	// DetectContentType sometimes returns charset=utf-16 for XML stuff
 	//  in which case ignore.
