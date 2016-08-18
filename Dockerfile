@@ -9,17 +9,10 @@ RUN apk add --no-cache git make
 
 # these are my standard testing / linting tools
 RUN /bin/true \
-    && go get -u github.com/golang/lint/golint \
-    && go get -u golang.org/x/tools/cmd/goimports \
-    && go get -u golang.org/x/tools/cmd/vet \
     && go get -u github.com/alecthomas/gometalinter \
-    && go get -u github.com/mattn/goveralls \
+    && gometalinter --install \
     && rm -rf /go/src /go/pkg
-`
-# This creates a testing image for `misspell`
 #
-# * Alpine Linux
-# * Golang
 # * SCOWL word list
 #
 # Downloads
