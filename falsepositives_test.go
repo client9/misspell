@@ -6,6 +6,8 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"parallelise",
+		"parallelize",
 		"perceptron",  // http://foldoc.org/perceptron
 		"perceptrons", // ^^
 		"convertors",  // alt spelling
