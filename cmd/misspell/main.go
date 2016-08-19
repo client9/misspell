@@ -49,6 +49,8 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 			continue
 		}
 
+		debug.Printf("Processing %s", filename)
+
 		updated, changes := r.Replace(orig)
 
 		if len(changes) == 0 {
@@ -252,7 +254,6 @@ func main() {
 	for _, filename := range args {
 		filepath.Walk(filename, func(path string, info os.FileInfo, err error) error {
 			if err == nil && !info.IsDir() {
-				debug.Printf("Processing %s", path)
 				c <- path
 			}
 			return nil
