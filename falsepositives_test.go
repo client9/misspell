@@ -6,6 +6,8 @@ import (
 
 func TestFalsePositives(t *testing.T) {
 	cases := []string{
+		"requesters",
+		"requestors",
 		"replicaset",
 		"parallelise",
 		"parallelize",
