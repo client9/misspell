@@ -37,8 +37,12 @@ new word not original, and not in list of replacements
   some substring got mixed up.  UNdo
 */
 func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (string, []Diff) {
-	diffs := []Diff{}
-	out := ""
+	// pre-allocate up to 4 corrections per line
+	diffs := make([]Diff, 0, 4)
+
+	// add a little extra to deal with minor expansions/contractions
+	out := bytes.NewBuffer(make([]byte, 0, len(s)+100))
+
 	first := 0
 	redacted := RemoveNotWords(s)
 
@@ -52,7 +56,8 @@ func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (
 		}
 		if corrected[strings.ToLower(word)] == strings.ToLower(newword) {
 			// word got corrected into something we know
-			out += s[first:ab[0]] + newword
+			out.WriteString(s[first:ab[0]])
+			out.WriteString(newword)
 			first = ab[1]
 			diffs = append(diffs, Diff{
 				Original:  word,
@@ -63,8 +68,8 @@ func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (
 		}
 		// Word got corrected into something unknown. Ignore it
 	}
-	out += s[first:]
-	return out, diffs
+	out.WriteString(s[first:])
+	return out.String(), diffs
 }
 
 // Diff is datastructure showing what changed in a single line
@@ -76,16 +81,10 @@ type Diff struct {
 	Corrected string
 }
 
-// DiffLines produces a grep-like diff between two strings showing
+// diffLines produces a grep-like diff between two strings showing
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
-func DiffLines(input, output string, r *strings.Replacer, c map[string]string) (string, []Diff) {
-	var changes []Diff
-
-	// fast case -- no changes!
-	if output == input {
-		return output, changes
-	}
-
+func diffLines(input, output string, r *strings.Replacer, c map[string]string) (string, []Diff) {
+	changes := make([]Diff, 0, 16)
 	buf := bytes.Buffer{}
 	buf.Grow(max(len(output), len(input)))
 
@@ -160,6 +159,10 @@ func (r *Replacer) Compile() {
 // Replace make spelling corrects to the input string
 func (r *Replacer) Replace(input string) (string, []Diff) {
 	news := r.engine.Replace(input)
-	news, changes := DiffLines(input, news, r.engine, r.corrected)
-	return news, changes
+	if input == news {
+		return input, nil
+	}
+
+	// changes were made, diffLines rechecks and undoes bad corrections
+	return diffLines(input, news, r.engine, r.corrected)
 }
