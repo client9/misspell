@@ -36,12 +36,9 @@ if new-word in list of replacements
 new word not original, and not in list of replacements
   some substring got mixed up.  UNdo
 */
-func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (string, []Diff) {
+func recheckLine(s string, buf *bytes.Buffer, rep *strings.Replacer, corrected map[string]string) []Diff {
 	// pre-allocate up to 4 corrections per line
 	diffs := make([]Diff, 0, 4)
-
-	// add a little extra to deal with minor expansions/contractions
-	out := bytes.NewBuffer(make([]byte, 0, len(s)+100))
 
 	first := 0
 	redacted := RemoveNotWords(s)
@@ -56,8 +53,8 @@ func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (
 		}
 		if corrected[strings.ToLower(word)] == strings.ToLower(newword) {
 			// word got corrected into something we know
-			out.WriteString(s[first:ab[0]])
-			out.WriteString(newword)
+			buf.WriteString(s[first:ab[0]])
+			buf.WriteString(newword)
 			first = ab[1]
 			diffs = append(diffs, Diff{
 				Original:  word,
@@ -68,8 +65,8 @@ func recheckLine(s string, rep *strings.Replacer, corrected map[string]string) (
 		}
 		// Word got corrected into something unknown. Ignore it
 	}
-	out.WriteString(s[first:])
-	return out.String(), diffs
+	buf.WriteString(s[first:])
+	return diffs
 }
 
 // Diff is datastructure showing what changed in a single line
@@ -85,8 +82,7 @@ type Diff struct {
 // filename, linenum and change.  It is not meant to be a comprehensive diff.
 func diffLines(input, output string, r *strings.Replacer, c map[string]string) (string, []Diff) {
 	changes := make([]Diff, 0, 16)
-	buf := bytes.Buffer{}
-	buf.Grow(max(len(output), len(input)))
+	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
 
 	// line by line to make nice output
 	// This is horribly slow.
@@ -97,8 +93,7 @@ func diffLines(input, output string, r *strings.Replacer, c map[string]string) (
 			buf.WriteString(outlines[i])
 			continue
 		}
-		newline, linediffs := recheckLine(inlines[i], r, c)
-		buf.WriteString(newline)
+		linediffs := recheckLine(inlines[i], buf, r, c)
 		for _, d := range linediffs {
 			d.Line = i + 1
 			changes = append(changes, d)
