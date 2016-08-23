@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"flag"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -216,12 +217,12 @@ func main() {
 	// stdout: output of corrected text
 	// stderr: output of log lines
 	if len(args) == 0 {
-		raw, err := ioutil.ReadAll(os.Stdin)
-		if err != nil {
-			log.Fatalf("Unable to read stdin")
+		var writer io.Writer
+		writer = os.Stdout
+		if !*writeit {
+			writer = ioutil.Discard
 		}
-		orig := string(raw)
-		updated, changes := r.Replace(orig)
+		changes := r.ReplaceReader(os.Stdin, writer)
 		if !*quietFlag {
 			for _, diff := range changes {
 				diff.Filename = "stdin"
@@ -234,12 +235,9 @@ func main() {
 				stdout.Println(output.String())
 			}
 		}
-		if *writeit {
-			stdout.Println(updated)
-		}
 		switch *format {
 		case "sqlite", "sqlite3":
-			stdout.Println(sqliteFooter)
+			writer.Write([]byte(sqliteFooter))
 		}
 		return
 	}
