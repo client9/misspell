@@ -1,7 +1,9 @@
 package misspell
 
 import (
+	"bufio"
 	"bytes"
+	"io"
 	"regexp"
 	"strings"
 )
@@ -144,6 +146,7 @@ func (r *Replacer) AddRuleList(additions []string) {
 
 // Compile compiles the rules.  Required before using the Replace functions
 func (r *Replacer) Compile() {
+
 	r.corrected = make(map[string]string)
 	for i := 0; i < len(r.Replacements); i += 2 {
 		r.corrected[strings.ToLower(r.Replacements[i])] = strings.ToLower(r.Replacements[i+1])
@@ -151,7 +154,7 @@ func (r *Replacer) Compile() {
 	r.engine = strings.NewReplacer(r.Replacements...)
 }
 
-// Replace make spelling corrects to the input string
+// Replace makes spelling corrections to the input string
 func (r *Replacer) Replace(input string) (string, []Diff) {
 	news := r.engine.Replace(input)
 	if input == news {
@@ -160,4 +163,42 @@ func (r *Replacer) Replace(input string) (string, []Diff) {
 
 	// changes were made, diffLines rechecks and undoes bad corrections
 	return diffLines(input, news, r.engine, r.corrected)
+}
+
+// ReplaceReader applies spelling corrections to a reader stream
+func (r *Replacer) ReplaceReader(raw io.Reader, w io.Writer) []Diff {
+	var (
+		err     error
+		orig    string
+		changes = make([]Diff, 0, 16)
+		lineNum int
+	)
+	buf := bytes.Buffer{}
+	reader := bufio.NewReader(raw)
+	for {
+		lineNum++
+		orig, err = reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		// easily 5x faster than regexp+map
+		correct := r.engine.Replace(orig)
+		if orig == correct {
+			w.Write([]byte(orig))
+			continue
+		}
+
+		// but it can be inaccurate, so we need to double check
+		buf.Reset()
+		linediffs := recheckLine(orig, &buf, r.engine, r.corrected)
+		for _, d := range linediffs {
+			d.Line = lineNum
+			changes = append(changes, d)
+		}
+		w.Write(buf.Bytes())
+	}
+	if err == io.EOF {
+		return changes
+	}
+	return nil
 }

@@ -23,6 +23,9 @@ test: install
 	go test .
 	misspell *.md replace.go cmd/misspell/*.go
 
+bench:
+	go test -bench '.*'
+
 # the grep in line 2 is to remove misspellings in the spelling dictionary
 # that trigger false positives!!
 falsepositives: /scowl-wl
