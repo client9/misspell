@@ -18,12 +18,14 @@ func init() {
 
 	buf := bytes.Buffer{}
 	for i := 0; i < len(DictMain); i += 2 {
-		buf.WriteString(DictMain[i+1] + "\n")
+		buf.WriteString(DictMain[i+1] + " ")
+		if i%5 == 0 {
+			buf.WriteString("\n")
+		}
 	}
 	sampleClean = buf.String()
 	sampleDirty = sampleClean + DictMain[0] + "\n"
 	rep = New()
-
 }
 
 // BenchmarkCleanString takes a clean string (one with no errors)
@@ -43,21 +45,23 @@ func BenchmarkCleanString(b *testing.B) {
 	tmp = updated
 }
 
+func discardDiff(_ Diff) {
+	tmpCount++
+}
+
 // BenchmarkCleanStream takes a clean reader (no misspells) and outputs to a buffer
 func BenchmarkCleanStream(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
-	count := 0
+	tmpCount = 0
 	buf := bytes.NewBufferString(sampleClean)
 	out := bytes.NewBuffer(make([]byte, 0, len(sampleClean)+100))
 	for n := 0; n < b.N; n++ {
 		buf.Reset()
 		buf.WriteString(sampleClean)
 		out.Reset()
-		diffs := rep.ReplaceReader(buf, out)
-		count += len(diffs)
+		rep.ReplaceReader(buf, out, discardDiff)
 	}
-	tmpCount = count
 }
 
 // BenchmarkCleanStreamDiscard takes a clean reader and discards output
@@ -66,15 +70,12 @@ func BenchmarkCleanStreamDiscard(b *testing.B) {
 	b.ReportAllocs()
 
 	buf := bytes.NewBufferString(sampleClean)
-	count := 0
+	tmpCount = 0
 	for n := 0; n < b.N; n++ {
 		buf.Reset()
 		buf.WriteString(sampleClean)
-		diffs := rep.ReplaceReader(buf, ioutil.Discard)
-		count += len(diffs)
+		rep.ReplaceReader(buf, ioutil.Discard, discardDiff)
 	}
-
-	tmpCount = count
 }
 
 // BenchmarkCleanString takes a clean string (one with no errors)
@@ -92,21 +93,4 @@ func BenchmarkDirtyString(b *testing.B) {
 	// prevent compilier optimizations
 	tmpCount = count
 	tmp = updated
-}
-
-// BenchmarkCleanStreamDiscard takes a clean reader and discards output
-func BenchmarkDirtyStreamDiscard(b *testing.B) {
-	b.ResetTimer()
-	b.ReportAllocs()
-
-	buf := bytes.NewBufferString(sampleDirty)
-	count := 0
-	for n := 0; n < b.N; n++ {
-		buf.Reset()
-		buf.WriteString(sampleDirty)
-		diffs := rep.ReplaceReader(buf, ioutil.Discard)
-		count += len(diffs)
-	}
-
-	tmpCount = count
 }
