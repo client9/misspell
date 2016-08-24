@@ -38,7 +38,7 @@ if new-word in list of replacements
 new word not original, and not in list of replacements
   some substring got mixed up.  UNdo
 */
-func recheckLine(s string, buf *bytes.Buffer, rep *strings.Replacer, corrected map[string]string) []Diff {
+func recheckLine(s string, lineNum int, buf *bytes.Buffer, rep *strings.Replacer, corrected map[string]string) []Diff {
 	// pre-allocate up to 4 corrections per line
 	diffs := make([]Diff, 0, 4)
 
@@ -59,6 +59,8 @@ func recheckLine(s string, buf *bytes.Buffer, rep *strings.Replacer, corrected m
 			buf.WriteString(newword)
 			first = ab[1]
 			diffs = append(diffs, Diff{
+				FullLine:  s,
+				Line:      lineNum,
 				Original:  word,
 				Corrected: newword,
 				Column:    ab[0],
@@ -74,6 +76,7 @@ func recheckLine(s string, buf *bytes.Buffer, rep *strings.Replacer, corrected m
 // Diff is datastructure showing what changed in a single line
 type Diff struct {
 	Filename  string
+	FullLine  string
 	Line      int
 	Column    int
 	Original  string
@@ -95,11 +98,8 @@ func diffLines(input, output string, r *strings.Replacer, c map[string]string) (
 			buf.WriteString(outlines[i])
 			continue
 		}
-		linediffs := recheckLine(inlines[i], buf, r, c)
-		for _, d := range linediffs {
-			d.Line = i + 1
-			changes = append(changes, d)
-		}
+		linediffs := recheckLine(inlines[i], i+1, buf, r, c)
+		changes = append(changes, linediffs...)
 	}
 
 	return buf.String(), changes
@@ -175,6 +175,7 @@ func (r *Replacer) ReplaceReader(raw io.Reader, w io.Writer) []Diff {
 	)
 	buf := bytes.Buffer{}
 	reader := bufio.NewReader(raw)
+	writer := bufio.NewWriter(w)
 	for {
 		lineNum++
 		orig, err = reader.ReadString('\n')
@@ -182,20 +183,18 @@ func (r *Replacer) ReplaceReader(raw io.Reader, w io.Writer) []Diff {
 			break
 		}
 		// easily 5x faster than regexp+map
-		correct := r.engine.Replace(orig)
-		if orig == correct {
-			w.Write([]byte(orig))
+		if orig == r.engine.Replace(orig) {
+			//w.Write([]byte(orig))
+			writer.WriteString(orig)
 			continue
 		}
 
 		// but it can be inaccurate, so we need to double check
 		buf.Reset()
-		linediffs := recheckLine(orig, &buf, r.engine, r.corrected)
-		for _, d := range linediffs {
-			d.Line = lineNum
-			changes = append(changes, d)
-		}
-		w.Write(buf.Bytes())
+		linediffs := recheckLine(orig, lineNum, &buf, r.engine, r.corrected)
+		changes = append(changes, linediffs...)
+		//w.Write(buf.Bytes())
+		writer.Write(buf.Bytes())
 	}
 	if err == io.EOF {
 		return changes
