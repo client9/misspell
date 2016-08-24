@@ -26,53 +26,6 @@ func inArray(haystack []string, needle string) bool {
 
 var wordRegexp = regexp.MustCompile(`[a-zA-Z0-9']+`)
 
-/*
-line1 and line2 are different
-extract words from each line1
-
-replace word -> newword
-if word == new-word
-  continue
-if new-word in list of replacements
-  continue
-new word not original, and not in list of replacements
-  some substring got mixed up.  UNdo
-*/
-func recheckLine(s string, lineNum int, buf *bytes.Buffer, rep *strings.Replacer, corrected map[string]string) []Diff {
-	// pre-allocate up to 4 corrections per line
-	diffs := make([]Diff, 0, 4)
-
-	first := 0
-	redacted := RemoveNotWords(s)
-
-	idx := wordRegexp.FindAllStringIndex(redacted, -1)
-	for _, ab := range idx {
-		word := s[ab[0]:ab[1]]
-		newword := rep.Replace(word)
-		if newword == word {
-			// no replacement done
-			continue
-		}
-		if corrected[strings.ToLower(word)] == strings.ToLower(newword) {
-			// word got corrected into something we know
-			buf.WriteString(s[first:ab[0]])
-			buf.WriteString(newword)
-			first = ab[1]
-			diffs = append(diffs, Diff{
-				FullLine:  s,
-				Line:      lineNum,
-				Original:  word,
-				Corrected: newword,
-				Column:    ab[0],
-			})
-			continue
-		}
-		// Word got corrected into something unknown. Ignore it
-	}
-	buf.WriteString(s[first:])
-	return diffs
-}
-
 // Diff is datastructure showing what changed in a single line
 type Diff struct {
 	Filename  string
@@ -81,28 +34,6 @@ type Diff struct {
 	Column    int
 	Original  string
 	Corrected string
-}
-
-// diffLines produces a grep-like diff between two strings showing
-// filename, linenum and change.  It is not meant to be a comprehensive diff.
-func diffLines(input, output string, r *strings.Replacer, c map[string]string) (string, []Diff) {
-	changes := make([]Diff, 0, 16)
-	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
-
-	// line by line to make nice output
-	// This is horribly slow.
-	outlines := strings.SplitAfter(output, "\n")
-	inlines := strings.SplitAfter(input, "\n")
-	for i := 0; i < len(inlines); i++ {
-		if inlines[i] == outlines[i] {
-			buf.WriteString(outlines[i])
-			continue
-		}
-		linediffs := recheckLine(inlines[i], i+1, buf, r, c)
-		changes = append(changes, linediffs...)
-	}
-
-	return buf.String(), changes
 }
 
 // Replacer is the main struct for spelling correction
@@ -154,50 +85,112 @@ func (r *Replacer) Compile() {
 	r.engine = strings.NewReplacer(r.Replacements...)
 }
 
-// Replace makes spelling corrections to the input string
+/*
+line1 and line2 are different
+extract words from each line1
+
+replace word -> newword
+if word == new-word
+  continue
+if new-word in list of replacements
+  continue
+new word not original, and not in list of replacements
+  some substring got mixed up.  UNdo
+*/
+func (r *Replacer) recheckLine(s string, lineNum int, buf io.Writer, next func(Diff)) {
+	first := 0
+	redacted := RemoveNotWords(s)
+
+	idx := wordRegexp.FindAllStringIndex(redacted, -1)
+	for _, ab := range idx {
+		word := s[ab[0]:ab[1]]
+		newword := r.engine.Replace(word)
+		if newword == word {
+			// no replacement done
+			continue
+		}
+		if r.corrected[strings.ToLower(word)] == strings.ToLower(newword) {
+			// word got corrected into something we know
+			io.WriteString(buf, s[first:ab[0]])
+			io.WriteString(buf, newword)
+			first = ab[1]
+			next(Diff{
+				FullLine:  s,
+				Line:      lineNum,
+				Original:  word,
+				Corrected: newword,
+				Column:    ab[0],
+			})
+			continue
+		}
+		// Word got corrected into something unknown. Ignore it
+	}
+	io.WriteString(buf, s[first:])
+}
+
 func (r *Replacer) Replace(input string) (string, []Diff) {
-	news := r.engine.Replace(input)
-	if input == news {
+	output := r.engine.Replace(input)
+	if input == output {
 		return input, nil
 	}
+	diffs := make([]Diff, 0, 8)
+	/*
+		reader := bytes.NewBufferString(input)
+		writer := bytes.NewBuffer(make([]byte, 0, len(input)+100))
+		r.ReplaceReader(reader, writer, func(d Diff) {
+			diffs = append(diffs, d)
+		})
+		return writer.String(), diffs
+	*/
+	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
+	// faster that making a bytes.Buffer and bufio.ReadString
+	outlines := strings.SplitAfter(output, "\n")
+	inlines := strings.SplitAfter(input, "\n")
+	for i := 0; i < len(inlines); i++ {
+		if inlines[i] == outlines[i] {
+			buf.WriteString(outlines[i])
+			continue
+		}
+		r.recheckLine(inlines[i], i+1, buf, func(d Diff) {
+			diffs = append(diffs, d)
+		})
+	}
 
-	// changes were made, diffLines rechecks and undoes bad corrections
-	return diffLines(input, news, r.engine, r.corrected)
+	return buf.String(), diffs
+	/*
+
+		out := r.diffLines(input, news, func(d Diff) {
+			diffs = append(diffs, d)
+		})
+		return out, diffs
+	*/
 }
 
 // ReplaceReader applies spelling corrections to a reader stream
-func (r *Replacer) ReplaceReader(raw io.Reader, w io.Writer) []Diff {
+func (r *Replacer) ReplaceReader(raw io.Reader, w io.Writer, next func(Diff)) error {
 	var (
 		err     error
-		orig    string
-		changes = make([]Diff, 0, 16)
+		line    string
 		lineNum int
 	)
-	buf := bytes.Buffer{}
 	reader := bufio.NewReader(raw)
-	writer := bufio.NewWriter(w)
-	for {
+	for err == nil {
 		lineNum++
-		orig, err = reader.ReadString('\n')
-		if err != nil {
-			break
+		line, err = reader.ReadString('\n')
+
+		// if it's EOF, then line has the last line
+		// don't like the check of err here and
+		// in for loop
+		if err != nil && err != io.EOF {
+			return err
 		}
 		// easily 5x faster than regexp+map
-		if orig == r.engine.Replace(orig) {
-			//w.Write([]byte(orig))
-			writer.WriteString(orig)
+		if line == r.engine.Replace(line) {
+			io.WriteString(w, line)
 			continue
 		}
-
 		// but it can be inaccurate, so we need to double check
-		buf.Reset()
-		linediffs := recheckLine(orig, lineNum, &buf, r.engine, r.corrected)
-		changes = append(changes, linediffs...)
-		//w.Write(buf.Bytes())
-		writer.Write(buf.Bytes())
-	}
-	if err == io.EOF {
-		return changes
+		r.recheckLine(line, lineNum, w, next)
 	}
 	return nil
 }

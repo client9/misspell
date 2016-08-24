@@ -1,7 +1,6 @@
 package misspell
 
 import (
-	"bytes"
 	"strings"
 	"testing"
 )
@@ -71,17 +70,16 @@ func TestReplace(t *testing.T) {
 }
 
 func TestCheckReplace(t *testing.T) {
-
-	r := strings.NewReplacer("foo", "foobar", "runing", "running")
-	c := map[string]string{
-		"foo":    "foobar",
-		"runing": "running",
+	r := Replacer{
+		engine: strings.NewReplacer("foo", "foobar", "runing", "running"),
+		corrected: map[string]string{
+			"foo":    "foobar",
+			"runing": "running",
+		},
 	}
 
 	s := "nothing at all"
-	buf := bytes.Buffer{}
-	diffs := recheckLine(s, 1, &buf, r, c)
-	news := buf.String()
+	news, diffs := r.Replace(s)
 	if s != news || len(diffs) != 0 {
 		t.Errorf("Basic recheck failed: %q vs %q", s, news)
 	}
@@ -90,41 +88,31 @@ func TestCheckReplace(t *testing.T) {
 	// Test single, correct,.Correctedacements
 	//
 	s = "foo"
-	buf = bytes.Buffer{}
-	diffs = recheckLine(s, 1, &buf, r, c)
-	news = buf.String()
+	news, diffs = r.Replace(s)
 	if news != "foobar" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 0 {
 		t.Errorf("basic recheck1 failed %q vs %q", s, news)
 	}
 	s = "foo junk"
-	buf = bytes.Buffer{}
-	diffs = recheckLine(s, 1, &buf, r, c)
-	news = buf.String()
+	news, diffs = r.Replace(s)
 	if news != "foobar junk" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 0 {
 		t.Errorf("basic recheck2 failed %q vs %q, %v", s, news, diffs[0])
 	}
 
 	s = "junk foo"
-	buf = bytes.Buffer{}
-	diffs = recheckLine(s, 1, &buf, r, c)
-	news = buf.String()
+	news, diffs = r.Replace(s)
 	if news != "junk foobar" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 5 {
 		t.Errorf("basic recheck3 failed: %q vs %q", s, news)
 	}
 
 	s = "junk foo junk"
-	buf = bytes.Buffer{}
-	diffs = recheckLine(s, 1, &buf, r, c)
-	news = buf.String()
+	news, diffs = r.Replace(s)
 	if news != "junk foobar junk" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 5 {
 		t.Errorf("basic recheck4 failed: %q vs %q", s, news)
 	}
 
 	// Incorrect.Correctedacements
 	s = "food pruning"
-	buf = bytes.Buffer{}
-	recheckLine(s, 1, &buf, r, c)
-	news = buf.String()
+	news, _ = r.Replace(s)
 	if news != s {
 		t.Errorf("incorrect.Correctedacement failed: %q vs %q", s, news)
 	}

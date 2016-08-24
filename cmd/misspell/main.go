@@ -213,31 +213,51 @@ func main() {
 	args := flag.Args()
 	debug.Printf("initialization complete in %v", time.Since(t))
 
-	// unix style pipes: different output module
-	// stdout: output of corrected text
-	// stderr: output of log lines
+	// stdin/stdout
 	if len(args) == 0 {
-		var writer io.Writer
-		writer = os.Stdout
-		if !*writeit {
-			writer = ioutil.Discard
+		// if we are working with pipes/stdin/stdout
+		// there is no concurrency, so we can directly
+		// send data to the writers
+		var fileout io.Writer
+		var errout io.Writer
+		switch *writeit {
+		case true:
+			// if we ARE writing the corrected stream
+			// the the corrected stream goes to stdout
+			// and the misspelling errors goes to stderr
+			// so we can do something like this:
+			// curl something | misspell -w | gzip > afile.gz
+			fileout = os.Stdout
+			errout = os.Stderr
+		case false:
+			// if we are not writing out the corrected stream
+			// then work just like files.  Misspelling errors
+			// are sent to stdout
+			fileout = ioutil.Discard
+			errout = os.Stdout
 		}
-		changes := r.ReplaceReader(os.Stdin, writer)
-		if !*quietFlag {
-			for _, diff := range changes {
-				diff.Filename = "stdin"
-				var output bytes.Buffer
-				if *writeit {
-					defaultWrite.Execute(&output, diff)
-				} else {
-					defaultRead.Execute(&output, diff)
-				}
-				stdout.Println(output.String())
+		next := func(diff misspell.Diff) {
+			// don't even evaluate the output templates
+			if *quietFlag {
+				return
 			}
+			diff.Filename = "stdin"
+			if *writeit {
+				defaultWrite.Execute(errout, diff)
+			} else {
+				defaultRead.Execute(errout, diff)
+			}
+			errout.Write([]byte{'\n'})
+
+		}
+		err := r.ReplaceReader(os.Stdin, fileout, next)
+		if err != nil {
+			// TODO:
+			return
 		}
 		switch *format {
 		case "sqlite", "sqlite3":
-			writer.Write([]byte(sqliteFooter))
+			fileout.Write([]byte(sqliteFooter))
 		}
 		return
 	}
