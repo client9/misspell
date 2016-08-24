@@ -128,6 +128,8 @@ func (r *Replacer) recheckLine(s string, lineNum int, buf io.Writer, next func(D
 	io.WriteString(buf, s[first:])
 }
 
+// Replace is corrects misspellings in input, returning corrected version
+//  along with a list of diffs.
 func (r *Replacer) Replace(input string) (string, []Diff) {
 	output := r.engine.Replace(input)
 	if input == output {
@@ -151,7 +153,8 @@ func (r *Replacer) Replace(input string) (string, []Diff) {
 	return buf.String(), diffs
 }
 
-// ReplaceReader applies spelling corrections to a reader stream
+// ReplaceReader applies spelling corrections to a reader stream.  Diffs are
+// emitted through a callback.
 func (r *Replacer) ReplaceReader(raw io.Reader, w io.Writer, next func(Diff)) error {
 	var (
 		err     error
