@@ -134,14 +134,6 @@ func (r *Replacer) Replace(input string) (string, []Diff) {
 		return input, nil
 	}
 	diffs := make([]Diff, 0, 8)
-	/*
-		reader := bytes.NewBufferString(input)
-		writer := bytes.NewBuffer(make([]byte, 0, len(input)+100))
-		r.ReplaceReader(reader, writer, func(d Diff) {
-			diffs = append(diffs, d)
-		})
-		return writer.String(), diffs
-	*/
 	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
 	// faster that making a bytes.Buffer and bufio.ReadString
 	outlines := strings.SplitAfter(output, "\n")
@@ -157,13 +149,6 @@ func (r *Replacer) Replace(input string) (string, []Diff) {
 	}
 
 	return buf.String(), diffs
-	/*
-
-		out := r.diffLines(input, news, func(d Diff) {
-			diffs = append(diffs, d)
-		})
-		return out, diffs
-	*/
 }
 
 // ReplaceReader applies spelling corrections to a reader stream
