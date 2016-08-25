@@ -94,3 +94,12 @@ func BenchmarkDirtyString(b *testing.B) {
 	tmpCount = count
 	tmp = updated
 }
+
+func BenchmarkCompile(b *testing.B) {
+	r := New()
+	b.ReportAllocs()
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		r.Compile()
+	}
+}

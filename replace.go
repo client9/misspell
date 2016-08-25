@@ -78,9 +78,9 @@ func (r *Replacer) AddRuleList(additions []string) {
 // Compile compiles the rules.  Required before using the Replace functions
 func (r *Replacer) Compile() {
 
-	r.corrected = make(map[string]string)
+	r.corrected = make(map[string]string, len(r.Replacements)/2)
 	for i := 0; i < len(r.Replacements); i += 2 {
-		r.corrected[strings.ToLower(r.Replacements[i])] = strings.ToLower(r.Replacements[i+1])
+		r.corrected[r.Replacements[i]] = r.Replacements[i+1]
 	}
 	r.engine = strings.NewReplacer(r.Replacements...)
 }
@@ -109,7 +109,7 @@ func (r *Replacer) recheckLine(s string, lineNum int, buf io.Writer, next func(D
 			// no replacement done
 			continue
 		}
-		if r.corrected[strings.ToLower(word)] == strings.ToLower(newword) {
+		if r.corrected[word] == newword {
 			// word got corrected into something we know
 			io.WriteString(buf, s[first:ab[0]])
 			io.WriteString(buf, newword)
