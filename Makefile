@@ -59,7 +59,6 @@ ci-native: install lint test falsepositives
 ci:
 	docker run --rm \
 		--volumes-from=workspace \
-		-e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} \
 		make ci-native
@@ -68,7 +67,6 @@ ci:
 ci-travis:
 	docker run --rm \
 		-v $(PWD):/go/src/github.com/client9/misspell \
-		-e COVERALLS_REPO_TOKEN=$COVERALLS_REPO_TOKEN \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} \
 		make ci-native 
