@@ -56,6 +56,7 @@ ci:
 		make build falsepositives
 
 travis:
+	docker --version
 	docker run --rm \
 		-v ${PWD}:/go/src/github.com/client9/misspell \
 		${CONTAINER} \
