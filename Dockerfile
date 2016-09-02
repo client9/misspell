@@ -2,7 +2,7 @@ FROM golang:1.7.0-alpine
 MAINTAINER https://github.com/client9/misspell
 
 # cache buster
-RUN echo 1457336153
+RUN echo 3
 
 # git is only used for coveralls reporting
 RUN apk add --no-cache git make
@@ -19,8 +19,6 @@ RUN /bin/true \
 #  http://wordlist.aspell.net/dicts/
 #  --> http://app.aspell.net/create
 #
-# cache buster
-RUN echo 1457339114
 
 # use en_US large size
 # use regular size for others
@@ -32,11 +30,8 @@ ENV SOURCE_GB_ISE http://app.aspell.net/create?max_size=60&spelling=GBs&max_vari
 ENV SOURCE_GB_IZE http://app.aspell.net/create?max_size=60&spelling=GBz&max_variant=2&diacritic=both&download=wordlist&encoding=utf-8&format=inline
 ENV SOURCE_CA http://app.aspell.net/create?max_size=60&spelling=CA&max_variant=2&diacritic=both&download=wordlist&encoding=utf-8&format=inline
 
-RUN true \
+RUN /bin/true \
   && mkdir /scowl-wl \
   && wget -O /scowl-wl/words-US-60.txt ${SOURCE_US} \
-  && wget -O /scowl-wl/words-US-70.txt ${SOURCE_US_BIG} \
-  && wget -O /scowl-wl/words-GB-ise-60.txt ${SOURCE_GB_ISE} \
-  && wget -O /scowl-wl/words-GB-ize-60.txt ${SOURCE_GB_IZE} \
-  && wget -O /scowl-wl/words-CA-60.txt ${SOURCE_CA}
+  && wget -O /scowl-wl/words-GB-ise-60.txt ${SOURCE_GB_ISE} 
 
