@@ -65,6 +65,7 @@ ci:
 
 # for on-mac and travis builds
 ci-travis:
+	docker --version
 	docker run --rm \
 		-v $(PWD):/go/src/github.com/client9/misspell \
 		-w /go/src/github.com/client9/misspell \
