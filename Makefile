@@ -3,7 +3,7 @@ CONTAINER=nickg/misspell
 all: install lint test
 
 install:
-	cp -f precommit.sh .git/hooks/precommit
+	cp -f precommit.sh .git/hooks/pre-commit
 	go install ./cmd/misspell
 
 lint: 
