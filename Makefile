@@ -1,12 +1,8 @@
 CONTAINER=nickg/misspell
 
-all: install lint test
-
-install:
-	cp -f precommit.sh .git/hooks/pre-commit
+build:
+	cp precommit.sh .git/hooks/pre-commit
 	go install ./cmd/misspell
-
-lint: 
 	gometalinter \
 		 --vendor \
 		 --deadline=60s \
@@ -19,12 +15,8 @@ lint:
 		 --enable=staticcheck \
 		 --enable=ineffassign \
 		 ./...
-
-test: 
 	go test .
 
-bench:
-	go test -bench '.*'
 
 # the grep in line 2 is to remove misspellings in the spelling dictionary
 # that trigger false positives!!
@@ -48,44 +40,28 @@ falsepositives: /scowl-wl
 #		grep -v -E "withing" | \
 #		misspell -debug -error
 
+bench:
+	go test -bench '.*'
+
 clean:
-	rm -f *~
 	go clean ./...
 	git gc
 
-ci-native: install lint test falsepositives
-
-# when development is already in a docker contianer
 ci:
+	type dmnt >/dev/null 2>&1 || go get -u github.com/client9/dmnt
 	docker run --rm \
-		--volumes-from=workspace \
+		$(shell dmnt .) \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} \
-		make ci-native
-
-# for on-mac and travis builds
-ci-travis:
-	docker --version
-	docker run --rm \
-		-v $(PWD):/go/src/github.com/client9/misspell \
-		-w /go/src/github.com/client9/misspell \
-		${CONTAINER} \
-		make ci-native 
+		make build falsepositives
 
 docker-build:
 	docker build -t ${CONTAINER} .
 
 console:
 	docker run --rm -it \
-		--volumes-from=workspace \
+		$(shell dmnt .) \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} sh
 
-precommit:
-	docker run --rm \
-		$(shell dmnt .) \
-		-w /go/src/github.com/client9/misspell \
-		${CONTAINER} \
-		make
-
-.PHONY: ci ci-travis ci-native
+.PHONY: ci console docker-build bench
