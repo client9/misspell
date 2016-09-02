@@ -25,8 +25,8 @@ var (
 )
 
 const (
-	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ js .Original }}" to "{{ js .Corrected }}"`
-	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:"{{ js .Original }}" is a misspelling of "{{ js .Corrected }}"`
+	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:corrected "{{ .Original }}" to "{{ .Corrected }}"`
+	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }}:"{{ .Original }}" is a misspelling of "{{ .Corrected }}"`
 	csvTmpl          = `{{ printf "%q" .Filename }},{{ .Line }},{{ .Column }},{{ .Original }},{{ .Corrected }}`
 	csvHeader        = `file,line,column,typo,corrected`
 	sqliteTmpl       = `INSERT INTO misspell VALUES({{ printf "%q" .Filename }},{{ .Line }},{{ .Column }},{{ printf "%q" .Original }},{{ printf "%q" .Corrected }});`
