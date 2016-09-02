@@ -2,7 +2,8 @@ CONTAINER=nickg/misspell
 
 all: install lint test
 
-install: 
+install:
+	cp -f precommit.sh .git/hooks/precommit
 	go install ./cmd/misspell
 
 lint: 
@@ -19,9 +20,8 @@ lint:
 		 --enable=ineffassign \
 		 ./...
 
-test: install
+test: 
 	go test .
-	misspell *.md replace.go cmd/misspell/*.go
 
 bench:
 	go test -bench '.*'
@@ -80,5 +80,12 @@ console:
 		--volumes-from=workspace \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} sh
+
+precommit:
+	docker run --rm \
+		$(shell dmnt .) \
+		-w /go/src/github.com/client9/misspell \
+		${CONTAINER} \
+		make
 
 .PHONY: ci ci-travis ci-native
