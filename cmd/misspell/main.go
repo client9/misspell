@@ -236,7 +236,10 @@ func main() {
 			fileout = ioutil.Discard
 			errout = os.Stdout
 		}
+		count := 0
 		next := func(diff misspell.Diff) {
+			count++
+
 			// don't even evaluate the output templates
 			if *quietFlag {
 				return
@@ -252,12 +255,15 @@ func main() {
 		}
 		err := r.ReplaceReader(os.Stdin, fileout, next)
 		if err != nil {
-			// TODO:
-			return
+			os.Exit(1)
 		}
 		switch *format {
 		case "sqlite", "sqlite3":
 			fileout.Write([]byte(sqliteFooter))
+		}
+		if count != 0 && *exitError {
+			// error
+			os.Exit(2)
 		}
 		return
 	}
@@ -291,8 +297,6 @@ func main() {
 	}
 
 	if count != 0 && *exitError {
-		// log.Printf("Got %d", count)
-		// error
 		os.Exit(2)
 	}
 }
