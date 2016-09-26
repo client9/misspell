@@ -353,9 +353,11 @@ locale would correct "advisor" to "adviser".
 *Feedback*  Mistakes would be sent to some server for agregation and feedback review.
 
 
-Github Emoji Test:
+## Github Emoji Test :imp:
 
 :imp:  😻
+
+Bold **:imp::**
 
 ```
 This is an :imp:
