@@ -357,3 +357,10 @@ Github Emoji Test:
 
 :imp:  😻
 
+```
+This is an :imp:
+```
+
+This is an `:imp:`
+
+
