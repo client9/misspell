@@ -211,6 +211,16 @@ misspell -f sqlite * | sqlite3 -init /dev/stdin -column -cmd '.width 60 15' ':me
     'select substr(file,35),typo,count(*) as count from misspell group by file, typo order by count desc;'
 ```
 
+<a name="ignore"></a>
+### How can I ignore rules?
+
+Using the `-i "comma,separated,rules"` flag you can specify corrections to ignore.
+
+For example, if you were to run `misspell -w -error -source=text` against document that contains the string `Guy Finkelshteyn Braswell`, misspell would change the text to `Guy Finkelstheyn Bras well`.  You can then
+determine the rules to ignore by reverting the change and running the with the `-debug` flag.  You can then see
+that the corrections were `htey -> they` and `aswell -> as well`. To ignore these two rules, you add `-i "htey,aswell"` to
+your command. With debug mode on, you can see it print the corrections, but it will no longer make them.
+
 <a name="output"></a>
 ### How can I change the output format?
 
