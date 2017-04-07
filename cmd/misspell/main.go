@@ -13,7 +13,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/client9/misspell"
+	"github.com/carnegie-jwilliamson/misspell"
 )
 
 var (
@@ -54,7 +54,14 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 
 		debug.Printf("Processing %s", filename)
 
-		updated, changes := r.Replace(orig)
+		var updated string
+		var changes []misspell.Diff
+
+		if mode == "go" {
+			updated, changes = r.ReplaceGo(orig)
+		} else {
+			updated, changes = r.Replace(orig)
+		}
 
 		if len(changes) == 0 {
 			continue
