@@ -56,7 +56,6 @@ func TestReplacer(t *testing.T) {
 	var s []string
 
 	// inc maps "\x00"->"\x01", ..., "a"->"b", "b"->"c", ..., "\xff"->"\x00".
-	s = nil
 	for i := 0; i < 256; i++ {
 		s = append(s, str(byte(i)), str(byte(i+1)))
 	}

@@ -351,18 +351,3 @@ locale would correct "advisor" to "adviser".
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
 *Feedback*  Mistakes would be sent to some server for agregation and feedback review.
-
-
-## Github Emoji Test :imp:
-
-:imp:  😻
-
-Bold **:imp::**
-
-```
-This is an :imp:
-```
-
-This is an `:imp:`
-
-
