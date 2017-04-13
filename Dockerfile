@@ -1,10 +1,10 @@
-FROM golang:1.7.0-alpine
+FROM golang:1.8.1-alpine
 MAINTAINER https://github.com/client9/misspell
 
 # cache buster
 RUN echo 3
 
-# git is only used for coveralls reporting
+# git is needed for "go get" below
 RUN apk add --no-cache git make
 
 # these are my standard testing / linting tools
