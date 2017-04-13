@@ -13,7 +13,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/carnegie-jwilliamson/misspell"
+	"github.com/client9/misspell"
 )
 
 var (
