@@ -121,6 +121,7 @@ func TestFalsePositives(t *testing.T) {
 		"bodyreader",  // variable name
 		"cantPrepare", // variable name
 		"dontPrepare", // variable name
+		"\\nto",       // https://github.com/client9/misspell/issues/93
 	}
 	r := New()
 	r.Debug = true
