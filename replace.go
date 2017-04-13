@@ -138,7 +138,7 @@ func (r *Replacer) ReplaceGo(input string) (string, []Diff) {
 	s.Mode = scanner.ScanIdents | scanner.ScanFloats | scanner.ScanChars | scanner.ScanStrings | scanner.ScanRawStrings | scanner.ScanComments
 	lastPos := 0
 	output := ""
-	Loop:
+Loop:
 	for {
 		switch s.Scan() {
 		case scanner.Comment:
@@ -161,7 +161,7 @@ func (r *Replacer) ReplaceGo(input string) (string, []Diff) {
 		// no changes, no copies
 		return input, nil
 	}
-	if lastPos < len(input){
+	if lastPos < len(input) {
 		output = output + input[lastPos:]
 	}
 	diffs := make([]Diff, 0, 8)
@@ -182,7 +182,6 @@ func (r *Replacer) ReplaceGo(input string) (string, []Diff) {
 	return buf.String(), diffs
 
 }
-
 
 // Replace is corrects misspellings in input, returning corrected version
 //  along with a list of diffs.
