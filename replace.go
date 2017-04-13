@@ -6,6 +6,7 @@ import (
 	"io"
 	"regexp"
 	"strings"
+	"text/scanner"
 )
 
 func max(x, y int) int {
@@ -127,6 +128,61 @@ func (r *Replacer) recheckLine(s string, lineNum int, buf io.Writer, next func(D
 	}
 	io.WriteString(buf, s[first:])
 }
+
+// ReplaceGo is a specialized routine for correcting Golang source
+// files.  Currently only checks comments, not identifiers for
+// spelling.
+func (r *Replacer) ReplaceGo(input string) (string, []Diff) {
+	var s scanner.Scanner
+	s.Init(strings.NewReader(input))
+	s.Mode = scanner.ScanIdents | scanner.ScanFloats | scanner.ScanChars | scanner.ScanStrings | scanner.ScanRawStrings | scanner.ScanComments
+	lastPos := 0
+	output := ""
+	Loop:
+	for {
+		switch s.Scan() {
+		case scanner.Comment:
+			origComment := s.TokenText()
+			newComment := r.engine.Replace(origComment)
+
+			if origComment != newComment {
+				// s.Pos().Offset is the end of the current token
+				// subtract len(origComment) to get the start of the token
+				offset := s.Pos().Offset
+				output = output + input[lastPos:offset-len(origComment)] + newComment
+				lastPos = offset
+			}
+		case scanner.EOF:
+			break Loop
+		}
+	}
+
+	if lastPos == 0 {
+		// no changes, no copies
+		return input, nil
+	}
+	if lastPos < len(input){
+		output = output + input[lastPos:]
+	}
+	diffs := make([]Diff, 0, 8)
+	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
+	// faster that making a bytes.Buffer and bufio.ReadString
+	outlines := strings.SplitAfter(output, "\n")
+	inlines := strings.SplitAfter(input, "\n")
+	for i := 0; i < len(inlines); i++ {
+		if inlines[i] == outlines[i] {
+			buf.WriteString(outlines[i])
+			continue
+		}
+		r.recheckLine(inlines[i], i+1, buf, func(d Diff) {
+			diffs = append(diffs, d)
+		})
+	}
+
+	return buf.String(), diffs
+
+}
+
 
 // Replace is corrects misspellings in input, returning corrected version
 //  along with a list of diffs.
