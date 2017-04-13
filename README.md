@@ -251,7 +251,7 @@ Some other misspelling correctors:
 
 * https://github.com/vlajos/misspell_fixer
 * https://github.com/lyda/misspell-check
-* https://github.com/lucasdemarchi
+* https://github.com/lucasdemarchi/codespell
 
 They all work but had problems that prevented me from using them at scale:
 
