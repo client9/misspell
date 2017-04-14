@@ -289,7 +289,7 @@ Either way, please file bugs and we'll fix them!
 Since it operates in parallel to make corrections, it can be non-obvious to
 determine exactly what word was corrected.
 
-<a name="#debug"></a>
+<a name="debug"></a>
 ### It's making mistakes.  How can I debug?
 
 Run using `-debug` flag on the file you want.  It should then print what word
@@ -297,7 +297,7 @@ it is trying to correct.  Then [file a
 bug](https://github.com/client9/misspell/issues) describing the problem.
 Thanks!
 
-<a name="#missing"></a>
+<a name="missing"></a>
 ### Why is it making mistakes or missing items in golang files?
 
 The matching function is *case-sensitive*, so variable names that are multiple
@@ -336,7 +336,7 @@ Variations of UK and US spellings are based on many sources including:
 American English is more accepting of spelling variations than is British
 English, so "what is American or not" is subject to opinion.  Corrections and help welcome.
 
-<a name="otherideas">
+<a name="otherideas"></a>
 ### What are some other enhancements that could be done?
 
 Here's some ideas for enhancements:
