@@ -266,7 +266,7 @@ than this project!
 <a name="performance"></a>
 ### How fast is it?
 
-Misspell is Easily 100x to 1000x faster than other spelling correctors.  You
+Misspell is easily 100x to 1000x faster than other spelling correctors.  You
 should be able to check and correct 1000 files in under 250ms.
 
 This uses the mighty power of golang's
