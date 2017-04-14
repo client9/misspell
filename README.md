@@ -273,7 +273,7 @@ This uses the mighty power of golang's
 [strings.Replacer](https://golang.org/pkg/strings/#Replacer) which is
 a implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
-This makes multiple substring matches *simultaneously*
+This makes multiple substring matches *simultaneously*.
 
 In addition this uses multiple CPU cores to work on multiple files.
 
@@ -351,3 +351,6 @@ locale would correct "advisor" to "adviser".
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
 *Feedback*  Mistakes would be sent to some server for agregation and feedback review.
+
+*Contractions and Apostrophes* This would optionally correct "isnt" to
+"isn't", etc.
