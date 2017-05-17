@@ -1,0 +1,26 @@
+# goreleaser.yml
+
+build:
+  main: cmd/misspell/main.go
+  binary: misspell
+  goos:
+    - darwin
+    - linux
+  goarch:
+    - amd64
+  env:
+    - CGO_ENABLED=0
+  ignore:
+    - goos: darwin
+      goarch: 386
+
+archive:
+  name_template: "{{.Binary}}_{{.Version}}_{{.Os}}_{{.Arch}}"
+
+  replacements:
+    amd64: 64-bit
+    386: 32-bit
+    darwin: macOS
+
+snapshot:
+  name_template: SNAPSHOT-{{.Commit}}
