@@ -14,9 +14,6 @@ your.txt:42:10 found "langauge" a misspelling of "language"
 You'll need [golang 1.5 or newer](https://golang.org/) installed to compile
 it.  But after that it's a standalone binary.
 
-If people want pre-compiled binaries, [file a
-ticket](https://github.com/client9/misspell/issues) please.
-
 ## FAQ
 
 * [Automatic Corrections](#correct)
