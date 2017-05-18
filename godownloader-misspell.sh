@@ -61,37 +61,39 @@ mktmpdir() {
    echo ${TMPDIR}
 }
 http_download() {
-  DEST=$1
-  SOURCE=$2
-  HEADER=$3
+  local_file=$1
+  source_url=$2
+  header=$3
+  headerflag=''
+  destflag=''
   if is_command curl; then
-    WGET="curl --fail -sSL"
-    test -z "${HEADER}" || WGET="${WGET} -H \"${HEADER}\""
-    if [ "${DEST}" != "-" ]; then
-      WGET="$WGET -o $DEST"
-    fi
-  elif is_command wget &> /dev/null; then
-    WGET="wget -q -O $DEST"
-    test -z "${HEADER}" || WGET="${WGET} --header \"${HEADER}\""
+    cmd='curl --fail -sSL'
+    destflag='-o'
+    headerflag='-H'
+  elif is_command wget; then
+    cmd='wget -q'
+    destflag='-O'
+    headerflag='--header'
   else
-    echo "Unable to find wget or curl.  Exit"
-    exit 1
+    echo "http_download: unable to find wget or curl"
+    return 1
   fi
-  if [ "${DEST}" != "-" ]; then
-    rm -f "${DEST}"
+  if [ -z "$header" ]; then
+    $cmd $destflag "$local_file" "$source_url"
+  else
+    $cmd $headerflag "$header" $destflag "$local_file" "$source_url"
   fi
-  ${WGET} ${SOURCE}
 }
 github_api() {
-  DEST=$1
-  SOURCE=$2
-  HEADER=""
-  case $SOURCE in
+  local_file=$1
+  source_url=$2
+  header=""
+  case "$source_url" in
   https://api.github.com*)
-     test -z "$GITHUB_TOKEN" || HEADER="Authorization: token $GITHUB_TOKEN"
+     test -z "$GITHUB_TOKEN" || header="Authorization: token $GITHUB_TOKEN"
      ;;
   esac
-  http_download $DEST $SOURCE $HEADER
+  http_download "$local_file" "$source_url" "$header"
 }
 github_last_release() {
   OWNER_REPO=$1
@@ -103,31 +105,41 @@ github_last_release() {
   echo ${VERSION}
 }
 hash_sha256() {
-  TARGET=${1:-$(</dev/stdin)};
+  TARGET=${1:-/dev/stdin};
   if is_command gsha256sum; then
-    gsha256sum $TARGET | cut -d ' ' -f 1
+    hash=$(gsha256sum $TARGET) || return 1
+    echo $hash | cut -d ' ' -f 1
   elif is_command sha256sum; then
-    sha256sum $TARGET | cut -d ' ' -f 1
+    hash=$(sha256sum $TARGET) || return 1
+    echo $hash | cut -d ' ' -f 1
   elif is_command shasum; then
-    shasum -a 256 $TARGET | cut -d ' ' -f 1
+    hash=$(shasum -a 256 $TARGET 2>/dev/null) || return 1
+    echo $hash | cut -d ' ' -f 1
   elif is_command openssl; then
-    openssl -dst openssl dgst -sha256 $TARGET | cut -d ' ' -f a
+    hash=$(openssl -dst openssl dgst -sha256 $TARGET) || return 1
+    echo $hash | cut -d ' ' -f a
   else
-    echo "Unable to compute hash. exiting"
-    exit 1
+    echo "hash_sha256: unable to find command to compute sha-256 hash"
+    return 1
   fi
 }
 hash_sha256_verify() {
   TARGET=$1
-  SUMS=$2
+  checksums=$2
+  if [ -z "$checksums" ]; then
+     echo "hash_sha256_verify: checksum file not specified in arg2"
+     return 1
+  fi
   BASENAME=${TARGET##*/}
-  WANT=$(grep ${BASENAME} ${SUMS} | tr '\t' ' ' | cut -d ' ' -f 1)
-  GOT=$(hash_sha256 $TARGET)
-  if [ "$GOT" != "$WANT" ]; then
-     echo "Checksum for $TARGET did not verify"
-     echo "WANT: ${WANT}"
-     echo "GOT : ${GOT}"
-     exit 1
+  want=$(grep ${BASENAME} "${checksums}" 2> /dev/null | tr '\t' ' ' | cut -d ' ' -f 1)
+  if [ -z "$want" ]; then
+     echo "hash_sha256_verify: unable to find checksum for '${TARGET}' in '${checksums}'"
+     return 1
+  fi
+  got=$(hash_sha256 $TARGET)
+  if [ "$want" != "$got" ]; then
+     echo "hash_sha256_verify: checksum for '$TARGET' did not verify ${want} vs $got"
+     return 1
   fi
 }
 cat /dev/null << EOF
@@ -180,19 +192,21 @@ TARBALL_URL=https://github.com/${OWNER}/${REPO}/releases/download/v${VERSION}/${
 CHECKSUM=${REPO}_checksums.txt
 CHECKSUM_URL=https://github.com/${OWNER}/${REPO}/releases/download/v${VERSION}/${CHECKSUM}
 
-# Destructive operations start here
-#
-#
-TMPDIR=$(mktmpdir)
-http_download ${TMPDIR}/${TARBALL} ${TARBALL_URL}
+# this function wraps all the destructive operations
+# if a curl|bash cuts off the end of the script due to
+# network, either nothing will happen or will syntax error
+# out preventing half-done work
+execute() {
+  TMPDIR=$(mktmpdir)
+  http_download ${TMPDIR}/${TARBALL} ${TARBALL_URL}
 
-# checksum goes here
-if [ 1 -eq 1 ]; then
   http_download ${TMPDIR}/${CHECKSUM} ${CHECKSUM_URL}
   hash_sha256_verify ${TMPDIR}/${TARBALL} ${TMPDIR}/${CHECKSUM}
-fi
 
-(cd ${TMPDIR} && untar ${TARBALL})
-install -d ${BINDIR}
-install ${TMPDIR}/${BINARY} ${BINDIR}/
+  (cd ${TMPDIR} && untar ${TARBALL})
+  install -d ${BINDIR}
+  install ${TMPDIR}/${BINARY} ${BINDIR}/
+}
+
+execute
 
