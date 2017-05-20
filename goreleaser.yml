@@ -3,6 +3,7 @@
 build:
   main: cmd/misspell/main.go
   binary: misspell
+  ldflags: -s -w -X main.version={{.Version}}
   goos:
     - darwin
     - linux
@@ -15,8 +16,6 @@ build:
       goarch: 386
 
 archive:
-  name_template: "{{.Binary}}_{{.Version}}_{{.Os}}_{{.Arch}}"
-
   replacements:
     amd64: 64bit
     386: 32bit
