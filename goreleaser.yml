@@ -16,7 +16,7 @@ build:
       goarch: 386
 
 archive:
-  name: {{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
+  name_template: {{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
   replacements:
     amd64: 64bit
     386: 32bit
