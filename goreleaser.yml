@@ -19,7 +19,7 @@ archive:
   replacements:
     amd64: 64bit
     386: 32bit
-    darwin: macOS
+    darwin: mac
 
 snapshot:
   name_template: SNAPSHOT-{{.Commit}}
