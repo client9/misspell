@@ -220,21 +220,22 @@ ARCH=$(uname_arch)
 
 # adjust archive name based on OS
 case ${OS} in
-386) OS=32-bit ;;
-amd64) OS=64-bit ;;
-darwin) OS=macOS ;;
+386) OS=32bit ;;
+amd64) OS=64bit ;;
+darwin) OS=mac ;;
 esac
 
 # adjust archive name based on ARCH
 case ${ARCH} in
-386) ARCH=32-bit ;;
-amd64) ARCH=64-bit ;;
-darwin) ARCH=macOS ;;
+386) ARCH=32bit ;;
+amd64) ARCH=64bit ;;
+darwin) ARCH=mac ;;
 esac
 
 echo "$PREFIX: found version ${VERSION} for ${OS}/${ARCH}"
 
-NAME=${BINARY}_${VERSION}_${OS}_${ARCH}
+if [ ! -z "${ARM}" ]; then ARM="v$ARM"; fi
+NAME=${BINARY}_${OS}_${ARCH}${ARM}
 TARBALL=${NAME}.${FORMAT}
 TARBALL_URL=https://github.com/${OWNER}/${REPO}/releases/download/v${VERSION}/${TARBALL}
 CHECKSUM=${REPO}_checksums.txt
