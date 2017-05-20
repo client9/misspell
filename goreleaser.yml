@@ -1,5 +1,5 @@
 # goreleaser.yml
-
+# https://github.com/goreleaser/goreleaser 
 build:
   main: cmd/misspell/main.go
   binary: misspell
@@ -16,6 +16,7 @@ build:
       goarch: 386
 
 archive:
+  name: {{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}
   replacements:
     amd64: 64bit
     386: 32bit
