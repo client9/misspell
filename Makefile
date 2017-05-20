@@ -1,7 +1,7 @@
 CONTAINER=nickg/misspell
 
 build:
-	cp precommit.sh .git/hooks/pre-commit
+	#cp precommit.sh .git/hooks/pre-commit
 	go install ./cmd/misspell
 	gometalinter \
 		 --vendor \

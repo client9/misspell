@@ -18,8 +18,8 @@ archive:
   name_template: "{{.Binary}}_{{.Version}}_{{.Os}}_{{.Arch}}"
 
   replacements:
-    amd64: 64-bit
-    386: 32-bit
+    amd64: 64bit
+    386: 32bit
     darwin: macOS
 
 snapshot:
