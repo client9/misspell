@@ -45,8 +45,9 @@ bench:
 	go test -bench '.*'
 
 clean:
+	rm -rf dist/ bin/
 	go clean ./...
-	git gc
+	git gc --aggressive
 
 ci:
 	type dmnt >/dev/null 2>&1 || go get -u github.com/client9/dmnt
