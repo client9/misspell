@@ -15,7 +15,7 @@ curl -o ./godownloader-misspell.sh https://raw.githubusercontent.com/client9/mis
 will install as `./bin/misspell`.  You can adjust the download location using the `-b` flag.   File a ticket if you want another platform supported.
 
 
-If you use [Go](https://golang.org/), then
+If you use [Go](https://golang.org/), the best way to run `misspell` is by using [gometalinter](#gometalinter).  Otherwise, install `misspell` the old-fashioned way:
 
 ```
 go get -u github.com/client9/misspell/cmd/misspell
