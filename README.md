@@ -203,7 +203,7 @@ of `misspell`
 You may wish to run this on your plaintext (.txt) and/or markdown files too.
 
 
-<a name="csv"</a>
+<a name="csv"></a>
 ### How Can I Get CSV Output?
 
 Using `-f csv`, the output is standard comma-seprated values with headers in the first row.
@@ -215,7 +215,7 @@ file,line,column,typo,corrected
 "README.md",47,25,langauge,language
 ```
 
-<a name="sqlite"</a>
+<a name="sqlite"></a>
 ### How can I export to SQLite3? 
 
 Using `-f sqlite`, the output is a [sqlite3](https://www.sqlite.org/index.html) dump-file.
