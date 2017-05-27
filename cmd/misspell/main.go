@@ -240,7 +240,7 @@ func main() {
 		switch *writeit {
 		case true:
 			// if we ARE writing the corrected stream
-			// the the corrected stream goes to stdout
+			// the corrected stream goes to stdout
 			// and the misspelling errors goes to stderr
 			// so we can do something like this:
 			// curl something | misspell -w | gzip > afile.gz
