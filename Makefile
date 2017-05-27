@@ -18,6 +18,8 @@ build:
 		 ./...
 	go test .
 
+test:
+	go test .
 
 # the grep in line 2 is to remove misspellings in the spelling dictionary
 # that trigger false positives!!
@@ -44,23 +46,17 @@ clean:
 	git gc --aggressive
 
 ci:
-	type dmnt >/dev/null 2>&1 || go get -u github.com/client9/dmnt
 	docker run --rm \
-		$(shell dmnt .) \
-		-w /go/src/github.com/client9/misspell \
-		${CONTAINER} \
-		make build falsepositives
-
-travis:
-	docker --version
-	docker run --rm \
-		-v ${PWD}:/go/src/github.com/client9/misspell \
+		-v $(PWD):/go/src/github.com/client9/misspell \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} \
 		make build falsepositives
 
 docker-build:
 	docker build -t ${CONTAINER} .
+
+docker-pull:
+	docker pull ${CONTAINER}
 
 console:
 	docker run --rm -it \
