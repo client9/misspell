@@ -26,7 +26,7 @@ test:
 falsepositives: /scowl-wl
 	cat /scowl-wl/words-US-60.txt | \
 		grep -i -v -E "payed|Tyre|Euclidian|nonoccurence|dependancy|reenforced|accidently|surprize|dependance|idealogy|binominal|causalities|conquerer|withing|casette|analyse|analogue|dialogue|paralyse|catalogue|archaeolog|clarinettist|catalyses|cancell|chisell|ageing|cataloguing" | \
-		misspell -locale=US -debug -error
+		misspell -debug -error
 	cat /scowl-wl/words-GB-ise-60.txt | \
 		grep -v -E "payed|nonoccurence|withing" | \
 		misspell -locale=UK -debug -error
@@ -52,15 +52,15 @@ ci:
 		${CONTAINER} \
 		make build falsepositives
 
-docker-build:
+docker-build:  ## build a test test image
 	docker build -t ${CONTAINER} .
 
-docker-pull:
+docker-pull:  ## pull latest test image
 	docker pull ${CONTAINER}
 
-console:
+docker-console:  ## log into the test image
 	docker run --rm -it \
-		$(shell dmnt .) \
+		-v $(PWD):/go/src/github.com/client9/misspell \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} sh
 
