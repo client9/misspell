@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package stringreplacer_test
+package misspell_test
 
 import (
 	"bytes"
@@ -10,10 +10,10 @@ import (
 	"strings"
 	"testing"
 
-	. "github.com/client9/misspell/stringreplacer"
+	. "github.com/client9/misspell"
 )
 
-var htmlEscaper = NewReplacer(
+var htmlEscaper = NewStringReplacer(
 	"&", "&amp;",
 	"<", "&lt;",
 	">", "&gt;",
@@ -21,7 +21,7 @@ var htmlEscaper = NewReplacer(
 	"'", "&apos;",
 )
 
-var htmlUnescaper = NewReplacer(
+var htmlUnescaper = NewStringReplacer(
 	"&amp;", "&",
 	"&lt;", "<",
 	"&gt;", ">",
@@ -39,12 +39,12 @@ func oldHTMLEscape(s string) string {
 	return s
 }
 
-var capitalLetters = NewReplacer("a", "A", "b", "B")
+var capitalLetters = NewStringReplacer("a", "A", "b", "B")
 
 // TestReplacer tests the replacer implementations.
 func TestReplacer(t *testing.T) {
 	type testCase struct {
-		r       *Replacer
+		r       *StringReplacer
 		in, out string
 	}
 	var testCases []testCase
@@ -59,7 +59,7 @@ func TestReplacer(t *testing.T) {
 	for i := 0; i < 256; i++ {
 		s = append(s, str(byte(i)), str(byte(i+1)))
 	}
-	inc := NewReplacer(s...)
+	inc := NewStringReplacer(s...)
 
 	// Test cases with 1-byte old strings, 1-byte new strings.
 	testCases = append(testCases,
@@ -71,7 +71,7 @@ func TestReplacer(t *testing.T) {
 		testCase{inc, "\x00\xff", "\x01\x00"},
 		testCase{inc, "", ""},
 
-		testCase{NewReplacer("a", "1", "a", "2"), "brad", "br1d"},
+		testCase{NewStringReplacer("a", "1", "a", "2"), "brad", "br1d"},
 	)
 
 	// repeat maps "a"->"a", "b"->"bb", "c"->"ccc", ...
@@ -83,7 +83,7 @@ func TestReplacer(t *testing.T) {
 		}
 		s = append(s, str(byte(i)), strings.Repeat(str(byte(i)), n))
 	}
-	repeat := NewReplacer(s...)
+	repeat := NewStringReplacer(s...)
 
 	// Test cases with 1-byte old strings, variable length new strings.
 	testCases = append(testCases,
@@ -96,7 +96,7 @@ func TestReplacer(t *testing.T) {
 		testCase{repeat, "abba", "abbbba"},
 		testCase{repeat, "", ""},
 
-		testCase{NewReplacer("a", "11", "a", "22"), "brad", "br11d"},
+		testCase{NewStringReplacer("a", "11", "a", "22"), "brad", "br11d"},
 	)
 
 	// The remaining test cases have variable length old strings.
@@ -106,16 +106,16 @@ func TestReplacer(t *testing.T) {
 		testCase{htmlUnescaper, "&lt;b&gt;HTML&apos;s neat&lt;/b&gt;", "<b>HTML's neat</b>"},
 		testCase{htmlUnescaper, "", ""},
 
-		testCase{NewReplacer("a", "1", "a", "2", "xxx", "xxx"), "brad", "br1d"},
+		testCase{NewStringReplacer("a", "1", "a", "2", "xxx", "xxx"), "brad", "br1d"},
 
-		testCase{NewReplacer("a", "1", "aa", "2", "aaa", "3"), "aaaa", "1111"},
+		testCase{NewStringReplacer("a", "1", "aa", "2", "aaa", "3"), "aaaa", "1111"},
 
-		testCase{NewReplacer("aaa", "3", "aa", "2", "a", "1"), "aaaa", "31"},
+		testCase{NewStringReplacer("aaa", "3", "aa", "2", "a", "1"), "aaaa", "31"},
 	)
 
 	// gen1 has multiple old strings of variable length. There is no
 	// overall non-empty common prefix, but some pairwise common prefixes.
-	gen1 := NewReplacer(
+	gen1 := NewStringReplacer(
 		"aaa", "3[aaa]",
 		"aa", "2[aa]",
 		"a", "1[a]",
@@ -137,7 +137,7 @@ func TestReplacer(t *testing.T) {
 	)
 
 	// gen2 has multiple old strings with no pairwise common prefix.
-	gen2 := NewReplacer(
+	gen2 := NewStringReplacer(
 		"roses", "red",
 		"violets", "blue",
 		"sugar", "sweet",
@@ -148,7 +148,7 @@ func TestReplacer(t *testing.T) {
 	)
 
 	// gen3 has multiple old strings with an overall common prefix.
-	gen3 := NewReplacer(
+	gen3 := NewStringReplacer(
 		"abracadabra", "poof",
 		"abracadabrakazam", "splat",
 		"abraham", "lincoln",
@@ -164,24 +164,24 @@ func TestReplacer(t *testing.T) {
 
 	// foo{1,2,3,4} have multiple old strings with an overall common prefix
 	// and 1- or 2- byte extensions from the common prefix.
-	foo1 := NewReplacer(
+	foo1 := NewStringReplacer(
 		"foo1", "A",
 		"foo2", "B",
 		"foo3", "C",
 	)
-	foo2 := NewReplacer(
+	foo2 := NewStringReplacer(
 		"foo1", "A",
 		"foo2", "B",
 		"foo31", "C",
 		"foo32", "D",
 	)
-	foo3 := NewReplacer(
+	foo3 := NewStringReplacer(
 		"foo11", "A",
 		"foo12", "B",
 		"foo31", "C",
 		"foo32", "D",
 	)
-	foo4 := NewReplacer(
+	foo4 := NewStringReplacer(
 		"foo12", "B",
 		"foo32", "D",
 	)
@@ -205,7 +205,7 @@ func TestReplacer(t *testing.T) {
 		allBytes[i] = byte(i)
 	}
 	allString := string(allBytes)
-	genAll := NewReplacer(
+	genAll := NewStringReplacer(
 		allString, "[all]",
 		"\xff", "[ff]",
 		"\x00", "[00]",
@@ -218,13 +218,13 @@ func TestReplacer(t *testing.T) {
 
 	// Test cases with empty old strings.
 
-	blankToX1 := NewReplacer("", "X")
-	blankToX2 := NewReplacer("", "X", "", "")
-	blankHighPriority := NewReplacer("", "X", "o", "O")
-	blankLowPriority := NewReplacer("o", "O", "", "X")
-	blankNoOp1 := NewReplacer("", "")
-	blankNoOp2 := NewReplacer("", "", "", "A")
-	blankFoo := NewReplacer("", "X", "foobar", "R", "foobaz", "Z")
+	blankToX1 := NewStringReplacer("", "X")
+	blankToX2 := NewStringReplacer("", "X", "", "")
+	blankHighPriority := NewStringReplacer("", "X", "o", "O")
+	blankLowPriority := NewStringReplacer("o", "O", "", "X")
+	blankNoOp1 := NewStringReplacer("", "")
+	blankNoOp2 := NewStringReplacer("", "", "", "A")
+	blankFoo := NewStringReplacer("", "X", "foobar", "R", "foobaz", "Z")
 	testCases = append(testCases,
 		testCase{blankToX1, "foo", "XfXoXoX"},
 		testCase{blankToX1, "", "X"},
@@ -257,7 +257,7 @@ func TestReplacer(t *testing.T) {
 
 	// single string replacer
 
-	abcMatcher := NewReplacer("abc", "[match]")
+	abcMatcher := NewStringReplacer("abc", "[match]")
 
 	testCases = append(testCases,
 		testCase{abcMatcher, "", ""},
@@ -269,7 +269,7 @@ func TestReplacer(t *testing.T) {
 
 	// Issue 6659 cases (more single string replacer)
 
-	noHello := NewReplacer("Hello", "")
+	noHello := NewStringReplacer("Hello", "")
 	testCases = append(testCases,
 		testCase{noHello, "Hello", ""},
 		testCase{noHello, "Hellox", "x"},
@@ -279,7 +279,7 @@ func TestReplacer(t *testing.T) {
 
 	// No-arg test cases.
 
-	nop := NewReplacer()
+	nop := NewStringReplacer()
 	testCases = append(testCases,
 		testCase{nop, "abc", "abc"},
 		testCase{nop, "", ""},
@@ -317,7 +317,7 @@ func (errWriter) Write(p []byte) (n int, err error) {
 
 func BenchmarkGenericNoMatch(b *testing.B) {
 	str := strings.Repeat("A", 100) + strings.Repeat("B", 100)
-	generic := NewReplacer("a", "A", "b", "B", "12", "123") // varying lengths forces generic
+	generic := NewStringReplacer("a", "A", "b", "B", "12", "123") // varying lengths forces generic
 	for i := 0; i < b.N; i++ {
 		generic.Replace(str)
 	}
@@ -325,7 +325,7 @@ func BenchmarkGenericNoMatch(b *testing.B) {
 
 func BenchmarkGenericMatch1(b *testing.B) {
 	str := strings.Repeat("a", 100) + strings.Repeat("b", 100)
-	generic := NewReplacer("a", "A", "b", "B", "12", "123")
+	generic := NewStringReplacer("a", "A", "b", "B", "12", "123")
 	for i := 0; i < b.N; i++ {
 		generic.Replace(str)
 	}
@@ -339,7 +339,7 @@ func BenchmarkGenericMatch2(b *testing.B) {
 }
 
 func benchmarkSingleString(b *testing.B, pattern, text string) {
-	r := NewReplacer(pattern, "[match]")
+	r := NewStringReplacer(pattern, "[match]")
 	b.SetBytes(int64(len(text)))
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {

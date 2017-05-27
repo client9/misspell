@@ -10,12 +10,12 @@ func TestCaseStyle(t *testing.T) {
 		word string
 		want WordCase
 	}{
-		{"lower", AllLower},
-		{"what's", AllLower},
-		{"UPPER", AllUpper},
-		{"Title", Title},
-		{"CamelCase", Mixed},
-		{"camelCase", Mixed},
+		{"lower", CaseLower},
+		{"what's", CaseLower},
+		{"UPPER", CaseUpper},
+		{"Title", CaseTitle},
+		{"CamelCase", CaseUnknown},
+		{"camelCase", CaseUnknown},
 	}
 
 	for pos, tt := range cases {

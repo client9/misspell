@@ -71,7 +71,7 @@ func TestReplace(t *testing.T) {
 
 func TestCheckReplace(t *testing.T) {
 	r := Replacer{
-		engine: strings.NewReplacer("foo", "foobar", "runing", "running"),
+		engine: NewStringReplacer("foo", "foobar", "runing", "running"),
 		corrected: map[string]string{
 			"foo":    "foobar",
 			"runing": "running",

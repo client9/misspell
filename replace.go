@@ -41,7 +41,7 @@ type Diff struct {
 type Replacer struct {
 	Replacements []string
 	Debug        bool
-	engine       *strings.Replacer
+	engine       *StringReplacer
 	corrected    map[string]string
 }
 
@@ -83,7 +83,7 @@ func (r *Replacer) Compile() {
 	for i := 0; i < len(r.Replacements); i += 2 {
 		r.corrected[r.Replacements[i]] = r.Replacements[i+1]
 	}
-	r.engine = strings.NewReplacer(r.Replacements...)
+	r.engine = NewStringReplacer(r.Replacements...)
 }
 
 /*
@@ -110,7 +110,7 @@ func (r *Replacer) recheckLine(s string, lineNum int, buf io.Writer, next func(D
 			// no replacement done
 			continue
 		}
-		if r.corrected[word] == newword {
+		if StringEqualFold(r.corrected[strings.ToLower(word)], newword) {
 			// word got corrected into something we know
 			io.WriteString(buf, s[first:ab[0]])
 			io.WriteString(buf, newword)

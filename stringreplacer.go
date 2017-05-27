@@ -2,16 +2,17 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package stringreplacer
+package misspell
 
 import (
 	"io"
+	//	"log"
 	"strings"
 )
 
-// Replacer replaces a list of strings with replacements.
+// StringReplacer replaces a list of strings with replacements.
 // It is safe for concurrent use by multiple goroutines.
-type Replacer struct {
+type StringReplacer struct {
 	r replacer
 }
 
@@ -21,56 +22,23 @@ type replacer interface {
 	WriteString(w io.Writer, s string) (n int, err error)
 }
 
-// NewReplacer returns a new Replacer from a list of old, new string pairs.
+// NewStringReplacer returns a new Replacer from a list of old, new string pairs.
 // Replacements are performed in order, without overlapping matches.
-func NewReplacer(oldnew ...string) *Replacer {
+func NewStringReplacer(oldnew ...string) *StringReplacer {
 	if len(oldnew)%2 == 1 {
 		panic("strings.NewReplacer: odd argument count")
 	}
 
-	allNewBytes := true
-	for i := 0; i < len(oldnew); i += 2 {
-		if len(oldnew[i]) != 1 {
-			return &Replacer{r: makeGenericReplacer(oldnew)}
-		}
-		if len(oldnew[i+1]) != 1 {
-			allNewBytes = false
-		}
-	}
-
-	if allNewBytes {
-		r := byteReplacer{}
-		for i := range r {
-			r[i] = byte(i)
-		}
-		// The first occurrence of old->new map takes precedence
-		// over the others with the same old string.
-		for i := len(oldnew) - 2; i >= 0; i -= 2 {
-			o := oldnew[i][0]
-			n := oldnew[i+1][0]
-			r[o] = n
-		}
-		return &Replacer{r: &r}
-	}
-
-	r := byteStringReplacer{}
-	// The first occurrence of old->new map takes precedence
-	// over the others with the same old string.
-	for i := len(oldnew) - 2; i >= 0; i -= 2 {
-		o := oldnew[i][0]
-		n := oldnew[i+1]
-		r[o] = []byte(n)
-	}
-	return &Replacer{r: &r}
+	return &StringReplacer{r: makeGenericReplacer(oldnew)}
 }
 
 // Replace returns a copy of s with all replacements performed.
-func (r *Replacer) Replace(s string) string {
+func (r *StringReplacer) Replace(s string) string {
 	return r.r.Replace(s)
 }
 
 // WriteString writes s to w with all replacements performed.
-func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error) {
+func (r *StringReplacer) WriteString(w io.Writer, s string) (n int, err error) {
 	return r.r.WriteString(w, s)
 }
 
@@ -207,14 +175,14 @@ func (r *genericReplacer) lookup(s string, ignoreRoot bool) (val string, keylen 
 			break
 		}
 		if node.table != nil {
-			index := r.mapping[s[0]]
+			index := r.mapping[ByteToLower(s[0])]
 			if int(index) == r.tableSize {
 				break
 			}
 			node = node.table[index]
 			s = s[1:]
 			n++
-		} else if node.prefix != "" && strings.HasPrefix(s, node.prefix) {
+		} else if node.prefix != "" && StringHasPrefixFold(s, node.prefix) {
 			n += len(node.prefix)
 			s = s[len(node.prefix):]
 			node = node.next
@@ -240,7 +208,7 @@ func makeGenericReplacer(oldnew []string) *genericReplacer {
 	r := new(genericReplacer)
 	// Find each byte used, then assign them each an index.
 	for i := 0; i < len(oldnew); i += 2 {
-		key := oldnew[i]
+		key := strings.ToLower(oldnew[i])
 		for j := 0; j < len(key); j++ {
 			r.mapping[key[j]] = 1
 		}
@@ -263,7 +231,7 @@ func makeGenericReplacer(oldnew []string) *genericReplacer {
 	r.root.table = make([]*trieNode, r.tableSize)
 
 	for i := 0; i < len(oldnew); i += 2 {
-		r.root.add(oldnew[i], oldnew[i+1], len(oldnew)-i, r)
+		r.root.add(strings.ToLower(oldnew[i]), oldnew[i+1], len(oldnew)-i, r)
 	}
 	return r
 }
@@ -315,7 +283,7 @@ func (r *genericReplacer) WriteString(w io.Writer, s string) (n int, err error) 
 	for i := 0; i <= len(s); {
 		// Fast path: s[i] is not a prefix of any pattern.
 		if i != len(s) && r.root.priority == 0 {
-			index := int(r.mapping[s[i]])
+			index := int(r.mapping[ByteToLower(s[i])])
 			if index == r.tableSize || r.root.table[index] == nil {
 				i++
 				continue
@@ -326,11 +294,29 @@ func (r *genericReplacer) WriteString(w io.Writer, s string) (n int, err error) 
 		val, keylen, match := r.lookup(s[i:], prevMatchEmpty)
 		prevMatchEmpty = match && keylen == 0
 		if match {
+			orig := s[i : i+keylen]
+			switch CaseStyle(orig) {
+			case CaseUnknown:
+				// pretend we didn't match
+			//	i++
+			//	continue
+			case CaseUpper:
+				val = strings.ToUpper(val)
+			case CaseLower:
+				val = strings.ToLower(val)
+			case CaseTitle:
+				if len(val) < 2 {
+					val = strings.ToUpper(val)
+				} else {
+					val = strings.ToUpper(val[:1]) + strings.ToLower(val[1:])
+				}
+			}
 			wn, err = sw.WriteString(s[last:i])
 			n += wn
 			if err != nil {
 				return
 			}
+			//log.Printf("%d: Going to correct %q with %q", i, s[i:i+keylen], val)
 			wn, err = sw.WriteString(val)
 			n += wn
 			if err != nil {
@@ -345,116 +331,6 @@ func (r *genericReplacer) WriteString(w io.Writer, s string) (n int, err error) 
 	if last != len(s) {
 		wn, err = sw.WriteString(s[last:])
 		n += wn
-	}
-	return
-}
-
-// byteReplacer is the implementation that's used when all the "old"
-// and "new" values are single ASCII bytes.
-// The array contains replacement bytes indexed by old byte.
-type byteReplacer [256]byte
-
-func (r *byteReplacer) Replace(s string) string {
-	var buf []byte // lazily allocated
-	for i := 0; i < len(s); i++ {
-		b := s[i]
-		if r[b] != b {
-			if buf == nil {
-				buf = []byte(s)
-			}
-			buf[i] = r[b]
-		}
-	}
-	if buf == nil {
-		return s
-	}
-	return string(buf)
-}
-
-func (r *byteReplacer) WriteString(w io.Writer, s string) (n int, err error) {
-	// TODO(bradfitz): use io.WriteString with slices of s, avoiding allocation.
-	bufsize := 32 << 10
-	if len(s) < bufsize {
-		bufsize = len(s)
-	}
-	buf := make([]byte, bufsize)
-
-	for len(s) > 0 {
-		ncopy := copy(buf, s[:])
-		s = s[ncopy:]
-		for i, b := range buf[:ncopy] {
-			buf[i] = r[b]
-		}
-		wn, err := w.Write(buf[:ncopy])
-		n += wn
-		if err != nil {
-			return n, err
-		}
-	}
-	return n, nil
-}
-
-// byteStringReplacer is the implementation that's used when all the
-// "old" values are single ASCII bytes but the "new" values vary in size.
-// The array contains replacement byte slices indexed by old byte.
-// A nil []byte means that the old byte should not be replaced.
-type byteStringReplacer [256][]byte
-
-func (r *byteStringReplacer) Replace(s string) string {
-	newSize := len(s)
-	anyChanges := false
-	for i := 0; i < len(s); i++ {
-		b := s[i]
-		if r[b] != nil {
-			anyChanges = true
-			// The -1 is because we are replacing 1 byte with len(r[b]) bytes.
-			newSize += len(r[b]) - 1
-		}
-	}
-	if !anyChanges {
-		return s
-	}
-	buf := make([]byte, newSize)
-	bi := buf
-	for i := 0; i < len(s); i++ {
-		b := s[i]
-		if r[b] != nil {
-			n := copy(bi, r[b])
-			bi = bi[n:]
-		} else {
-			bi[0] = b
-			bi = bi[1:]
-		}
-	}
-	return string(buf)
-}
-
-func (r *byteStringReplacer) WriteString(w io.Writer, s string) (n int, err error) {
-	sw := getStringWriter(w)
-	last := 0
-	for i := 0; i < len(s); i++ {
-		b := s[i]
-		if r[b] == nil {
-			continue
-		}
-		if last != i {
-			nw, err := sw.WriteString(s[last:i])
-			n += nw
-			if err != nil {
-				return n, err
-			}
-		}
-		last = i + 1
-		nw, err := w.Write(r[b])
-		n += nw
-		if err != nil {
-			return n, err
-		}
-	}
-	if last != len(s) {
-		var nw int
-		nw, err = sw.WriteString(s[last:])
-		n += nw
 	}
 	return
 }
