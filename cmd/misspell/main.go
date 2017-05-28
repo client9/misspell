@@ -140,7 +140,7 @@ func main() {
 	case "NZ", "AU", "CA":
 		log.Fatalf("Help wanted.  https://github.com/client9/misspell/issues/6")
 	default:
-		log.Fatalf("Unknow locale: %q", *locale)
+		log.Fatalf("Unknown locale: %q", *locale)
 	}
 
 	//
