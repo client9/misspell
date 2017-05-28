@@ -1,5 +1,7 @@
 package misspell
 
+// Code generated automatically.  DO NOT EDIT.
+
 // DictMain is the main rule set, not including locale-specific spellings
 var DictMain = []string{
 	"differentiatiations", "differentiations",
