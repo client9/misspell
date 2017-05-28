@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -74,7 +73,6 @@ var scm = map[string]bool{
 // isSCMPath returns true if the path is likely part of a (private) SCM
 //  directory.  E.g.  ./git/something  = true
 func isSCMPath(s string) bool {
-	log.Printf("Checking s")
 	// hack for .git/COMMIT_EDITMSG and .git/TAG_EDITMSG
 	// normally we don't look at anything in .git
 	// but COMMIT_EDITMSG and TAG_EDITMSG are used as
