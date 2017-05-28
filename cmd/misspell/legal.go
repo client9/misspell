@@ -8,8 +8,9 @@ MIT license.  See the following for details:
 * https://github.com/client9/misspell/blob/master/LICENSE
 * https://tldrlegal.com/license/mit-license 
 
-Misspell contains a modified version of Golang's strings.Replacer
-which is covered under a BSD License
+Misspell makes uses of the Golang standard library and 
+contains a modified version of Golang's strings.Replacer
+which are covered under a BSD License.
 
 * https://golang.org/pkg/strings/#Replacer
 * https://golang.org/src/strings/replace.go
