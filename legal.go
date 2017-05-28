@@ -1,6 +1,7 @@
-package main
+package misspell
 
-const legal = `
+// Legal provides licensing info.
+const Legal = `
 Execept where noted below, the source code for misspell is
 copyright Nick Galbreath and distribution is allowed under a
 MIT license.  See the following for details:

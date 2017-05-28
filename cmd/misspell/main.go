@@ -120,7 +120,7 @@ func main() {
 		return
 	}
 	if *showLegal {
-		fmt.Println(legal)
+		fmt.Println(misspell.Legal)
 		return
 	}
 	if *debugFlag {
