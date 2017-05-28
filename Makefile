@@ -5,9 +5,12 @@ CONTAINER=nickg/misspell
 .git/hooks/commit-msg: scripts/commit-msg.sh
 	cp -f scripts/commit-msg.sh .git/hooks/commit-msg
 
-hooks: .git/hooks/pre-commit .git/hooks/commit-msg
+hooks: .git/hooks/pre-commit .git/hooks/commit-msg  ## install git precommit hooks
 
-build: hooks
+install:  ## install misspell into GOPATH/bin
+	go install ./cmd/misspell
+
+build: hooks  ## build and lint misspell
 	go install ./cmd/misspell
 	gometalinter \
 		 --vendor \
@@ -24,7 +27,7 @@ build: hooks
 		 ./...
 	go test .
 
-test:
+test:  ## run all tests
 	go test .
 
 # the grep in line 2 is to remove misspellings in the spelling dictionary
@@ -43,22 +46,22 @@ falsepositives: /scowl-wl
 #		grep -v -E "withing" | \
 #		misspell -debug -error
 
-bench:
+bench:  ## run benchmarks
 	go test -bench '.*'
 
-clean:
+clean:  ## clean up time
 	rm -rf dist/ bin/
 	go clean ./...
 	git gc --aggressive
 
-ci:
+ci:  ## run test like travis-ci does, requires docker
 	docker run --rm \
 		-v $(PWD):/go/src/github.com/client9/misspell \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} \
 		make build falsepositives
 
-docker-build:  ## build a test test image
+docker-build:  ## build a docker test image
 	docker build -t ${CONTAINER} .
 
 docker-pull:  ## pull latest test image
@@ -70,4 +73,8 @@ docker-console:  ## log into the test image
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} sh
 
-.PHONY: ci console docker-build bench
+# Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.PHONY: help ci console docker-build bench
