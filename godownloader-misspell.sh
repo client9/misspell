@@ -35,6 +35,76 @@ parse_args() {
   shift $((OPTIND - 1))
   VERSION=$1
 }
+# this function wraps all the destructive operations
+# if a curl|bash cuts off the end of the script due to
+# network, either nothing will happen or will syntax error
+# out preventing half-done work
+execute() {
+  TMPDIR=$(mktmpdir)
+  echo "$PREFIX: downloading ${TARBALL_URL}"
+  http_download "${TMPDIR}/${TARBALL}" "${TARBALL_URL}"
+
+  echo "$PREFIX: verifying checksums"
+  http_download "${TMPDIR}/${CHECKSUM}" "${CHECKSUM_URL}"
+  hash_sha256_verify "${TMPDIR}/${TARBALL}" "${TMPDIR}/${CHECKSUM}"
+
+  (cd "${TMPDIR}" && untar "${TARBALL}")
+  install -d "${BINDIR}"
+  install "${TMPDIR}/${BINARY}" "${BINDIR}/"
+  echo "$PREFIX: installed as ${BINDIR}/${BINARY}"
+}
+is_supported_platform() {
+  platform=$1
+  found=1
+  case "$platform" in
+    darwin/amd64) found=0 ;;
+    linux/amd64) found=0 ;;
+  esac
+  case "$platform" in
+    darwin/386) found=1 ;;
+  esac
+  return $found
+}
+check_platform() {
+  if is_supported_platform "$PLATFORM"; then
+    # optional logging goes here
+    true
+  else
+    echo "${PREFIX}: platform $PLATFORM is not supported.  Make sure this script is up-to-date and file request at https://github.com/${PREFIX}/issues/new"
+    exit 1
+  fi
+}
+adjust_version() {
+  if [ -z "${VERSION}" ]; then
+    echo "$PREFIX: checking GitHub for latest version"
+    VERSION=$(github_last_release "$OWNER/$REPO")
+  fi
+  # if version starts with 'v', remove it
+  VERSION=${VERSION#v}
+}
+adjust_format() {
+  # change format (tar.gz or zip) based on ARCH
+  true
+}
+adjust_os() {
+  # adjust archive name based on OS
+  case ${OS} in
+    386) OS=32bit ;;
+    amd64) OS=64bit ;;
+    darwin) OS=mac ;;
+  esac
+  true
+}
+adjust_arch() {
+  # adjust archive name based on ARCH
+  case ${ARCH} in
+    386) ARCH=32bit ;;
+    amd64) ARCH=64bit ;;
+    darwin) ARCH=mac ;;
+  esac
+  true
+}
+
 cat /dev/null <<EOF
 ------------------------------------------------------------------------
 https://github.com/client9/shlib - portable posix shell functions
@@ -207,19 +277,6 @@ End of functions from https://github.com/client9/shlib
 ------------------------------------------------------------------------
 EOF
 
-is_supported_platform() {
-  platform=$1
-  found=1
-  case "$platform" in
-    darwin/amd64) found=0 ;;
-    linux/amd64) found=0 ;;
-  esac
-  case "$platform" in
-    darwin/386) found=1 ;;
-  esac
-  return $found
-}
-
 OWNER=client9
 REPO=misspell
 BINARY=misspell
@@ -228,73 +285,34 @@ OS=$(uname_os)
 ARCH=$(uname_arch)
 PREFIX="$OWNER/$REPO"
 PLATFORM="${OS}/${ARCH}"
+GITHUB_DOWNLOAD=https://github.com/${OWNER}/${REPO}/releases/download
+
+uname_os_check "$OS"
+uname_arch_check "$ARCH"
 
 parse_args "$@"
 
-uname_os_check
-uname_arch_check
+check_platform
 
-if is_supported_platform "$PLATFORM"; then
-  # optional logging goes here
-  true
-else
-  echo "${PREFIX}: platform $PLATFORM is not supported.  Make sure this script is up-to-date and file request at https://github.com/${PREFIX}/issues/new"
-  exit 1
-fi
+adjust_version
 
-if [ -z "${VERSION}" ]; then
-  echo "$PREFIX: checking GitHub for latest version"
-  VERSION=$(github_last_release "$OWNER/$REPO")
-fi
-# if version starts with 'v', remove it
-VERSION=${VERSION#v}
+adjust_format
 
-# Adjust binary name if windows
-if [ "$OS" = "windows" ]; then
-  BINARY="${BINARY}.exe"
-fi
+adjust_os
 
-# change format (tar.gz or zip) based on ARCH
-
-# adjust archive name based on OS
-case ${OS} in
-  386) OS=32bit ;;
-  amd64) OS=64bit ;;
-  darwin) OS=mac ;;
-esac
-
-# adjust archive name based on ARCH
-case ${ARCH} in
-  386) ARCH=32bit ;;
-  amd64) ARCH=64bit ;;
-  darwin) ARCH=mac ;;
-esac
+adjust_arch
 
 echo "$PREFIX: found version ${VERSION} for ${OS}/${ARCH}"
 
 NAME=${BINARY}_${VERSION}_${OS}_${ARCH}
 TARBALL=${NAME}.${FORMAT}
-TARBALL_URL=https://github.com/${OWNER}/${REPO}/releases/download/v${VERSION}/${TARBALL}
+TARBALL_URL=${GITHUB_DOWNLOAD}/v${VERSION}/${TARBALL}
 CHECKSUM=${REPO}_checksums.txt
-CHECKSUM_URL=https://github.com/${OWNER}/${REPO}/releases/download/v${VERSION}/${CHECKSUM}
+CHECKSUM_URL=${GITHUB_DOWNLOAD}/v${VERSION}/${CHECKSUM}
 
-# this function wraps all the destructive operations
-# if a curl|bash cuts off the end of the script due to
-# network, either nothing will happen or will syntax error
-# out preventing half-done work
-execute() {
-  TMPDIR=$(mktmpdir)
-  echo "$PREFIX: downloading ${TARBALL_URL}"
-  http_download "${TMPDIR}/${TARBALL}" "${TARBALL_URL}"
-
-  echo "$PREFIX: verifying checksums"
-  http_download "${TMPDIR}/${CHECKSUM}" "${CHECKSUM_URL}"
-  hash_sha256_verify "${TMPDIR}/${TARBALL}" "${TMPDIR}/${CHECKSUM}"
-
-  (cd "${TMPDIR}" && untar "${TARBALL}")
-  install -d "${BINDIR}"
-  install "${TMPDIR}/${BINARY}" "${BINDIR}/"
-  echo "$PREFIX: installed as ${BINDIR}/${BINARY}"
-}
+# Adjust binary name if windows
+if [ "$OS" = "windows" ]; then
+  BINARY="${BINARY}.exe"
+fi
 
 execute
