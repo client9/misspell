@@ -3,4 +3,5 @@ dist: trusty
 language: generic
 script:
   - make -e ci
-
+after_success:
+  - test -n "$TRAVIS_TAG" && ./scripts/goreleaser.sh
