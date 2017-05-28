@@ -110,11 +110,17 @@ func main() {
 		debugFlag   = flag.Bool("debug", false, "Debug matching, very slow")
 		exitError   = flag.Bool("error", false, "Exit with 2 if misspelling found")
 		showVersion = flag.Bool("v", false, "Show version and exit")
+
+		showLegal = flag.Bool("legal", false, "Show legal information and exit")
 	)
 	flag.Parse()
 
 	if *showVersion {
 		fmt.Println(version)
+		return
+	}
+	if *showLegal {
+		fmt.Println(legal)
 		return
 	}
 	if *debugFlag {
