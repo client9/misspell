@@ -353,7 +353,7 @@ can check your code using [golint](https://github.com/golang/lint)
 <a name="license"></a>
 ### What license is this?
 
-[MIT](https://github.com/client9/misspell/blob/master/LICENSE)
+The main code is [MIT](https://github.com/client9/misspell/blob/master/LICENSE) however it also contains work derived from other BSD-licensed sources.  Type `misspell -legal` for more details or see [legal.go](https://github.com/client9/misspell/blob/master/cmd/misspell/legal.go)
 
 <a name="words"></a>
 ### Where do the word lists come from?
