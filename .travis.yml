@@ -1,6 +1,10 @@
 sudo: required
 dist: trusty
-language: generic
+language: go
+go:
+  - 1.8.x
+git:
+  depth: 1
 script:
   - make -e ci
 after_success:
