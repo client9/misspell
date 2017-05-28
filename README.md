@@ -46,6 +46,8 @@ Usage of misspell:
     	ignore the following corrections, comma separated
   -j int
     	Number of workers, 0 = number of CPUs
+  -legal
+    	Show legal information and exit
   -locale string
     	Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
   -o string
