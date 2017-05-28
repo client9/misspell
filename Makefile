@@ -1,12 +1,5 @@
 CONTAINER=nickg/misspell
 
-.git/hooks/pre-commit: scripts/pre-commit.sh
-	cp -f scripts/pre-commit.sh .git/hooks/pre-commit
-.git/hooks/commit-msg: scripts/commit-msg.sh
-	cp -f scripts/commit-msg.sh .git/hooks/commit-msg
-
-hooks: .git/hooks/pre-commit .git/hooks/commit-msg  ## install git precommit hooks
-
 install:  ## install misspell into GOPATH/bin
 	go install ./cmd/misspell
 
@@ -72,6 +65,12 @@ docker-console:  ## log into the test image
 		-v $(PWD):/go/src/github.com/client9/misspell \
 		-w /go/src/github.com/client9/misspell \
 		${CONTAINER} sh
+
+.git/hooks/pre-commit: scripts/pre-commit.sh
+	cp -f scripts/pre-commit.sh .git/hooks/pre-commit
+.git/hooks/commit-msg: scripts/commit-msg.sh
+	cp -f scripts/commit-msg.sh .git/hooks/commit-msg
+hooks: .git/hooks/pre-commit .git/hooks/commit-msg  ## install git precommit hooks
 
 # Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
