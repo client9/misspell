@@ -25294,6 +25294,7 @@ var DictMain = []string{
 	"corasir", "corsair",
 	"coratia", "croatia",
 	"coridal", "cordial",
+	"corrent", "current",
 	"corsari", "corsair",
 	"corsiar", "corsair",
 	"corspes", "corpses",
