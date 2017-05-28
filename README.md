@@ -133,6 +133,12 @@ or
 find . -type f | xargs misspell
 ```
 
+You can select a type of file as well.  The following examples selects all `.txt` files that are *not* in the `venodr` directory:
+
+```bash
+find . -type -f -name '*.txt' | grep -v vendor/ | xargs misspell -error
+```
+
 <a name="stdin"></a>
 ### Can I use pipes or `stdin` for input?
 
