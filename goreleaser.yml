@@ -1,7 +1,7 @@
 # goreleaser.yml
 # https://github.com/goreleaser/goreleaser 
 build:
-  main: cmd/misspell
+  main: cmd/misspell/main.go
   binary: misspell
   ldflags: -s -w -X main.version={{.Version}}
   goos:
