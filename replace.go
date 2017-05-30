@@ -110,6 +110,13 @@ func (r *Replacer) recheckLine(s string, lineNum int, buf io.Writer, next func(D
 			// no replacement done
 			continue
 		}
+
+		// ignore camelCase words
+		// https://github.com/client9/misspell/issues/113
+		if CaseStyle(word) == CaseUnknown {
+			continue
+		}
+
 		if StringEqualFold(r.corrected[strings.ToLower(word)], newword) {
 			// word got corrected into something we know
 			io.WriteString(buf, s[first:ab[0]])
