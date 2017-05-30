@@ -72,8 +72,13 @@ docker-console:  ## log into the test image
 	cp -f scripts/commit-msg.sh .git/hooks/commit-msg
 hooks: .git/hooks/pre-commit .git/hooks/commit-msg  ## install git precommit hooks
 
-# Absolutely awesome: http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
-help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
 .PHONY: help ci console docker-build bench
+
+# https://www.client9.com/self-documenting-makefiles/
+help:
+	@awk -F ':|##' '/^[^\t].+?:.*?##/ {\
+	printf "\033[36m%-30s\033[0m %s\n", $$1, $$NF \
+	}' $(MAKEFILE_LIST)
+.DEFAULT_GOAL=help
+.PHONY=help
+
