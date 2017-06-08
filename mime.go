@@ -82,7 +82,7 @@ func isSCMPath(s string) bool {
 	if strings.Contains(filepath.Base(s), "EDITMSG") {
 		return false
 	}
-	parts := strings.Split(s, string(filepath.Separator))
+	parts := strings.Split(filepath.Clean(s), string(filepath.Separator))
 	for _, dir := range parts {
 		if scm[dir] {
 			return true
