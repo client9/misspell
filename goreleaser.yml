@@ -7,12 +7,15 @@ build:
   goos:
     - darwin
     - linux
+    - windows
   goarch:
     - amd64
   env:
     - CGO_ENABLED=0
   ignore:
     - goos: darwin
+      goarch: 386
+    - goos: windows
       goarch: 386
 
 archive:
