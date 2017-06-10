@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: go
 go:
-  - 1.8.x
+  - 1.8.3
 git:
   depth: 1
 script:
