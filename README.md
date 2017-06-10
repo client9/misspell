@@ -8,8 +8,8 @@ Correct commonly misspelled English words... quickly.
 If you just want a binary and to start using `misspell`:
 
 ```
-curl -o ./godownloader-misspell.sh https://raw.githubusercontent.com/client9/misspell/master/godownloader-misspell.sh 
-/bin/sh ./godownloader-misspell.sh
+curl -o ./install-misspell.sh https://git.io/misspell
+/bin/sh ./install-misspell.sh
 ```
 
 will install as `./bin/misspell`.  You can adjust the download location using the `-b` flag.   File a ticket if you want another platform supported.
