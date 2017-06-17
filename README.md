@@ -96,7 +96,7 @@ Just add the `-w` flag!
 $ misspell -w all.html your.txt important.md files.go
 your.txt:9:21:corrected "langauge" to "language"
 
-# ^booyah
+# ^ File is rewritten only if a misspelling is found
 ```
 
 <a name="locale"></a>
