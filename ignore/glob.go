@@ -15,14 +15,17 @@ type Matcher interface {
 	MarshalText() ([]byte, error)
 }
 
+// MultiMatch has matching on a list of matchers
 type MultiMatch struct {
 	matchers []Matcher
 }
 
+// NewMultiMatch creates a new MultiMatch instance
 func NewMultiMatch(matchers []Matcher) *MultiMatch {
 	return &MultiMatch{matchers: matchers}
 }
 
+// Match satifies the Matcher iterface
 func (mm *MultiMatch) Match(arg string) bool {
 	// Normal: OR
 	// false, false -> false
@@ -45,7 +48,10 @@ func (mm *MultiMatch) Match(arg string) bool {
 
 }
 
+// True returns true
 func (mm *MultiMatch) True() bool { return true }
+
+// MarshalText satifies the ?? interface
 func (mm *MultiMatch) MarshalText() ([]byte, error) {
 	return []byte("multi"), nil
 }
@@ -57,6 +63,7 @@ type GlobMatch struct {
 	normal  bool
 }
 
+// NewGlobMatch creates a new GlobMatch instance or error
 func NewGlobMatch(arg []byte) (*GlobMatch, error) {
 	truth := true
 	if len(arg) > 0 && arg[0] == '!' {
@@ -69,7 +76,7 @@ func NewGlobMatch(arg []byte) (*GlobMatch, error) {
 	return NewPathGlobMatch(string(arg), truth)
 }
 
-// NewPathGlobMatch compiles a new matcher.
+// NewBaseGlobMatch compiles a new matcher.
 // Arg true should be set to false if the output is inverted.
 func NewBaseGlobMatch(arg string, truth bool) (*GlobMatch, error) {
 	g, err := glob.Compile(arg)
@@ -100,7 +107,7 @@ func NewPathGlobMatch(arg string, truth bool) (*GlobMatch, error) {
 //
 func (g *GlobMatch) True() bool { return g.normal }
 
-// MarshalJSON is really a debug function
+// MarshalText is really a debug function
 func (g *GlobMatch) MarshalText() ([]byte, error) {
 	return []byte(fmt.Sprintf("\"%s: %v %s\"", "GlobMatch", g.normal, g.orig)), nil
 }

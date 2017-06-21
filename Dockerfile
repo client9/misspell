@@ -1,14 +1,14 @@
-FROM golang:1.8.1-alpine
-MAINTAINER https://github.com/client9/misspell
+FROM golang:1.8.3-alpine
 
 # cache buster
-RUN echo 3
+RUN echo 4 
 
 # git is needed for "go get" below
 RUN apk add --no-cache git make
 
 # these are my standard testing / linting tools
 RUN /bin/true \
+    && go get -u github.com/golang/dep/cmd/dep \
     && go get -u github.com/alecthomas/gometalinter \
     && gometalinter --install \
     && rm -rf /go/src /go/pkg
