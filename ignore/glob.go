@@ -25,7 +25,7 @@ func NewMultiMatch(matchers []Matcher) *MultiMatch {
 	return &MultiMatch{matchers: matchers}
 }
 
-// Match satifies the Matcher iterface
+// Match satisfies the Matcher iterface
 func (mm *MultiMatch) Match(arg string) bool {
 	// Normal: OR
 	// false, false -> false
@@ -51,7 +51,7 @@ func (mm *MultiMatch) Match(arg string) bool {
 // True returns true
 func (mm *MultiMatch) True() bool { return true }
 
-// MarshalText satifies the ?? interface
+// MarshalText satisfies the ?? interface
 func (mm *MultiMatch) MarshalText() ([]byte, error) {
 	return []byte("multi"), nil
 }
