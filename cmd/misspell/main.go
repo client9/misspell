@@ -61,7 +61,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 		var updated string
 		var changes []misspell.Diff
 
-		if mode == "go" {
+		if mode == "go" || strings.ToLower(filepath.Ext(filename)) == ".go" {
 			updated, changes = r.ReplaceGo(orig)
 		} else {
 			updated, changes = r.Replace(orig)
