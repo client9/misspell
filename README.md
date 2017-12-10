@@ -5,7 +5,7 @@ Correct commonly misspelled English words... quickly.
 ### Install
 
 
-If you just want a binary and to start using `misspell`:
+If you just want a binary and to start using `misspell`.  The script depends on [`jq`](https://stedolan.github.io/jq/):
 
 ```
 curl -L -o ./install-misspell.sh https://git.io/misspell
