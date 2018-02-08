@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"flag"
 	"fmt"
@@ -107,6 +108,7 @@ func main() {
 		format      = flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
 		ignores     = flag.String("i", "", "ignore the following corrections, comma separated")
 		locale      = flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
+		localDict   = flag.String("d", "", "user defined corrections file path")
 		mode        = flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 		debugFlag   = flag.Bool("debug", false, "Debug matching, very slow")
 		exitError   = flag.Bool("error", false, "Exit with 2 if misspelling found")
@@ -148,6 +150,29 @@ func main() {
 		log.Fatalf("Help wanted.  https://github.com/client9/misspell/issues/6")
 	default:
 		log.Fatalf("Unknown locale: %q", *locale)
+	}
+
+	//
+	// Load user defined corrections
+	//
+	if len(*localDict) > 0 {
+		f, err := os.Open(*localDict)
+		if err != nil {
+			log.Fatalf("Failed to load user defined corrections: %v, err: %v", *localDict, err)
+		}
+		defer f.Close()
+		scanner := bufio.NewScanner(f)
+		var userDicts []string
+		for scanner.Scan() {
+			line := scanner.Text()
+			// wrong||correct
+			fields := strings.Split(line, "||")
+			userDicts = append(userDicts, fields...)
+		}
+		if err := scanner.Err(); err != nil {
+			log.Fatal("reading input:", err)
+		}
+		r.AddRuleList(userDicts)
 	}
 
 	//
