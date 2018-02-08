@@ -52,6 +52,8 @@ Usage of misspell:
     	'csv', 'sqlite3' or custom Golang template for output
   -i string
     	ignore the following corrections, comma separated
+  -ipath string
+      ignored if the pathname being examined matches pattern, comma separated
   -j int
     	Number of workers, 0 = number of CPUs
   -legal
@@ -275,6 +277,15 @@ For example, if you were to run `misspell -w -error -source=text` against docume
 determine the rules to ignore by reverting the change and running the with the `-debug` flag.  You can then see
 that the corrections were `htey -> they` and `aswell -> as well`. To ignore these two rules, you add `-i "htey,aswell"` to
 your command. With debug mode on, you can see it print the corrections, but it will no longer make them.
+
+<a name="ignore_path"></a>
+### How can I ignore files?
+
+Using the `-ipath "comma,separated,rules"` flag you can specify files to ignore.
+
+For example, if you were to run `misspell .` against current directory which is a golang repository, it usually has a vendor directory for 3rd library and a .git directory for git staff and you may not want to correct typos in those directories.  You can then
+ignore those directories. To ignore those two directories, you add `-ipath ".git,vendor"` to
+your command. With debug mode on, you can see files in those directories are ignored by rules.
 
 <a name="output"></a>
 ### How can I change the output format?
