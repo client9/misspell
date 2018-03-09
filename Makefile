@@ -4,6 +4,7 @@ install:  ## install misspell into GOPATH/bin
 	go install ./cmd/misspell
 
 build: hooks  ## build and lint misspell
+	dep ensure
 	go install ./cmd/misspell
 	gometalinter \
 		 --vendor \
