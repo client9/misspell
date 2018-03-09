@@ -28,6 +28,7 @@ archive:
     amd64: 64bit
     386: 32bit
     darwin: mac
+  files:
 
 checksum:
   name_template: "{{ .ProjectName }}_{{ .Version }}_checksums.txt"
