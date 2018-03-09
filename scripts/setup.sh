@@ -1,4 +1,5 @@
 #!/bin/sh
+set -ex
 
 # DEP
 curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
