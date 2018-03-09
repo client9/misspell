@@ -5,5 +5,12 @@ git:
   depth: 1
 script:
   - make -e ci
-after_success:
-  - test -n "$TRAVIS_TAG" && ./scripts/goreleaser.sh
+
+# calls goreleaser when a new tag is pushed
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: curl -sL http://git.io/goreleaser | bash
+  on:
+    tags: true
+    condition: $TRAVIS_OS_NAME = linux
