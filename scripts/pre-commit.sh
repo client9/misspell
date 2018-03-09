@@ -1,2 +1,2 @@
 #!/bin/sh -ex
-make ci
+./scripts/build.sh
