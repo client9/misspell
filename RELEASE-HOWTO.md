@@ -15,11 +15,19 @@ since I forget.
     git tag -a v0.1.0 -m "First release"
     ```
 
-3. Push
+3. Test goreleaser
+
+   TODO: how to install goreleaser
+
+   ```
+   goreleaser --skip-publish
+   ```
+
+4. Push
 
     ```bash
     git push origin v0.1.0
     ```
 
-4. Verify release and edit notes.   See https://github.com/client9/misspell/releases
+5. Verify release and edit notes.   See https://github.com/client9/misspell/releases
 
