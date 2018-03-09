@@ -23,6 +23,10 @@ build: hooks  ## build and lint misspell
 test:  ## run all tests
 	go test .
 
+# real publishing is done only by travis
+publish:  ## test goreleaser
+	./scripts/goreleaser-dryrun.sh
+
 # the grep in line 2 is to remove misspellings in the spelling dictionary
 # that trigger false positives!!
 falsepositives: /scowl-wl
