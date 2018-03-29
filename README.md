@@ -44,6 +44,8 @@ your.txt:42:10 found "langauge" a misspelling of "language"
 ```
 $ misspell -help
 Usage of misspell:
+  -d string
+    	user defined corrections file path
   -debug
     	Debug matching, very slow
   -error
@@ -118,6 +120,21 @@ stdin:1:3:found "favorite color" a misspelling of "favourite colour"
 
 Help is appreciated as I'm neither British nor an
 expert in the English language.
+
+<a name="locale"></a>
+### How do I use my custom corrections dict?
+
+Add the `-d corretion_file_path` flag!
+
+```bash
+$ misspell -d dict.txt important.txt
+important.txt:10:20 found "dunction" a misspelling of "function"
+```
+NOTE: the user defined dict should be in the formal of
+```
+dunction||funcion
+wrong||correct
+```
 
 <a name="recursive"></a>
 ### How do you check an entire folder recursively?
