@@ -168,6 +168,27 @@ func main() {
 		log.Fatalf("Mode must be one of auto=guess, go=golang source, text=plain or markdown-like text")
 	}
 
+	// we cant't just write to os.Stdout directly since we have multiple goroutine
+	// all writing at the same time causing broken output.  Log is routine safe.
+	// we see it so it doesn't use a prefix or include a time stamp.
+	switch {
+	case *quietFlag || *outFlag == "/dev/null":
+		stdout = log.New(ioutil.Discard, "", 0)
+	case *outFlag == "/dev/stderr" || *outFlag == "stderr":
+		stdout = log.New(os.Stderr, "", 0)
+	case *outFlag == "/dev/stdout" || *outFlag == "stdout":
+		stdout = log.New(os.Stdout, "", 0)
+	case *outFlag == "" || *outFlag == "-":
+		stdout = log.New(os.Stdout, "", 0)
+	default:
+		fo, err := os.Create(*outFlag)
+		if err != nil {
+			log.Fatalf("unable to create outfile %q: %s", *outFlag, err)
+		}
+		defer fo.Close()
+		stdout = log.New(fo, "", 0)
+	}
+
 	//
 	// Custom output
 	//
@@ -192,27 +213,6 @@ func main() {
 	default: // format == ""
 		defaultWrite = template.Must(template.New("defaultWrite").Parse(defaultWriteTmpl))
 		defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
-	}
-
-	// we cant't just write to os.Stdout directly since we have multiple goroutine
-	// all writing at the same time causing broken output.  Log is routine safe.
-	// we see it so it doesn't use a prefix or include a time stamp.
-	switch {
-	case *quietFlag || *outFlag == "/dev/null":
-		stdout = log.New(ioutil.Discard, "", 0)
-	case *outFlag == "/dev/stderr" || *outFlag == "stderr":
-		stdout = log.New(os.Stderr, "", 0)
-	case *outFlag == "/dev/stdout" || *outFlag == "stdout":
-		stdout = log.New(os.Stdout, "", 0)
-	case *outFlag == "" || *outFlag == "-":
-		stdout = log.New(os.Stdout, "", 0)
-	default:
-		fo, err := os.Create(*outFlag)
-		if err != nil {
-			log.Fatalf("unable to create outfile %q: %s", *outFlag, err)
-		}
-		defer fo.Close()
-		stdout = log.New(fo, "", 0)
 	}
 
 	//
