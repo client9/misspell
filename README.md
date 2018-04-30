@@ -57,7 +57,7 @@ Usage of misspell:
   -legal
     	Show legal information and exit
   -locale string
-    	Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
+    	Correct spellings using locale preferences for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
   -o string
     	output file or [stderr|stdout|] (default "stdout")
   -q	Do not emit misspelling output
