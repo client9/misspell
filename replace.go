@@ -171,32 +171,20 @@ Loop:
 	if lastPos < len(input) {
 		output = output + input[lastPos:]
 	}
-	diffs := make([]Diff, 0, 8)
-	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
-	// faster that making a bytes.Buffer and bufio.ReadString
-	outlines := strings.SplitAfter(output, "\n")
-	inlines := strings.SplitAfter(input, "\n")
-	for i := 0; i < len(inlines); i++ {
-		if inlines[i] == outlines[i] {
-			buf.WriteString(outlines[i])
-			continue
-		}
-		r.recheckLine(inlines[i], i+1, buf, func(d Diff) {
-			diffs = append(diffs, d)
-		})
-	}
-
-	return buf.String(), diffs
-
+	return r.generateDiffs(input, output)
 }
 
-// Replace is corrects misspellings in input, returning corrected version
+// Replace corrects misspellings in input, returning corrected version
 //  along with a list of diffs.
 func (r *Replacer) Replace(input string) (string, []Diff) {
 	output := r.engine.Replace(input)
 	if input == output {
 		return input, nil
 	}
+	return r.generateDiffs(input, output)
+}
+
+func (r *Replacer) generateDiffs(input, output string) (string, []Diff) {
 	diffs := make([]Diff, 0, 8)
 	buf := bytes.NewBuffer(make([]byte, 0, max(len(input), len(output))+100))
 	// faster that making a bytes.Buffer and bufio.ReadString
