@@ -72,7 +72,7 @@ func RemoveHost(s string) string {
 	return reHost.ReplaceAllStringFunc(s, replaceWithBlanks)
 }
 
-// RemoveBackslashEscapes removes characters that are preceeded by a backslash
+// RemoveBackslashEscapes removes characters that are preceded by a backslash
 // commonly found in printf format stringd "\nto"
 func removeBackslashEscapes(s string) string {
 	return reBackslash.ReplaceAllStringFunc(s, replaceWithBlanks)
