@@ -26755,6 +26755,7 @@ var DictMain = []string{
 	"restord", "restored",
 	"resuced", "rescued",
 	"resuces", "rescues",
+	"retrive", "retrieve",
 	"returnd", "returned",
 	"reuinon", "reunion",
 	"reveald", "revealed",
