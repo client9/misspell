@@ -14373,6 +14373,7 @@ var DictMain = []string{
 	"omnisicent", "omniscient",
 	"omniverous", "omnivorous",
 	"omnsicient", "omniscient",
+	"on-premise", "on-premises",
 	"onmipotent", "omnipotent",
 	"onmiscient", "omniscient",
 	"operatings", "operations",
