@@ -185,9 +185,9 @@ on the command line.  Conversely, you can check a golang source as if it were
 pure text by using `-source=text`.  You might want to do this since many
 variable names have misspellings in them!
 
-### Can I check only-comments in other other programming languages?
+### Can I check only-comments in other programming languages?
 
-I'm told the using `-source=go` works well for ruby, javascript, java, c and
+I'm told using `-source=go` works well for ruby, javascript, java, c and
 c++.
 
 It doesn't work well for python and bash.
@@ -222,7 +222,7 @@ You may wish to run this on your plaintext (.txt) and/or markdown files too.
 <a name="csv"></a>
 ### How Can I Get CSV Output?
 
-Using `-f csv`, the output is standard comma-seprated values with headers in the first row.
+Using `-f csv`, the output is standard comma-separated values with headers in the first row.
 
 ```
 misspell -f csv *
@@ -232,7 +232,7 @@ file,line,column,typo,corrected
 ```
 
 <a name="sqlite"></a>
-### How can I export to SQLite3? 
+### How can I export to SQLite3?
 
 Using `-f sqlite`, the output is a [sqlite3](https://www.sqlite.org/index.html) dump-file.
 
@@ -271,8 +271,8 @@ misspell -f sqlite * | sqlite3 -init /dev/stdin -column -cmd '.width 60 15' ':me
 
 Using the `-i "comma,separated,rules"` flag you can specify corrections to ignore.
 
-For example, if you were to run `misspell -w -error -source=text` against document that contains the string `Guy Finkelshteyn Braswell`, misspell would change the text to `Guy Finkelstheyn Bras well`.  You can then
-determine the rules to ignore by reverting the change and running the with the `-debug` flag.  You can then see
+For example, if you were to run `misspell -w -error -source=text` against a document that contains the string `Guy Finkelshteyn Braswell`, misspell would change the text to `Guy Finkelstheyn Bras well`.  You can then
+determine the rules to ignore by reverting the change and running misspell with the `-debug` flag.  You can then see
 that the corrections were `htey -> they` and `aswell -> as well`. To ignore these two rules, you add `-i "htey,aswell"` to
 your command. With debug mode on, you can see it print the corrections, but it will no longer make them.
 
@@ -336,7 +336,7 @@ should be able to check and correct 1000 files in under 250ms.
 
 This uses the mighty power of golang's
 [strings.Replacer](https://golang.org/pkg/strings/#Replacer) which is
-a implementation or variation of the
+an implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
 This makes multiple substring matches *simultaneously*.
 
@@ -418,7 +418,7 @@ locale would correct "advisor" to "adviser".
 
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
-*Feedback*  Mistakes would be sent to some server for agregation and feedback review.
+*Feedback*  Mistakes would be sent to some server for aggregation and feedback review.
 
 *Contractions and Apostrophes* This would optionally correct "isnt" to
 "isn't", etc.
