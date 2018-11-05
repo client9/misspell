@@ -57,7 +57,6 @@ func TestReplace(t *testing.T) {
 		{"closeing Time", "closing Time"},
 		{" TOOD: foobar", " TODO: foobar"},
 		{" preceed ", " precede "},
-		{"preceeding", "preceding"},
 		{"functionallity", "functionality"},
 	}
 	r := New()
