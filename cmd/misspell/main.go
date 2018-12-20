@@ -301,7 +301,7 @@ func main() {
 
 	for _, filename := range args {
 		filepath.Walk(filename, func(path string, info os.FileInfo, err error) error {
-			if err == nil && !info.IsDir() {
+			if err == nil && !info.IsDir() && !isSymlink(info) {
 				c <- path
 			}
 			return nil
@@ -323,4 +323,9 @@ func main() {
 	if count != 0 && *exitError {
 		os.Exit(2)
 	}
+}
+
+// isSymlink returns true if info represents a symlink, false otherwise
+func isSymlink(info os.FileInfo) bool {
+	return info.Mode()&os.ModeSymlink != 0
 }
