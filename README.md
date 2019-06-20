@@ -185,7 +185,7 @@ on the command line.  Conversely, you can check a golang source as if it were
 pure text by using `-source=text`.  You might want to do this since many
 variable names have misspellings in them!
 
-### Can I check only-comments in other other programming languages?
+### Can I check only-comments in other programming languages?
 
 I'm told the using `-source=go` works well for ruby, javascript, java, c and
 c++.
