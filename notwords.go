@@ -9,7 +9,7 @@ import (
 var (
 	reEmail     = regexp.MustCompile(`[a-zA-Z0-9_.%+-]+@[a-zA-Z0-9-.]+\.[a-zA-Z]{2,6}[^a-zA-Z]`)
 	reHost      = regexp.MustCompile(`[a-zA-Z0-9-.]+\.[a-zA-Z]+`)
-	reBackslash = regexp.MustCompile(`\\[a-z]`)
+	reBackslash = regexp.MustCompile(`\\[abfnrtv]`)
 )
 
 // RemovePath attempts to strip away embedded file system paths, e.g.
