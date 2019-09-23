@@ -322,7 +322,7 @@ They all work but had problems that prevented me from using them at scale:
 
 * slow, all of the above check one misspelling at a time (i.e. linear) using regexps
 * not MIT/Apache2 licensed (or equivalent)
-* have dependencies that don't work for me (python3, bash, linux sed, etc.)
+* have dependencies that don't work for me (python3, bash, GNU sed, etc.)
 * don't understand American vs. British English and sometimes makes unwelcome "corrections"
 
 That said, they might be perfect for you and many have more features
