@@ -369,7 +369,7 @@ The matching function is *case-sensitive*, so variable names that are multiple
 worlds either in all-uppercase or all-lowercase sometimes can cause false
 positives.  For instance, a variable named `bodyreader` could trigger a false
 positive since `yrea` is in the middle that could be corrected to `year`.
-Other problems happen if the variable name uses a English contraction that
+Other problems happen if the variable name uses an English contraction that
 should use an apostrophe.  The best way of fixing this is to use the
 [Effective Go naming
 conventions](https://golang.org/doc/effective_go.html#mixed-caps) and use
