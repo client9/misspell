@@ -340,7 +340,7 @@ an implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
 This makes multiple substring matches *simultaneously*.
 
-In addition this uses multiple CPU cores to work on multiple files.
+It also uses multiple CPU cores to work on multiple files concurrently.
 
 <a name="issues"></a>
 ### What problems does it have?
