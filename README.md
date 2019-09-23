@@ -299,13 +299,13 @@ To just print probable misspellings:
 ### What problem does this solve?
 
 This corrects commonly misspelled English words in computer source
-code, and other text-based formats (`.txt`, `.md`, etc).
+code, and other text-based formats (`.txt`, `.md`, etc.).
 
 It is designed to run quickly so it can be
 used as a [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
 with minimal burden on the developer.
 
-It does not work with binary formats (e.g. Word, etc).
+It does not work with binary formats (e.g. Word, etc.).
 
 It is not a complete spell-checking program nor a grammar checker.
 
@@ -322,7 +322,7 @@ They all work but had problems that prevented me from using them at scale:
 
 * slow, all of the above check one misspelling at a time (i.e. linear) using regexps
 * not MIT/Apache2 licensed (or equivalent)
-* have dependencies that don't work for me (python3, bash, linux sed, etc)
+* have dependencies that don't work for me (python3, bash, linux sed, etc.)
 * don't understand American vs. British English and sometimes makes unwelcome "corrections"
 
 That said, they might be perfect for you and many have more features
