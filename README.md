@@ -51,7 +51,7 @@ Usage of misspell:
   -f string
     	'csv', 'sqlite3' or custom Golang template for output
   -i string
-    	ignore the following corrections, comma separated
+    	ignore the following corrections, comma-separated
   -j int
     	Number of workers, 0 = number of CPUs
   -legal
