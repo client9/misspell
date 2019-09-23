@@ -141,7 +141,7 @@ or
 find . -type f | xargs misspell
 ```
 
-You can select a type of file as well.  The following examples selects all `.txt` files that are *not* in the `vendor` directory:
+You can select a type of file as well.  The following example selects all `.txt` files that are *not* in the `vendor` directory:
 
 ```bash
 find . -type f -name '*.txt' | grep -v vendor/ | xargs misspell -error
