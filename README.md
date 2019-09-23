@@ -390,7 +390,7 @@ which is covered under a [BSD License](https://github.com/golang/go/blob/master/
 It started with a word list from
 [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines).
 Unfortunately, this list had to be highly edited as many of the words are
-obsolete or based from mistakes on mechanical typewriters (I'm guessing).
+obsolete or based on mistakes on mechanical typewriters (I'm guessing).
 
 Additional words were added based on actually mistakes seen in
 the wild (meaning self-generated).
