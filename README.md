@@ -336,7 +336,7 @@ should be able to check and correct 1000 files in under 250ms.
 
 This uses the mighty power of golang's
 [strings.Replacer](https://golang.org/pkg/strings/#Replacer) which is
-a implementation or variation of the
+an implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
 This makes multiple substring matches *simultaneously*.
 
