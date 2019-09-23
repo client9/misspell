@@ -407,7 +407,7 @@ English, so "what is American or not" is subject to opinion.  Corrections and he
 <a name="otherideas"></a>
 ### What are some other enhancements that could be done?
 
-Here's some ideas for enhancements:
+Here are some ideas for enhancements:
 
 *Capitalization of proper nouns* could be done (e.g. weekday and month names, country names, language names)
 
