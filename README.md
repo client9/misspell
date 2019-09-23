@@ -418,7 +418,7 @@ locale would correct "advisor" to "adviser".
 
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
-*Feedback*  Mistakes would be sent to some server for agregation and feedback review.
+*Feedback*  Mistakes would be sent to some server for aggregation and feedback review.
 
 *Contractions and Apostrophes* This would optionally correct "isnt" to
 "isn't", etc.
