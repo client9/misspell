@@ -51,13 +51,13 @@ Usage of misspell:
   -f string
     	'csv', 'sqlite3' or custom Golang template for output
   -i string
-    	ignore the following corrections, comma separated
+    	ignore the following corrections, comma-separated
   -j int
     	Number of workers, 0 = number of CPUs
   -legal
     	Show legal information and exit
   -locale string
-    	Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
+    	Correct spellings using locale perferences for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
   -o string
     	output file or [stderr|stdout|] (default "stdout")
   -q	Do not emit misspelling output
@@ -141,7 +141,7 @@ or
 find . -type f | xargs misspell
 ```
 
-You can select a type of file as well.  The following examples selects all `.txt` files that are *not* in the `vendor` directory:
+You can select a type of file as well.  The following example selects all `.txt` files that are *not* in the `vendor` directory:
 
 ```bash
 find . -type f -name '*.txt' | grep -v vendor/ | xargs misspell -error
@@ -185,9 +185,9 @@ on the command line.  Conversely, you can check a golang source as if it were
 pure text by using `-source=text`.  You might want to do this since many
 variable names have misspellings in them!
 
-### Can I check only-comments in other other programming languages?
+### Can I check only-comments in other programming languages?
 
-I'm told the using `-source=go` works well for ruby, javascript, java, c and
+I'm told the using `-source=go` works well for ruby, javascript, java, c, and
 c++.
 
 It doesn't work well for python and bash.
@@ -299,13 +299,13 @@ To just print probable misspellings:
 ### What problem does this solve?
 
 This corrects commonly misspelled English words in computer source
-code, and other text-based formats (`.txt`, `.md`, etc).
+code, and other text-based formats (`.txt`, `.md`, etc.).
 
 It is designed to run quickly so it can be
 used as a [pre-commit hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks)
 with minimal burden on the developer.
 
-It does not work with binary formats (e.g. Word, etc).
+It does not work with binary formats (e.g. Word, etc.).
 
 It is not a complete spell-checking program nor a grammar checker.
 
@@ -322,7 +322,7 @@ They all work but had problems that prevented me from using them at scale:
 
 * slow, all of the above check one misspelling at a time (i.e. linear) using regexps
 * not MIT/Apache2 licensed (or equivalent)
-* have dependencies that don't work for me (python3, bash, linux sed, etc)
+* have dependencies that don't work for me (python3, bash, GNU sed, etc.)
 * don't understand American vs. British English and sometimes makes unwelcome "corrections"
 
 That said, they might be perfect for you and many have more features
@@ -336,11 +336,11 @@ should be able to check and correct 1000 files in under 250ms.
 
 This uses the mighty power of golang's
 [strings.Replacer](https://golang.org/pkg/strings/#Replacer) which is
-a implementation or variation of the
+an implementation or variation of the
 [Aho–Corasick algorithm](https://en.wikipedia.org/wiki/Aho–Corasick_algorithm).
 This makes multiple substring matches *simultaneously*.
 
-In addition this uses multiple CPU cores to work on multiple files.
+It also uses multiple CPU cores to work on multiple files concurrently.
 
 <a name="issues"></a>
 ### What problems does it have?
@@ -366,10 +366,10 @@ Thanks!
 ### Why is it making mistakes or missing items in golang files?
 
 The matching function is *case-sensitive*, so variable names that are multiple
-worlds either in all-upper or all-lower case sometimes can cause false
-positives.  For instance a variable named `bodyreader` could trigger a false
+worlds either in all-uppercase or all-lowercase sometimes can cause false
+positives.  For instance, a variable named `bodyreader` could trigger a false
 positive since `yrea` is in the middle that could be corrected to `year`.
-Other problems happen if the variable name uses a English contraction that
+Other problems happen if the variable name uses an English contraction that
 should use an apostrophe.  The best way of fixing this is to use the
 [Effective Go naming
 conventions](https://golang.org/doc/effective_go.html#mixed-caps) and use
@@ -382,7 +382,7 @@ can check your code using [golint](https://github.com/golang/lint)
 The main code is [MIT](https://github.com/client9/misspell/blob/master/LICENSE).
 
 Misspell also makes uses of the Golang standard library and contains a modified version of Golang's [strings.Replacer](https://golang.org/pkg/strings/#Replacer)
-which are covered under a [BSD License](https://github.com/golang/go/blob/master/LICENSE).  Type `misspell -legal` for more details or see [legal.go](https://github.com/client9/misspell/blob/master/legal.go)
+which is covered under a [BSD License](https://github.com/golang/go/blob/master/LICENSE).  Type `misspell -legal` for more details or see [legal.go](https://github.com/client9/misspell/blob/master/legal.go)
 
 <a name="words"></a>
 ### Where do the word lists come from?
@@ -390,7 +390,7 @@ which are covered under a [BSD License](https://github.com/golang/go/blob/master
 It started with a word list from
 [Wikipedia](https://en.wikipedia.org/wiki/Wikipedia:Lists_of_common_misspellings/For_machines).
 Unfortunately, this list had to be highly edited as many of the words are
-obsolete or based from mistakes on mechanical typewriters (I'm guessing).
+obsolete or based on mistakes on mechanical typewriters (I'm guessing).
 
 Additional words were added based on actually mistakes seen in
 the wild (meaning self-generated).
@@ -407,7 +407,7 @@ English, so "what is American or not" is subject to opinion.  Corrections and he
 <a name="otherideas"></a>
 ### What are some other enhancements that could be done?
 
-Here's some ideas for enhancements:
+Here are some ideas for enhancements:
 
 *Capitalization of proper nouns* could be done (e.g. weekday and month names, country names, language names)
 
@@ -418,7 +418,7 @@ locale would correct "advisor" to "adviser".
 
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
-*Feedback*  Mistakes would be sent to some server for agregation and feedback review.
+*Feedback*  Mistakes would be sent to some server for aggregation and feedback review.
 
 *Contractions and Apostrophes* This would optionally correct "isnt" to
 "isn't", etc.
