@@ -10,6 +10,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 	"text/template"
@@ -106,6 +107,7 @@ func main() {
 		outFlag     = flag.String("o", "stdout", "output file or [stderr|stdout|]")
 		format      = flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
 		ignores     = flag.String("i", "", "ignore the following corrections, comma separated")
+		ignorePaths = flag.String("ignore-paths", "", "ignore the following paths, RE")
 		locale      = flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
 		mode        = flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
 		debugFlag   = flag.Bool("debug", false, "Debug matching, very slow")
@@ -115,6 +117,11 @@ func main() {
 		showLegal = flag.Bool("legal", false, "Show legal information and exit")
 	)
 	flag.Parse()
+
+	ignorePathsRE, err := regexp.Compile(*ignorePaths)
+	if err != nil {
+		log.Fatalf("Failed to parse the regular expression in ignore-paths: %v.", err)
+	}
 
 	if *showVersion {
 		fmt.Println(version)
@@ -301,7 +308,7 @@ func main() {
 
 	for _, filename := range args {
 		filepath.Walk(filename, func(path string, info os.FileInfo, err error) error {
-			if err == nil && !info.IsDir() {
+			if err == nil && !info.IsDir() && (*ignorePaths == "" || !ignorePathsRE.MatchString(path)) {
 				c <- path
 			}
 			return nil
