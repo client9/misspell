@@ -26,6 +26,9 @@ var (
 	debug  *log.Logger
 
 	version = "dev"
+
+	gitignoreS, _ = misspell.ReadTextFile(".gitignore")
+	gitignoreL    = strings.Split(gitignoreS, "\n")
 )
 
 const (
@@ -302,6 +305,21 @@ func main() {
 	for _, filename := range args {
 		filepath.Walk(filename, func(path string, info os.FileInfo, err error) error {
 			if err == nil && !info.IsDir() {
+				for _, item := range gitignoreL {
+					if len(item) == 0 {
+						continue
+					}
+					if item[0] == '/' {
+						// use prefix for absolute paths
+						if strings.HasPrefix("/"+path, item) {
+							return nil
+						}
+					} else {
+						if strings.Contains("/"+path, item) {
+							return nil
+						}
+					}
+				}
 				c <- path
 			}
 			return nil
