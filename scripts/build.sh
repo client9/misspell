@@ -10,7 +10,6 @@ gometalinter \
   --enable=golint \
   --enable=gofmt \
   --enable=goimports \
-  --enable=staticcheck \
   --enable=ineffassign \
   --exclude=/usr/local/go/src/net/lookup_unix.go \
  ./...
