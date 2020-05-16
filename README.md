@@ -22,7 +22,7 @@ If you use [Go](https://golang.org/), the best way to run `misspell` is by using
 go get -u github.com/client9/misspell/cmd/misspell
 ```
 
-and misspell will be in your `GOPATH`
+and misspell will be in your `GOPATH`.
 
 
 Also if you like to live dangerously, one could do
@@ -214,7 +214,7 @@ gometalinter --enable misspell ./...
 ```
 
 Note that gometalinter only checks golang files, and uses the default options
-of `misspell`
+of `misspell`.
 
 You may wish to run this on your plaintext (.txt) and/or markdown files too.
 
@@ -374,7 +374,7 @@ should use an apostrophe.  The best way of fixing this is to use the
 [Effective Go naming
 conventions](https://golang.org/doc/effective_go.html#mixed-caps) and use
 [camelCase](https://en.wikipedia.org/wiki/CamelCase) for variable names.  You
-can check your code using [golint](https://github.com/golang/lint)
+can check your code using [golint](https://github.com/golang/lint).
 
 <a name="license"></a>
 ### What license is this?
@@ -382,7 +382,7 @@ can check your code using [golint](https://github.com/golang/lint)
 The main code is [MIT](https://github.com/client9/misspell/blob/master/LICENSE).
 
 Misspell also makes uses of the Golang standard library and contains a modified version of Golang's [strings.Replacer](https://golang.org/pkg/strings/#Replacer)
-which are covered under a [BSD License](https://github.com/golang/go/blob/master/LICENSE).  Type `misspell -legal` for more details or see [legal.go](https://github.com/client9/misspell/blob/master/legal.go)
+which are covered under a [BSD License](https://github.com/golang/go/blob/master/LICENSE).  Type `misspell -legal` for more details or see [legal.go](https://github.com/client9/misspell/blob/master/legal.go).
 
 <a name="words"></a>
 ### Where do the word lists come from?
@@ -409,7 +409,7 @@ English, so "what is American or not" is subject to opinion.  Corrections and he
 
 Here's some ideas for enhancements:
 
-*Capitalization of proper nouns* could be done (e.g. weekday and month names, country names, language names)
+*Capitalization of proper nouns* could be done (e.g. weekday and month names, country names, language names).
 
 *Opinionated US spellings*   US English has a number of words with alternate
 spellings.  Think [adviser vs.
