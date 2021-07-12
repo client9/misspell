@@ -31155,4 +31155,5 @@ var DictBritish = []string{
 	"molt", "moult",
 	"odor", "odour",
 	"plow", "plough",
+	"meter", "metre",
 }
