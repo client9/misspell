@@ -15,7 +15,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/client9/misspell"
+	"github.com/golangci/misspell"
 )
 
 var (
