@@ -2,7 +2,7 @@ package misspell
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"testing"
 )
 
@@ -74,7 +74,7 @@ func BenchmarkCleanStreamDiscard(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		buf.Reset()
 		buf.WriteString(sampleClean)
-		rep.ReplaceReader(buf, ioutil.Discard, discardDiff)
+		rep.ReplaceReader(buf, io.Discard, discardDiff)
 	}
 }
 

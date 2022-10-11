@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -91,7 +90,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 		}
 
 		if writeit {
-			ioutil.WriteFile(filename, []byte(updated), 0)
+			os.WriteFile(filename, []byte(updated), 0)
 		}
 	}
 	results <- count
@@ -127,7 +126,7 @@ func main() {
 	if *debugFlag {
 		debug = log.New(os.Stderr, "DEBUG ", 0)
 	} else {
-		debug = log.New(ioutil.Discard, "", 0)
+		debug = log.New(io.Discard, "", 0)
 	}
 
 	r := misspell.Replacer{
@@ -199,7 +198,7 @@ func main() {
 	// we see it so it doesn't use a prefix or include a time stamp.
 	switch {
 	case *quietFlag || *outFlag == "/dev/null":
-		stdout = log.New(ioutil.Discard, "", 0)
+		stdout = log.New(io.Discard, "", 0)
 	case *outFlag == "/dev/stderr" || *outFlag == "stderr":
 		stdout = log.New(os.Stderr, "", 0)
 	case *outFlag == "/dev/stdout" || *outFlag == "stdout":
@@ -257,7 +256,7 @@ func main() {
 			// if we are not writing out the corrected stream
 			// then work just like files.  Misspelling errors
 			// are sent to stdout
-			fileout = ioutil.Discard
+			fileout = io.Discard
 			errout = os.Stdout
 		}
 		count := 0

@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -71,7 +70,8 @@ var scm = map[string]bool{
 }
 
 // isSCMPath returns true if the path is likely part of a (private) SCM
-//  directory.  E.g.  ./git/something  = true
+//
+//	directory.  E.g.  ./git/something  = true
 func isSCMPath(s string) bool {
 	// hack for .git/COMMIT_EDITMSG and .git/TAG_EDITMSG
 	// normally we don't look at anything in .git
@@ -136,15 +136,17 @@ func isTextFile(raw []byte) bool {
 }
 
 // ReadTextFile returns the contents of a file, first testing if it is a text file
-//  returns ("", nil) if not a text file
-//  returns ("", error) if error
-//  returns (string, nil) if text
+//
+//	returns ("", nil) if not a text file
+//	returns ("", error) if error
+//	returns (string, nil) if text
 //
 // unfortunately, in worse case, this does
-//   1 stat
-//   1 open,read,close of 512 bytes
-//   1 more stat,open, read everything, close (via ioutil.ReadAll)
-//  This could be kinder to the filesystem.
+//
+//	 1 stat
+//	 1 open,read,close of 512 bytes
+//	 1 more stat,open, read everything, close (via io.ReadAll)
+//	This could be kinder to the filesystem.
 //
 // This uses some heuristics of the file's extension (e.g. .zip, .txt) and
 // uses a sniffer to determine if the file is text or not.
@@ -198,7 +200,7 @@ func ReadTextFile(filename string) (string, error) {
 	}
 
 	// read in whole file
-	raw, err := ioutil.ReadFile(filename)
+	raw, err := os.ReadFile(filename)
 	if err != nil {
 		return "", fmt.Errorf("Unable to read all %q: %s", filename, err)
 	}
