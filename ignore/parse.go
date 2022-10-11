@@ -4,9 +4,9 @@ import (
 	"bytes"
 )
 
-// Parse reads in a gitignore file and returns a Matcher
-func Parse(src []byte) (Matcher, error) {
-	matchers := []Matcher{}
+// Parse reads in a gitignore file and returns a Matcher.
+func Parse(src []byte) (*MultiMatch, error) {
+	var matchers []Matcher
 	lines := bytes.Split(src, []byte{'\n'})
 	for _, line := range lines {
 		if len(line) == 0 || len(bytes.TrimSpace(line)) == 0 {

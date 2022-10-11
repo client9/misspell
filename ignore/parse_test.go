@@ -41,15 +41,19 @@ func TestParseMatchSingle(t *testing.T) {
 		{"/*\n!/foo\n/foo/*\n!/foo/bar", "foo/bar/other", false},
 		{"/*\n!/foo\n/foo/*\n!/foo/bar", "foo", false},
 	}
+	for _, test := range cases {
+		test := test
+		t.Run(test.pattern, func(t *testing.T) {
+			t.Parallel()
+		})
 
-	for i, testcase := range cases {
-		matcher, err := Parse([]byte(testcase.pattern))
+		matcher, err := Parse([]byte(test.pattern))
 		if err != nil {
-			t.Errorf("%d) error: %s", i, err)
+			t.Errorf("error: %s", err)
 		}
-		got := matcher.Match(testcase.filename)
-		if testcase.want != got {
-			t.Errorf("%d) %q.Match(%q) = %v, got %v", i, testcase.pattern, testcase.filename, testcase.want, got)
+		got := matcher.Match(test.filename)
+		if test.want != got {
+			t.Errorf("%q.Match(%q) = %v, got %v", test.pattern, test.filename, test.want, got)
 		}
 	}
 }

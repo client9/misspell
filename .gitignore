@@ -3,6 +3,7 @@ bin/
 vendor/
 
 .idea/
+/misspell
 
 # editor turds
 *~

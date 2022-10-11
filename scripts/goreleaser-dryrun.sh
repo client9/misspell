@@ -1,5 +1,5 @@
 #!/bin/sh
-echo "Real publishing is done by travis-ci"
+echo "Real publishing is done by the CI"
 
 set -ex
 echo "TAG:= $(git tag | tail -1)"

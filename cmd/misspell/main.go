@@ -28,6 +28,12 @@ var (
 )
 
 const (
+	outputFormatCSV     = "csv"
+	outputFormatSQLite  = "sqlite"
+	outputFormatSQLite3 = "sqlite3"
+)
+
+const (
 	// Note for gometalinter it must be "File:Line:Column: Msg"
 	//  note space beteen ": Msg"
 	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }}: corrected "{{ .Original }}" to "{{ .Corrected }}"`
@@ -51,7 +57,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 			log.Println(err)
 			continue
 		}
-		if len(orig) == 0 {
+		if orig == "" {
 			continue
 		}
 
@@ -96,6 +102,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 	results <- count
 }
 
+//nolint:funlen,nestif,gocognit,gocyclo,maintidx // TODO(ldez) must be fixed.
 func main() {
 	t := time.Now()
 	var (
@@ -171,13 +178,13 @@ func main() {
 	// Custom output
 	//
 	switch {
-	case *format == "csv":
-		tmpl := template.Must(template.New("csv").Parse(csvTmpl))
+	case *format == outputFormatCSV:
+		tmpl := template.Must(template.New(outputFormatCSV).Parse(csvTmpl))
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(csvHeader)
-	case *format == "sqlite" || *format == "sqlite3":
-		tmpl := template.Must(template.New("sqlite3").Parse(sqliteTmpl))
+	case *format == outputFormatSQLite || *format == outputFormatSQLite3:
+		tmpl := template.Must(template.New(outputFormatSQLite3).Parse(sqliteTmpl))
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(sqliteHeader)
@@ -193,9 +200,10 @@ func main() {
 		defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
 	}
 
-	// we cant't just write to os.Stdout directly since we have multiple goroutine
-	// all writing at the same time causing broken output.  Log is routine safe.
-	// we see it so it doesn't use a prefix or include a time stamp.
+	// we can't just write to os.Stdout directly since we have multiple goroutine
+	// all writing at the same time causing broken output.
+	// Log is routine safe.
+	// we see it, so it doesn't use a prefix or include a time stamp.
 	switch {
 	case *quietFlag || *outFlag == "/dev/null":
 		stdout = log.New(io.Discard, "", 0)
@@ -227,10 +235,8 @@ func main() {
 		*workers = 1
 	}
 
-	//
 	// Done with Flags.
-	//  Compile the Replacer and process files
-	//
+	// Compile the Replacer and process files
 	r.Compile()
 
 	args := flag.Args()
@@ -274,14 +280,14 @@ func main() {
 				defaultRead.Execute(errout, diff)
 			}
 			errout.Write([]byte{'\n'})
-
 		}
+
 		err := r.ReplaceReader(os.Stdin, fileout, next)
 		if err != nil {
 			os.Exit(1)
 		}
 		switch *format {
-		case "sqlite", "sqlite3":
+		case outputFormatSQLite, outputFormatSQLite3:
 			fileout.Write([]byte(sqliteFooter))
 		}
 		if count != 0 && *exitError {
@@ -315,7 +321,7 @@ func main() {
 	}
 
 	switch *format {
-	case "sqlite", "sqlite3":
+	case outputFormatSQLite, outputFormatSQLite3:
 		stdout.Println(sqliteFooter)
 	}
 

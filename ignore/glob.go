@@ -7,25 +7,24 @@ import (
 	"github.com/gobwas/glob"
 )
 
-// Matcher defines an interface for filematchers
-//
+// Matcher defines an interface for filematchers.
 type Matcher interface {
 	Match(string) bool
 	True() bool
 	MarshalText() ([]byte, error)
 }
 
-// MultiMatch has matching on a list of matchers
+// MultiMatch has matching on a list of matchers.
 type MultiMatch struct {
 	matchers []Matcher
 }
 
-// NewMultiMatch creates a new MultiMatch instance
+// NewMultiMatch creates a new MultiMatch instance.
 func NewMultiMatch(matchers []Matcher) *MultiMatch {
 	return &MultiMatch{matchers: matchers}
 }
 
-// Match satifies the Matcher iterface
+// Match satisfies the Matcher interface.
 func (mm *MultiMatch) Match(arg string) bool {
 	// Normal: OR
 	// false, false -> false
@@ -44,26 +43,26 @@ func (mm *MultiMatch) Match(arg string) bool {
 			use = m.True()
 		}
 	}
-	return use
 
+	return use
 }
 
-// True returns true
+// True returns true.
 func (mm *MultiMatch) True() bool { return true }
 
-// MarshalText satifies the ?? interface
+// MarshalText satisfies the ?? interface.
 func (mm *MultiMatch) MarshalText() ([]byte, error) {
 	return []byte("multi"), nil
 }
 
-// GlobMatch handle glob matching
+// GlobMatch handle glob matching.
 type GlobMatch struct {
 	orig    string
 	matcher glob.Glob
 	normal  bool
 }
 
-// NewGlobMatch creates a new GlobMatch instance or error
+// NewGlobMatch creates a new GlobMatch instance or error.
 func NewGlobMatch(arg []byte) (*GlobMatch, error) {
 	truth := true
 	if len(arg) > 0 && arg[0] == '!' {
@@ -103,16 +102,15 @@ func NewPathGlobMatch(arg string, truth bool) (*GlobMatch, error) {
 }
 
 // True returns true if this should be evaluated normally ("true is true")
-//  and false if the result should be inverted ("false is true")
-//
+// and false if the result should be inverted ("false is true").
 func (g *GlobMatch) True() bool { return g.normal }
 
-// MarshalText is really a debug function
+// MarshalText is really a debug function.
 func (g *GlobMatch) MarshalText() ([]byte, error) {
 	return []byte(fmt.Sprintf("\"%s: %v %s\"", "GlobMatch", g.normal, g.orig)), nil
 }
 
-// Match satisfies the Matcher interface
+// Match satisfies the Matcher interface.
 func (g *GlobMatch) Match(file string) bool {
 	return g.matcher.Match(file)
 }
