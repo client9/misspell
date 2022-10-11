@@ -63,6 +63,8 @@ is_supported_platform() {
     darwin/amd64) found=0 ;;
     linux/amd64) found=0 ;;
     windows/amd64) found=0 ;;
+    darwin/arm64) found=0 ;;
+    linux/arm64) found=0 ;;
   esac
   case "$platform" in
     darwin/386) found=1 ;;
@@ -95,7 +97,8 @@ adjust_os() {
   # adjust archive name based on OS
   case ${OS} in
     386) OS=32bit ;;
-    amd64) OS=64bit ;;
+    amd64) OS=amd64 ;;
+    arm64) OS=64bit ;;
     darwin) OS=mac ;;
   esac
   true
