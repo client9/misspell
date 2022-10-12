@@ -5,23 +5,29 @@ import (
 )
 
 func TestNotWords(t *testing.T) {
-	cases := []struct {
+	testCases := []struct {
 		word string
 		want string
 	}{
-		{" /foo/bar abc", "          abc"},
-		{"X/foo/bar abc", "X/foo/bar abc"},
-		{"[/foo/bar] abc", "[        ] abc"},
-		{"/", "/"},
-		{"x nickg@client9.xxx y", "x                   y"},
-		{"x infinitie.net y", "x               y"},
-		{"(s.svc.GetObject(", "(               ("},
-		{"\\nto", "  to"},
+		{word: " /foo/bar abc", want: "          abc"},
+		{word: "X/foo/bar abc", want: "X/foo/bar abc"},
+		{word: "[/foo/bar] abc", want: "[        ] abc"},
+		{word: "/", want: "/"},
+		{word: "x nickg@client9.xxx y", want: "x                   y"},
+		{word: "x infinitie.net y", want: "x               y"},
+		{word: "(s.svc.GetObject(", want: "(               ("},
+		{word: "\\nto", want: "  to"},
 	}
-	for pos, tt := range cases {
-		got := RemoveNotWords(tt.word)
-		if got != tt.want {
-			t.Errorf("%d want %q  got %q", pos, tt.want, got)
-		}
+
+	for _, test := range testCases {
+		test := test
+		t.Run(test.word, func(t *testing.T) {
+			t.Parallel()
+
+			got := RemoveNotWords(test.word)
+			if got != test.want {
+				t.Errorf("want %q got %q", test.want, got)
+			}
+		})
 	}
 }

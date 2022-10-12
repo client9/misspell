@@ -6,37 +6,48 @@ import (
 )
 
 func TestCaseStyle(t *testing.T) {
-	cases := []struct {
+	testCases := []struct {
 		word string
 		want WordCase
 	}{
-		{"lower", CaseLower},
-		{"what's", CaseLower},
-		{"UPPER", CaseUpper},
-		{"Title", CaseTitle},
-		{"CamelCase", CaseUnknown},
-		{"camelCase", CaseUnknown},
+		{word: "lower", want: CaseLower},
+		{word: "what's", want: CaseLower},
+		{word: "UPPER", want: CaseUpper},
+		{word: "Title", want: CaseTitle},
+		{word: "CamelCase", want: CaseUnknown},
+		{word: "camelCase", want: CaseUnknown},
 	}
 
-	for pos, tt := range cases {
-		got := CaseStyle(tt.word)
-		if tt.want != got {
-			t.Errorf("Case %d %q: want %v got %v", pos, tt.word, tt.want, got)
-		}
+	for _, test := range testCases {
+		test := test
+		t.Run(test.word, func(t *testing.T) {
+			t.Parallel()
+
+			got := CaseStyle(test.word)
+			if test.want != got {
+				t.Errorf("want %v got %v", test.want, got)
+			}
+		})
 	}
 }
 
 func TestCaseVariations(t *testing.T) {
-	cases := []struct {
+	testCases := []struct {
 		word string
 		want []string
 	}{
-		{"that's", []string{"that's", "That's", "THAT'S"}},
+		{word: "that's", want: []string{"that's", "That's", "THAT'S"}},
 	}
-	for pos, tt := range cases {
-		got := CaseVariations(tt.word, CaseStyle(tt.word))
-		if !reflect.DeepEqual(tt.want, got) {
-			t.Errorf("Case %d %q: want %v got %v", pos, tt.word, tt.want, got)
-		}
+
+	for _, test := range testCases {
+		test := test
+		t.Run(test.word, func(t *testing.T) {
+			t.Parallel()
+
+			got := CaseVariations(test.word, CaseStyle(test.word))
+			if !reflect.DeepEqual(test.want, got) {
+				t.Errorf("want %v got %v", test.want, got)
+			}
+		})
 	}
 }

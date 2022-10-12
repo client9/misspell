@@ -205,7 +205,7 @@ func main() {
 	// Log is routine safe.
 	// we see it, so it doesn't use a prefix or include a time stamp.
 	switch {
-	case *quietFlag || *outFlag == "/dev/null":
+	case *quietFlag || *outFlag == os.DevNull:
 		stdout = log.New(io.Discard, "", 0)
 	case *outFlag == "/dev/stderr" || *outFlag == "stderr":
 		stdout = log.New(os.Stderr, "", 0)
