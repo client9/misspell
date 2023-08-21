@@ -10,8 +10,7 @@ Correct commonly misspelled English words... quickly.
 If you just want a binary and to start using `misspell`:
 
 ```bash
-curl -L -o ./install-misspell.sh https://git.io/misspell
-sh ./install-misspell.sh
+url -sfL https://raw.githubusercontent.com/golangci/misspell/master/install-misspell.sh | sh -s -- -b ./bin ${MISSSPELL_VERSION}
 ```
 
 Both will install as `./bin/misspell`.  
@@ -25,16 +24,13 @@ Otherwise, install `misspell` the old-fashioned way:
 go install github.com/golangci/misspell/cmd/misspell@latest
 ```
 
-and misspell will be in your `GOPATH`.
-
 Also, if you like to live dangerously, one could do
 
 ```bash
-curl -L https://git.io/misspell | bash
+url -sfL https://raw.githubusercontent.com/golangci/misspell/master/install-misspell.sh | sh -s -- -b $(go env GOPATH)/bin ${MISSSPELL_VERSION}
 ```
 
 ### Usage
-
 
 ```bash
 $ misspell all.html your.txt important.md files.go

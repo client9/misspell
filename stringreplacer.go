@@ -242,7 +242,6 @@ func (r *genericReplacer) Replace(s string) string {
 	return string(buf)
 }
 
-//nolint:gocognit // TODO(ldez) must be fixed.
 func (r *genericReplacer) WriteString(w io.Writer, s string) (n int, err error) {
 	sw := getStringWriter(w)
 	var last, wn int
