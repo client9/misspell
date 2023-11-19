@@ -57,7 +57,7 @@ Usage of misspell:
   -legal
     	Show legal information and exit
   -locale string
-    	Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
+    	Correct spellings using locale preferences for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'
   -o string
     	output file or [stderr|stdout|] (default "stdout")
   -q	Do not emit misspelling output
@@ -418,7 +418,7 @@ locale would correct "advisor" to "adviser".
 
 *Versioning*  Some type of versioning is needed so reporting mistakes and errors is easier.
 
-*Feedback*  Mistakes would be sent to some server for agregation and feedback review.
+*Feedback*  Mistakes would be sent to some server for aggregation and feedback review.
 
 *Contractions and Apostrophes* This would optionally correct "isnt" to
 "isn't", etc.

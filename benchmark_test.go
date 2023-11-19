@@ -40,7 +40,7 @@ func BenchmarkCleanString(b *testing.B) {
 		count += len(diffs)
 	}
 
-	// prevent compilier optimizations
+	// prevent compiler optimizations
 	tmpCount = count
 	tmp = updated
 }
@@ -90,7 +90,7 @@ func BenchmarkDirtyString(b *testing.B) {
 		count += len(diffs)
 	}
 
-	// prevent compilier optimizations
+	// prevent compiler optimizations
 	tmpCount = count
 	tmp = updated
 }

@@ -70,7 +70,7 @@ func (r *Replacer) RemoveRule(ignore []string) {
 
 // AddRuleList appends new rules.
 // Input is in the same form as Strings.Replacer: [ old1, new1, old2, new2, ....]
-// Note: does not check for duplictes
+// Note: does not check for duplicates
 func (r *Replacer) AddRuleList(additions []string) {
 	r.engine = nil
 	r.Replacements = append(r.Replacements, additions...)

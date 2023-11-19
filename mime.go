@@ -17,7 +17,7 @@ import (
 //
 // Golang's internal table is very small and can't be
 // relied on.  Even then things like ".js" have a mime
-// type of "application/javascipt" which isn't very helpful.
+// type of "application/javascript" which isn't very helpful.
 // "[x]" means we have  sniff test and suffix test should be eliminated
 var binary = map[string]bool{
 	".a":     true, // [ ] archive
@@ -150,7 +150,7 @@ func isTextFile(raw []byte) bool {
 // uses a sniffer to determine if the file is text or not.
 // Using file extensions isn't great, but probably
 // good enough for real-world use.
-// Golang's built in sniffer is problematic for differnet reasons.  It's
+// Golang's built in sniffer is problematic for different reasons.  It's
 // optimized for HTML, and is very limited in detection.  It would be good
 // to explicitly add some tests for ELF/DWARF formats to make sure we never
 // corrupt binary files.
