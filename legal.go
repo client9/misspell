@@ -3,7 +3,7 @@ package misspell
 
 // Legal provides licensing info.
 const Legal = `
-Execept where noted below, the source code for misspell is
+Except where noted below, the source code for misspell is
 copyright Nick Galbreath and distribution is allowed under a
 MIT license.  See the following for details:
 
