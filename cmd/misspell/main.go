@@ -113,7 +113,7 @@ func main() {
 		format      = flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
 		ignores     = flag.String("i", "", "ignore the following corrections, comma separated")
 		locale      = flag.String("locale", "", "Correct spellings using locale preferences for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
-		mode        = flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
+		mode        = flag.String("source", "text", "Source mode: text (default), go")
 		debugFlag   = flag.Bool("debug", false, "Debug matching, very slow")
 		exitError   = flag.Bool("error", false, "Exit with 2 if misspelling found")
 		showVersion = flag.Bool("v", false, "Show version and exit")

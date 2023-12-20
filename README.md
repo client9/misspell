@@ -174,9 +174,7 @@ zebra
 <a name="golang"></a>
 ### Are there special rules for golang source files?
 
-Yes!  If the file ends in `.go`, then misspell will only check spelling in comments.
-
-If you want to force a file to be checked as a golang source, use `-source=go` on the command line.  
+yes, if you want to force a file to be checked as a golang source, use `-source=go` on the command line.  
 Conversely, you can check a golang source as if it were pure text by using `-source=text`.  
 You might want to do this since many variable names have misspellings in them!
 
