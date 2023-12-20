@@ -9,7 +9,7 @@ import (
 
 // Matcher defines an interface for filematchers.
 type Matcher interface {
-	Match(string) bool
+	Match(arg string) bool
 	True() bool
 	MarshalText() ([]byte, error)
 }

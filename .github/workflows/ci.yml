@@ -13,14 +13,14 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GO_VERSION: stable
-      GOLANGCI_LINT_VERSION: v1.54.2
+      GOLANGCI_LINT_VERSION: v1.55.2
       CGO_ENABLED: 0
 
     steps:
 
       # https://github.com/marketplace/actions/checkout
       - name: Check out code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
