@@ -20,7 +20,7 @@ var (
 func RemovePath(s string) string {
 	out := bytes.Buffer{}
 	var idx int
-	for len(s) > 0 {
+	for s != "" {
 		if idx = strings.IndexByte(s, '/'); idx == -1 {
 			out.WriteString(s)
 			break

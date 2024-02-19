@@ -159,7 +159,7 @@ func main() {
 	//
 	// Stuff to ignore
 	//
-	if len(*ignores) > 0 {
+	if *ignores != "" {
 		r.RemoveRule(strings.Split(*ignores, ","))
 	}
 
@@ -188,7 +188,7 @@ func main() {
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(sqliteHeader)
-	case len(*format) > 0:
+	case *format != "":
 		t, err := template.New("custom").Parse(*format)
 		if err != nil {
 			log.Fatalf("Unable to compile log format: %s", err)

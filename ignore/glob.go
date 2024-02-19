@@ -89,7 +89,7 @@ func NewBaseGlobMatch(arg string, truth bool) (*GlobMatch, error) {
 // Arg true should be set to false if the output is inverted.
 func NewPathGlobMatch(arg string, truth bool) (*GlobMatch, error) {
 	// if starts with "/" then glob only applies to top level
-	if len(arg) > 0 && arg[0] == '/' {
+	if arg != "" && arg[0] == '/' {
 		arg = arg[1:]
 	}
 
