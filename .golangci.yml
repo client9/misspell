@@ -7,7 +7,6 @@ linters-settings:
     enable-all: true
     disable:
       - fieldalignment
-      - shadow # FIXME(ldez) must be fixed
   gocyclo:
     min-complexity: 16
   goconst:

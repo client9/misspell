@@ -174,7 +174,8 @@ func ReadTextFile(filename string) (string, error) {
 	// if not-text, then exit
 	isText := false
 	if fstat.Size() > 50000 {
-		fin, err := os.Open(filename)
+		var fin *os.File
+		fin, err = os.Open(filename)
 		if err != nil {
 			return "", fmt.Errorf("unable to open large file %q: %w", filename, err)
 		}
