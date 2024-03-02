@@ -28,18 +28,24 @@ func TestReplaceLocale(t *testing.T) {
 		orig string
 		want string
 	}{
-		{"The colours are pretty", "The colors are pretty"},
-		{"summaries", "summaries"},
+		{orig: "The colours are pretty", want: "The colors are pretty"},
+		{orig: "summaries", want: "summaries"},
 	}
 
 	r := New()
 	r.AddRuleList(DictAmerican)
 	r.Compile()
-	for line, tt := range cases {
-		got, _ := r.Replace(tt.orig)
-		if got != tt.want {
-			t.Errorf("%d: ReplaceLocale want %q got %q", line, tt.orig, got)
-		}
+
+	for _, test := range cases {
+		test := test
+		t.Run(test.orig, func(t *testing.T) {
+			t.Parallel()
+
+			got, _ := r.Replace(test.orig)
+			if got != test.want {
+				t.Errorf("ReplaceLocale want %q got %q", test.orig, got)
+			}
+		})
 	}
 }
 
@@ -48,72 +54,106 @@ func TestReplace(t *testing.T) {
 		orig string
 		want string
 	}{
-		{"I live in Amercia", "I live in America"},
-		{"grill brocoli now", "grill broccoli now"},
-		{"There is a zeebra", "There is a zebra"},
-		{"foo other bar", "foo other bar"},
-		{"ten fiels", "ten fields"},
-		{"Closeing Time", "Closing Time"},
-		{"closeing Time", "closing Time"},
-		{" TOOD: foobar", " TODO: foobar"},
-		{" preceed ", " precede "},
-		{"preceeding", "preceding"},
-		{"functionallity", "functionality"},
+		{orig: "I live in Amercia", want: "I live in America"},
+		{orig: "grill brocoli now", want: "grill broccoli now"},
+		{orig: "There is a zeebra", want: "There is a zebra"},
+		{orig: "foo other bar", want: "foo other bar"},
+		{orig: "ten fiels", want: "ten fields"},
+		{orig: "Closeing Time", want: "Closing Time"},
+		{orig: "closeing Time", want: "closing Time"},
+		{orig: " TOOD: foobar", want: " TODO: foobar"},
+		{orig: " preceed ", want: " precede "},
+		{orig: "preceeding", want: "preceding"},
+		{orig: "functionallity", want: "functionality"},
 	}
+
 	r := New()
-	for line, tt := range cases {
-		got, _ := r.Replace(tt.orig)
-		if got != tt.want {
-			t.Errorf("%d: Replace files want %q got %q", line, tt.orig, got)
-		}
+
+	for _, test := range cases {
+		test := test
+		t.Run(test.orig, func(t *testing.T) {
+			t.Parallel()
+
+			got, _ := r.Replace(test.orig)
+			if got != test.want {
+				t.Errorf("Replace files want %q got %q", test.orig, got)
+			}
+		})
 	}
 }
 
 func TestCheckReplace(t *testing.T) {
-	r := Replacer{
-		engine: NewStringReplacer("foo", "foobar", "runing", "running"),
-		corrected: map[string]string{
-			"foo":    "foobar",
-			"runing": "running",
-		},
-	}
+	t.Run("Nothing at all", func(t *testing.T) {
+		t.Parallel()
 
-	s := "nothing at all"
-	news, diffs := r.Replace(s)
-	if s != news || len(diffs) != 0 {
-		t.Errorf("Basic recheck failed: %q vs %q", s, news)
-	}
+		r := Replacer{
+			engine:    NewStringReplacer("foo", "foobar"),
+			corrected: map[string]string{"foo": "foobar"},
+		}
 
-	//
-	// Test single, correct,.Correctedacements
-	//
-	s = "foo"
-	news, diffs = r.Replace(s)
-	if news != "foobar" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 0 {
-		t.Errorf("basic recheck1 failed %q vs %q", s, news)
-	}
-	s = "foo junk"
-	news, diffs = r.Replace(s)
-	if news != "foobar junk" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 0 {
-		t.Errorf("basic recheck2 failed %q vs %q, %v", s, news, diffs[0])
-	}
+		s := "nothing at all"
+		news, diffs := r.Replace(s)
+		if s != news || len(diffs) != 0 {
+			t.Errorf("Basic recheck failed: %q vs %q", s, news)
+		}
+	})
 
-	s = "junk foo"
-	news, diffs = r.Replace(s)
-	if news != "junk foobar" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 5 {
-		t.Errorf("basic recheck3 failed: %q vs %q", s, news)
-	}
+	t.Run("Single, correct,.Correctedacements", func(t *testing.T) {
+		t.Parallel()
 
-	s = "junk foo junk"
-	news, diffs = r.Replace(s)
-	if news != "junk foobar junk" || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != "foobar" && diffs[0].Column != 5 {
-		t.Errorf("basic recheck4 failed: %q vs %q", s, news)
-	}
+		testCases := []struct {
+			orig     string
+			expected string
+		}{
+			{
+				orig:     "foo",
+				expected: "foobar",
+			},
+			{
+				orig:     "foo junk",
+				expected: "foobar junk",
+			},
+			{
+				orig:     "junk foo",
+				expected: "junk foobar",
+			},
+			{
+				orig:     "junk foo junk",
+				expected: "junk foobar junk",
+			},
+		}
 
-	// Incorrect.Correctedacements
-	s = "food pruning"
-	news, _ = r.Replace(s)
-	if news != s {
-		t.Errorf("incorrect.Correctedacement failed: %q vs %q", s, news)
-	}
+		for _, test := range testCases {
+			orig := test.orig
+			expected := test.expected
+			t.Run(orig, func(t *testing.T) {
+				t.Parallel()
+
+				r := Replacer{
+					engine:    NewStringReplacer("foo", "foobar", "runing", "running"),
+					corrected: map[string]string{"foo": "foobar", "runing": "running"},
+				}
+
+				news, diffs := r.Replace(orig)
+				if news != expected || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != expected && diffs[0].Column != 0 {
+					t.Errorf("basic recheck failed %q vs %q", expected, news)
+				}
+			})
+		}
+	})
+
+	t.Run("Incorrect.Correctedacements", func(t *testing.T) {
+		t.Parallel()
+
+		r := Replacer{
+			engine:    NewStringReplacer("foo", "foobar"),
+			corrected: map[string]string{"foo": "foobar"},
+		}
+
+		s := "food pruning"
+		news, _ := r.Replace(s)
+		if news != s {
+			t.Errorf("incorrect.Correctedacement failed: %q vs %q", s, news)
+		}
+	})
 }

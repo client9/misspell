@@ -2,7 +2,7 @@ package misspell
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"testing"
 )
 
@@ -15,7 +15,6 @@ var (
 )
 
 func init() {
-
 	buf := bytes.Buffer{}
 	for i := 0; i < len(DictMain); i += 2 {
 		buf.WriteString(DictMain[i+1] + " ")
@@ -28,7 +27,7 @@ func init() {
 	rep = New()
 }
 
-// BenchmarkCleanString takes a clean string (one with no errors)
+// BenchmarkCleanString takes a clean string (one with no errors).
 func BenchmarkCleanString(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
@@ -40,7 +39,7 @@ func BenchmarkCleanString(b *testing.B) {
 		count += len(diffs)
 	}
 
-	// prevent compilier optimizations
+	// prevent compiler optimizations
 	tmpCount = count
 	tmp = updated
 }
@@ -49,7 +48,7 @@ func discardDiff(_ Diff) {
 	tmpCount++
 }
 
-// BenchmarkCleanStream takes a clean reader (no misspells) and outputs to a buffer
+// BenchmarkCleanStream takes a clean reader (no misspells) and outputs to a buffer.
 func BenchmarkCleanStream(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
@@ -64,7 +63,7 @@ func BenchmarkCleanStream(b *testing.B) {
 	}
 }
 
-// BenchmarkCleanStreamDiscard takes a clean reader and discards output
+// BenchmarkCleanStreamDiscard takes a clean reader and discards output.
 func BenchmarkCleanStreamDiscard(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
@@ -74,11 +73,11 @@ func BenchmarkCleanStreamDiscard(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		buf.Reset()
 		buf.WriteString(sampleClean)
-		rep.ReplaceReader(buf, ioutil.Discard, discardDiff)
+		rep.ReplaceReader(buf, io.Discard, discardDiff)
 	}
 }
 
-// BenchmarkCleanString takes a clean string (one with no errors)
+// BenchmarkCleanString takes a clean string (one with no errors).
 func BenchmarkDirtyString(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
@@ -90,7 +89,7 @@ func BenchmarkDirtyString(b *testing.B) {
 		count += len(diffs)
 	}
 
-	// prevent compilier optimizations
+	// prevent compiler optimizations
 	tmpCount = count
 	tmp = updated
 }

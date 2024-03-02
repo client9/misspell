@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -15,7 +14,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/client9/misspell"
+	"github.com/golangci/misspell"
 )
 
 var (
@@ -29,8 +28,14 @@ var (
 )
 
 const (
+	outputFormatCSV     = "csv"
+	outputFormatSQLite  = "sqlite"
+	outputFormatSQLite3 = "sqlite3"
+)
+
+const (
 	// Note for gometalinter it must be "File:Line:Column: Msg"
-	//  note space beteen ": Msg"
+	//  note space between ": Msg"
 	defaultWriteTmpl = `{{ .Filename }}:{{ .Line }}:{{ .Column }}: corrected "{{ .Original }}" to "{{ .Corrected }}"`
 	defaultReadTmpl  = `{{ .Filename }}:{{ .Line }}:{{ .Column }}: "{{ .Original }}" is a misspelling of "{{ .Corrected }}"`
 	csvTmpl          = `{{ printf "%q" .Filename }},{{ .Line }},{{ .Column }},{{ .Original }},{{ .Corrected }}`
@@ -52,7 +57,7 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 			log.Println(err)
 			continue
 		}
-		if len(orig) == 0 {
+		if orig == "" {
 			continue
 		}
 
@@ -91,12 +96,13 @@ func worker(writeit bool, r *misspell.Replacer, mode string, files <-chan string
 		}
 
 		if writeit {
-			ioutil.WriteFile(filename, []byte(updated), 0)
+			os.WriteFile(filename, []byte(updated), 0)
 		}
 	}
 	results <- count
 }
 
+//nolint:funlen,nestif,gocognit,gocyclo,maintidx // TODO(ldez) must be fixed.
 func main() {
 	t := time.Now()
 	var (
@@ -106,8 +112,8 @@ func main() {
 		outFlag     = flag.String("o", "stdout", "output file or [stderr|stdout|]")
 		format      = flag.String("f", "", "'csv', 'sqlite3' or custom Golang template for output")
 		ignores     = flag.String("i", "", "ignore the following corrections, comma separated")
-		locale      = flag.String("locale", "", "Correct spellings using locale perferances for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
-		mode        = flag.String("source", "auto", "Source mode: auto=guess, go=golang source, text=plain or markdown-like text")
+		locale      = flag.String("locale", "", "Correct spellings using locale preferences for US or UK.  Default is to use a neutral variety of English.  Setting locale to US will correct the British spelling of 'colour' to 'color'")
+		mode        = flag.String("source", "text", "Source mode: text (default), go (comments only)")
 		debugFlag   = flag.Bool("debug", false, "Debug matching, very slow")
 		exitError   = flag.Bool("error", false, "Exit with 2 if misspelling found")
 		showVersion = flag.Bool("v", false, "Show version and exit")
@@ -127,7 +133,7 @@ func main() {
 	if *debugFlag {
 		debug = log.New(os.Stderr, "DEBUG ", 0)
 	} else {
-		debug = log.New(ioutil.Discard, "", 0)
+		debug = log.New(io.Discard, "", 0)
 	}
 
 	r := misspell.Replacer{
@@ -153,7 +159,7 @@ func main() {
 	//
 	// Stuff to ignore
 	//
-	if len(*ignores) > 0 {
+	if *ignores != "" {
 		r.RemoveRule(strings.Split(*ignores, ","))
 	}
 
@@ -172,17 +178,17 @@ func main() {
 	// Custom output
 	//
 	switch {
-	case *format == "csv":
-		tmpl := template.Must(template.New("csv").Parse(csvTmpl))
+	case *format == outputFormatCSV:
+		tmpl := template.Must(template.New(outputFormatCSV).Parse(csvTmpl))
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(csvHeader)
-	case *format == "sqlite" || *format == "sqlite3":
-		tmpl := template.Must(template.New("sqlite3").Parse(sqliteTmpl))
+	case *format == outputFormatSQLite || *format == outputFormatSQLite3:
+		tmpl := template.Must(template.New(outputFormatSQLite3).Parse(sqliteTmpl))
 		defaultWrite = tmpl
 		defaultRead = tmpl
 		stdout.Println(sqliteHeader)
-	case len(*format) > 0:
+	case *format != "":
 		t, err := template.New("custom").Parse(*format)
 		if err != nil {
 			log.Fatalf("Unable to compile log format: %s", err)
@@ -194,12 +200,13 @@ func main() {
 		defaultRead = template.Must(template.New("defaultRead").Parse(defaultReadTmpl))
 	}
 
-	// we cant't just write to os.Stdout directly since we have multiple goroutine
-	// all writing at the same time causing broken output.  Log is routine safe.
-	// we see it so it doesn't use a prefix or include a time stamp.
+	// we can't just write to os.Stdout directly since we have multiple goroutine
+	// all writing at the same time causing broken output.
+	// Log is routine safe.
+	// we see it, so it doesn't use a prefix or include a time stamp.
 	switch {
-	case *quietFlag || *outFlag == "/dev/null":
-		stdout = log.New(ioutil.Discard, "", 0)
+	case *quietFlag || *outFlag == os.DevNull:
+		stdout = log.New(io.Discard, "", 0)
 	case *outFlag == "/dev/stderr" || *outFlag == "stderr":
 		stdout = log.New(os.Stderr, "", 0)
 	case *outFlag == "/dev/stdout" || *outFlag == "stdout":
@@ -228,10 +235,8 @@ func main() {
 		*workers = 1
 	}
 
-	//
 	// Done with Flags.
-	//  Compile the Replacer and process files
-	//
+	// Compile the Replacer and process files
 	r.Compile()
 
 	args := flag.Args()
@@ -257,7 +262,7 @@ func main() {
 			// if we are not writing out the corrected stream
 			// then work just like files.  Misspelling errors
 			// are sent to stdout
-			fileout = ioutil.Discard
+			fileout = io.Discard
 			errout = os.Stdout
 		}
 		count := 0
@@ -275,14 +280,14 @@ func main() {
 				defaultRead.Execute(errout, diff)
 			}
 			errout.Write([]byte{'\n'})
-
 		}
+
 		err := r.ReplaceReader(os.Stdin, fileout, next)
 		if err != nil {
 			os.Exit(1)
 		}
 		switch *format {
-		case "sqlite", "sqlite3":
+		case outputFormatSQLite, outputFormatSQLite3:
 			fileout.Write([]byte(sqliteFooter))
 		}
 		if count != 0 && *exitError {
@@ -316,7 +321,7 @@ func main() {
 	}
 
 	switch *format {
-	case "sqlite", "sqlite3":
+	case outputFormatSQLite, outputFormatSQLite3:
 		stdout.Println(sqliteFooter)
 	}
 

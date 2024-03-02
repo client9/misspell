@@ -5,7 +5,7 @@ import (
 )
 
 func TestFalsePositives(t *testing.T) {
-	cases := []string{
+	testCases := []string{
 		"importEnd",
 		"drinkeries",
 		"subscripting",
@@ -125,12 +125,19 @@ func TestFalsePositives(t *testing.T) {
 		"\\nto",       // https://github.com/client9/misspell/issues/93
 		"4f8b42c22dd3729b519ba6f68d2da7cc5b2d606d05daed5ad5128cc03e6c6358", // https://github.com/client9/misspell/issues/97
 	}
+
 	r := New()
 	r.Debug = true
-	for casenum, tt := range cases {
-		got, _ := r.Replace(tt)
-		if got != tt {
-			t.Errorf("%d: %q got converted to %q", casenum, tt, got)
-		}
+
+	for _, test := range testCases {
+		test := test
+		t.Run(test, func(t *testing.T) {
+			t.Parallel()
+
+			got, _ := r.Replace(test)
+			if got != test {
+				t.Errorf("%q got converted to %q", test, got)
+			}
+		})
 	}
 }
