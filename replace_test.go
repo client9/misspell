@@ -83,61 +83,77 @@ func TestReplace(t *testing.T) {
 }
 
 func TestCheckReplace(t *testing.T) {
-	r := Replacer{
-		engine: NewStringReplacer("foo", "foobar", "runing", "running"),
-		corrected: map[string]string{
-			"foo":    "foobar",
-			"runing": "running",
-		},
-	}
+	t.Run("Nothing at all", func(t *testing.T) {
+		t.Parallel()
 
-	s := "nothing at all"
-	news, diffs := r.Replace(s)
-	if s != news || len(diffs) != 0 {
-		t.Errorf("Basic recheck failed: %q vs %q", s, news)
-	}
+		r := Replacer{
+			engine:    NewStringReplacer("foo", "foobar"),
+			corrected: map[string]string{"foo": "foobar"},
+		}
 
-	//
-	// Test single, correct,.Correctedacements
-	//
-	testCases := []struct {
-		orig     string
-		expected string
-	}{
-		{
-			orig:     "foo",
-			expected: "foobar",
-		},
-		{
-			orig:     "foo junk",
-			expected: "foobar junk",
-		},
-		{
-			orig:     "junk foo",
-			expected: "junk foobar",
-		},
-		{
-			orig:     "junk foo junk",
-			expected: "junk foobar junk",
-		},
-	}
+		s := "nothing at all"
+		news, diffs := r.Replace(s)
+		if s != news || len(diffs) != 0 {
+			t.Errorf("Basic recheck failed: %q vs %q", s, news)
+		}
+	})
 
-	for _, test := range testCases {
-		test := test
-		t.Run(test.orig, func(t *testing.T) {
-			t.Parallel()
+	t.Run("Single, correct,.Correctedacements", func(t *testing.T) {
+		t.Parallel()
 
-			news, diffs = r.Replace(test.orig)
-			if news != test.expected || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != test.expected && diffs[0].Column != 0 {
-				t.Errorf("basic recheck failed %q vs %q", s, news)
-			}
-		})
-	}
+		testCases := []struct {
+			orig     string
+			expected string
+		}{
+			{
+				orig:     "foo",
+				expected: "foobar",
+			},
+			{
+				orig:     "foo junk",
+				expected: "foobar junk",
+			},
+			{
+				orig:     "junk foo",
+				expected: "junk foobar",
+			},
+			{
+				orig:     "junk foo junk",
+				expected: "junk foobar junk",
+			},
+		}
 
-	// Incorrect.Correctedacements
-	s = "food pruning"
-	news, _ = r.Replace(s)
-	if news != s {
-		t.Errorf("incorrect.Correctedacement failed: %q vs %q", s, news)
-	}
+		for _, test := range testCases {
+			orig := test.orig
+			expected := test.expected
+			t.Run(orig, func(t *testing.T) {
+				t.Parallel()
+
+				r := Replacer{
+					engine:    NewStringReplacer("foo", "foobar", "runing", "running"),
+					corrected: map[string]string{"foo": "foobar", "runing": "running"},
+				}
+
+				news, diffs := r.Replace(orig)
+				if news != expected || len(diffs) != 1 || diffs[0].Original != "foo" && diffs[0].Corrected != expected && diffs[0].Column != 0 {
+					t.Errorf("basic recheck failed %q vs %q", expected, news)
+				}
+			})
+		}
+	})
+
+	t.Run("Incorrect.Correctedacements", func(t *testing.T) {
+		t.Parallel()
+
+		r := Replacer{
+			engine:    NewStringReplacer("foo", "foobar"),
+			corrected: map[string]string{"foo": "foobar"},
+		}
+
+		s := "food pruning"
+		news, _ := r.Replace(s)
+		if news != s {
+			t.Errorf("incorrect.Correctedacement failed: %q vs %q", s, news)
+		}
+	})
 }
