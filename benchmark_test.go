@@ -2,7 +2,7 @@ package misspell
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"testing"
 )
 
@@ -15,7 +15,6 @@ var (
 )
 
 func init() {
-
 	buf := bytes.Buffer{}
 	for i := 0; i < len(DictMain); i += 2 {
 		buf.WriteString(DictMain[i+1] + " ")
@@ -28,19 +27,19 @@ func init() {
 	rep = New()
 }
 
-// BenchmarkCleanString takes a clean string (one with no errors)
+// BenchmarkCleanString takes a clean string (one with no errors).
 func BenchmarkCleanString(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 	var updated string
 	var diffs []Diff
 	var count int
-	for n := 0; n < b.N; n++ {
+	for n := 0; n < b.N; n++ { //nolint:intrange // use Loop -> go1.24
 		updated, diffs = rep.Replace(sampleClean)
 		count += len(diffs)
 	}
 
-	// prevent compilier optimizations
+	// prevent compiler optimizations
 	tmpCount = count
 	tmp = updated
 }
@@ -49,14 +48,14 @@ func discardDiff(_ Diff) {
 	tmpCount++
 }
 
-// BenchmarkCleanStream takes a clean reader (no misspells) and outputs to a buffer
+// BenchmarkCleanStream takes a clean reader (no misspells) and outputs to a buffer.
 func BenchmarkCleanStream(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 	tmpCount = 0
 	buf := bytes.NewBufferString(sampleClean)
 	out := bytes.NewBuffer(make([]byte, 0, len(sampleClean)+100))
-	for n := 0; n < b.N; n++ {
+	for n := 0; n < b.N; n++ { //nolint:intrange // use Loop -> go1.24
 		buf.Reset()
 		buf.WriteString(sampleClean)
 		out.Reset()
@@ -64,33 +63,33 @@ func BenchmarkCleanStream(b *testing.B) {
 	}
 }
 
-// BenchmarkCleanStreamDiscard takes a clean reader and discards output
+// BenchmarkCleanStreamDiscard takes a clean reader and discards output.
 func BenchmarkCleanStreamDiscard(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 
 	buf := bytes.NewBufferString(sampleClean)
 	tmpCount = 0
-	for n := 0; n < b.N; n++ {
+	for n := 0; n < b.N; n++ { //nolint:intrange // use Loop -> go1.24
 		buf.Reset()
 		buf.WriteString(sampleClean)
-		rep.ReplaceReader(buf, ioutil.Discard, discardDiff)
+		rep.ReplaceReader(buf, io.Discard, discardDiff)
 	}
 }
 
-// BenchmarkCleanString takes a clean string (one with no errors)
+// BenchmarkCleanString takes a clean string (one with no errors).
 func BenchmarkDirtyString(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 	var updated string
 	var diffs []Diff
 	var count int
-	for n := 0; n < b.N; n++ {
+	for n := 0; n < b.N; n++ { //nolint:intrange // use Loop -> go1.24
 		updated, diffs = rep.Replace(sampleDirty)
 		count += len(diffs)
 	}
 
-	// prevent compilier optimizations
+	// prevent compiler optimizations
 	tmpCount = count
 	tmp = updated
 }
@@ -99,7 +98,7 @@ func BenchmarkCompile(b *testing.B) {
 	r := New()
 	b.ReportAllocs()
 	b.ResetTimer()
-	for n := 0; n < b.N; n++ {
+	for n := 0; n < b.N; n++ { //nolint:intrange // use Loop -> go1.24
 		r.Compile()
 	}
 }

@@ -1,0 +1,17 @@
+name: "Post release"
+
+on:
+  release:
+    types:
+      - published
+
+jobs:
+  check-install-script:
+    name: Installation script (remote)
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - run: curl -sSfL https://raw.githubusercontent.com/golangci/misspell/HEAD/install-misspell.sh | sh -s -- -b "./install-misspell"

@@ -6,7 +6,6 @@ import (
 )
 
 // Test suite partiall from https://mathiasbynens.be/demo/url-regex
-//
 func TestStripURL(t *testing.T) {
 	cases := []string{
 		"HTTP://FOO.COM/BLAH_BLAH",
@@ -50,7 +49,7 @@ func TestStripURL(t *testing.T) {
 
 	for num, tt := range cases {
 		got := strings.TrimSpace(StripURL(tt))
-		if len(got) != 0 {
+		if got != "" {
 			t.Errorf("case %d: unable to match %q", num, tt)
 		}
 	}
@@ -79,26 +78,26 @@ func TestStripURL(t *testing.T) {
 		":// should fail",
 		"http://foo.bar/foo(bar)baz quux",
 		"ftps://foo.bar/",
-		//"http://-error-.invalid/",
-		//"http://a.b--c.de/",
-		//"http://-a.b.co",
-		//"http://a.b-.co",
-		//"http://0.0.0.0",
-		//"http://10.1.1.0",
-		//"http://10.1.1.255",
-		//"http://224.1.1.1",
-		//"http://1.1.1.1.1",
-		//"http://123.123.123",
-		//"http://3628126748",
+		// "http://-error-.invalid/",
+		// "http://a.b--c.de/",
+		// "http://-a.b.co",
+		// "http://a.b-.co",
+		// "http://0.0.0.0",
+		// "http://10.1.1.0",
+		// "http://10.1.1.255",
+		// "http://224.1.1.1",
+		// "http://1.1.1.1.1",
+		// "http://123.123.123",
+		// "http://3628126748",
 		"http://.www.foo.bar/",
-		//"http://www.foo.bar./",
+		// "http://www.foo.bar./",
 		"http://.www.foo.bar./",
-		//"http://10.1.1.1",
+		// "http://10.1.1.1",
 	}
 
 	for num, tt := range cases {
 		got := strings.TrimSpace(StripURL(tt))
-		if len(got) == 0 {
+		if got == "" {
 			t.Errorf("case %d: incorrect match %q", num, tt)
 		}
 	}

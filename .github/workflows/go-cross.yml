@@ -1,0 +1,34 @@
+name: Compilation
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  cross:
+    name: Go
+    runs-on: ${{ matrix.os }}
+    env:
+      CGO_ENABLED: 0
+
+    strategy:
+      matrix:
+        go-version: [ stable, oldstable ]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Test
+        run: go test -v -cover ./...
+
+      - name: Build
+        run: go build -v -ldflags "-s -w" -trimpath

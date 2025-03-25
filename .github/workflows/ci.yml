@@ -1,0 +1,59 @@
+name: Checks
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+
+  check-code:
+    name: Check code
+    runs-on: ubuntu-latest
+    env:
+      GO_VERSION: stable
+      GOLANGCI_LINT_VERSION: v2.0
+      CGO_ENABLED: 0
+
+    steps:
+
+      # https://github.com/marketplace/actions/checkout
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      # https://github.com/marketplace/actions/setup-go-environment
+      - name: Set up Go ${{ env.GO_VERSION }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: Check and get dependencies
+        run: |
+          go mod tidy
+          git diff --exit-code go.mod
+          git diff --exit-code go.sum
+
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v7
+        with:
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
+
+      - name: Tests
+        run: make test
+
+      - name: Build
+        run: make build
+
+  check-local-install-script:
+    name: Installation script (local)
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check installation script
+        run: cat ./install-misspell.sh | sh -s -- -d -b "./install-misspell"
