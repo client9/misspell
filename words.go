@@ -31155,4 +31155,24 @@ var DictBritish = []string{
 	"molt", "moult",
 	"odor", "odour",
 	"plow", "plough",
+	"attempteds", "attempted"
+	"backoff", "back off"
+	"backoffice", "back office"
+	"bugfixes", "bug fixes"
+	"cherrypick", "cherry-pick"
+	"competions", "competitions"
+	"dertect", "detect"
+	"didnt", "didn't"
+	"doesn", "doesn't"
+	"dont", "don't"
+	"heade", "headed"
+	"manipulatio", "manipulation"
+	"multiline", "multi-line"
+	"multinode", "multi-node"
+	"oboarding", "onboarding"
+	"regisration", "registration"
+	"thirdparty", "third-party"
+	"tilte", "title"
+	"traillers", "trailers"
+	"uneeded", "unneeded"
 }
